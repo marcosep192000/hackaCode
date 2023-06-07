@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
-                .requestMatchers("/api/v1/**").hasRole(Role.ADMIN.name())
+                .requestMatchers("/api/v1/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
