@@ -18,7 +18,6 @@ import com.hackacode.marveland.model.entity.User;
 import com.hackacode.marveland.repository.IPersonRepository;
 import com.hackacode.marveland.repository.IUserRepository;
 import com.hackacode.marveland.service.IAuthService;
-import com.hackacode.marveland.util.enums.Role;
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,43 +46,22 @@ public class AuthServiceImpl implements IAuthService {
                 User user = User.builder()
                                 .username(request.getUsername())
                                 .password(passwordEncoder.encode(request.getPassword()))
-                                .role(Role.USER.name())
+                                .role(request.getRole())
                                 .build();
 
                 Person person = Person.builder()
                                 .firstName(request.getFirstName())
                                 .lastName(request.getLastName())
                                 .build();
-
-                user.setPerson(person);
+                person.setUser(user);
 
                 userRepository.save(user);
                 personRepository.save(person);
 
-                var jwt = jwtProvider.generateToken(user);
-
-                // String to = request.getUsername();
-                // String subject = "Acceso al Campus Virtual";
-                // String text = "<html><body>"
-                //                 + "<p>Estimado/a estudiante,</p>"
-                //                 + "<p>Le informamos que ya cuenta con acceso al Campus Virtual.</p>"
-                //                 + "<p>A continuación, encontrará los detalles de inicio de sesión:</p>"
-                //                 + "<ul>"
-                //                 + "<li>Nombre de usuario: " + request.getUsername() + "</li>"
-                //                 + "<li>Contraseña: " + request.getPassword() + "</li>"
-                //                 + "</ul>"
-                //                 + "<p>Para acceder a su cuenta, por favor visite nuestro sitio web en <a href=\"https://bright-english.vercel.app/\">bright-english.vercel.app</a>.</p>"
-                //                 + "<p>Atentamente,<br>Bright English</p>"
-                //                 + "</body></html>";
-
-                // try {
-                //         mailSender.sendEmail(to, subject, text);
-                // } catch (MessagingException e) {
-                //         e.printStackTrace();
-                // }
+                String jwt = jwtProvider.generateToken(user);
 
                 return AuthResponseDto.builder()
-                                .id(person.getId())
+                                .userId(user.getId())
                                 .role(user.getRole())
                                 .token(jwt)
                                 .build();
@@ -100,11 +78,11 @@ public class AuthServiceImpl implements IAuthService {
                         throw new BadCredentialsException("Incorrect username or password", e);
                 }
 
-                var user = userRepository.findByUsername(request.getUsername()).orElseThrow();
-                var jwt = jwtProvider.generateToken(user);
+                User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+                String jwt = jwtProvider.generateToken(user);
 
                 return AuthResponseDto.builder()
-                                .id(user.getPerson().getId())
+                                .userId(user.getId())
                                 .role(user.getRole())
                                 .token(jwt)
                                 .build();

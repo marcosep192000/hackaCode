@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AuthResponseDto {
 
-    private Long id;
+    private Long userId;
 
     private String role;
 
