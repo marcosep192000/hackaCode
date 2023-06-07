@@ -21,12 +21,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "PEOPLE")
-public class Person {
+@Table(name = "EMPLOYEES")
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PERSON_ID")
+    @Column(name = "EMPLOYEE_ID")
     private Long id;
 
     @Column(name = "FIRST_NAME")

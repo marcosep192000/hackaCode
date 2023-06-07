@@ -13,9 +13,9 @@ import com.hackacode.marveland.config.jwt.JwtProvider;
 import com.hackacode.marveland.model.dto.request.AuthRequestDto;
 import com.hackacode.marveland.model.dto.request.RegisterRequestDto;
 import com.hackacode.marveland.model.dto.response.AuthResponseDto;
-import com.hackacode.marveland.model.entity.Person;
+import com.hackacode.marveland.model.entity.Employee;
 import com.hackacode.marveland.model.entity.User;
-import com.hackacode.marveland.repository.IPersonRepository;
+import com.hackacode.marveland.repository.IEmployeeRepository;
 import com.hackacode.marveland.repository.IUserRepository;
 import com.hackacode.marveland.service.IAuthService;
 
@@ -27,7 +27,7 @@ public class AuthServiceImpl implements IAuthService {
 
         private final IUserRepository userRepository;
 
-        private final IPersonRepository personRepository;
+        private final IEmployeeRepository employeeRepository;
 
         private final PasswordEncoder passwordEncoder;
 
@@ -49,14 +49,14 @@ public class AuthServiceImpl implements IAuthService {
                                 .role(request.getRole())
                                 .build();
 
-                Person person = Person.builder()
+                Employee employee = Employee.builder()
                                 .firstName(request.getFirstName())
                                 .lastName(request.getLastName())
                                 .build();
-                person.setUser(user);
+                employee.setUser(user);
 
                 userRepository.save(user);
-                personRepository.save(person);
+                employeeRepository.save(employee);
 
                 String jwt = jwtProvider.generateToken(user);
 
