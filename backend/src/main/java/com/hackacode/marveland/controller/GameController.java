@@ -13,5 +13,5 @@ public class GameController {
 
     private final IGameService gameService;
 
-    @PostMapping("/")
+ //   @PostMapping("/")
 }
