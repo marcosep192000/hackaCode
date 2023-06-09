@@ -3,6 +3,7 @@ package com.hackacode.marveland.model.entity;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,9 +34,11 @@ public class User implements UserDetails {
     @Column(name = "USER_ID")
     private Long id;
 
+    @NotBlank(message = "this field can not be blank")
     @Column(name = "USERNAME", unique = true)
     private String username;
 
+    @NotBlank(message = "this field can not be blank")
     @Column(name = "PASSWORD")
     private String password;
 
