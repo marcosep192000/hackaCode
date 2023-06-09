@@ -1,5 +1,6 @@
 package com.hackacode.marveland.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,22 +24,14 @@ public class AuthController {
     private final IAuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequestDto request) {
-        try {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto request) {
             AuthResponseDto response = authService.register(request);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequestDto request) {
-        try {
+    public ResponseEntity<?> login(@Valid @RequestBody AuthRequestDto request) {
             AuthResponseDto response = authService.login(request);
             return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
-        } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-        }
     }
 }
