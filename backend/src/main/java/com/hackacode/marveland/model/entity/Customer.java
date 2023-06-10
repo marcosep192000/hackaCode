@@ -16,6 +16,7 @@ public class Customer {
 	@Id
 	@Column(name = "id", nullable = false)
 	private Long id;
+
 	@NotBlank(message = "this field can not be blank")
 	@Column(name = "FIRST_NAME")
 	private String firstName;
