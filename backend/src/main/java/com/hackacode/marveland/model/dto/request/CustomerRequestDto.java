@@ -1,17 +1,16 @@
 package com.hackacode.marveland.model.dto.request;
 
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerRequestDto {
+
 	@NotBlank(message = "this field can not be blank")
 	@Column(name = "FIRST_NAME")
 	private String firstName;
@@ -20,10 +19,10 @@ public class CustomerRequestDto {
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@NotBlank(message = "this field can not be blank")
 	@Column(name = "dni")
 	private  int dni;
 
+	@Email(message = "incorrect format")
 	@NotBlank(message = "this field can not be blank")
 	@Column(name = "EMAIL")
 	private String email;

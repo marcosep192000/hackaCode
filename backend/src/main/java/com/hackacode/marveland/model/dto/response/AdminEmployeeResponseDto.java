@@ -14,16 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminEmployeeResponseDto {
-
 	@Column(name = "EMPLOYEE_ID")
 	private Long id;
-
 	@Column(name = "FIRST_NAME")
 	private String firstName;
-
 	@Column(name = "LAST_NAME")
 	private String lastName;
-
-
 	List<Customer> listCustomer = new ArrayList<>();
 }
