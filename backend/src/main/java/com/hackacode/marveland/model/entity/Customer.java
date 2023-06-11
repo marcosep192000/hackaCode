@@ -1,23 +1,30 @@
 package com.hackacode.marveland.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
+import java.time.LocalDateTime;
+
+@Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "CUSTOMER")
+@SQLDelete(sql = "UPDATE CUSTOMER SET state = true WHERE id =?")
+@Where(clause = "state=false")
 @Entity
-@Table(name = "customer")
 public class Customer {
 	@Id
 	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "this field can not be blank")
+	@NotNull(message = "this field can not be blank")
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 
@@ -25,15 +32,22 @@ public class Customer {
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@NotBlank(message = "this field can not be blank")
-	@Column(name = "dni")
+
+	@Column(name = "DNI")
 	private  int dni;
 
 	@NotBlank(message = "this field can not be blank")
 	@Column(name = "EMAIL")
 	private String email;
 
+
 	@NotBlank(message = "this field can not be blank")
 	@Column(name = "BIRTH_DATE")
 	private String birthDate;
+
+	private boolean state = Boolean.FALSE;
+	@UpdateTimestamp
+	@Column(name = "updated_on_date")
+	private LocalDateTime updateDate;
+
 }
