@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,11 +37,12 @@ public class User implements UserDetails {
     @Column(name = "USER_ID")
     private Long id;
 
-    @NotBlank(message = "this field can not be blank")
+
+    @NotBlank(message = "your username cannot be empty")
     @Column(name = "USERNAME", unique = true)
     private String username;
 
-    @NotBlank(message = "this field can not be blank")
+    @NotBlank(message = "your username cannot be empty")
     @Column(name = "PASSWORD")
     private String password;
 
