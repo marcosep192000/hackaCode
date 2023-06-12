@@ -1,5 +1,8 @@
 package com.hackacode.marveland.model.dto.response;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,4 +21,6 @@ public class AuthResponseDto {
     private String role;
 
     private String token;
+
+
 }

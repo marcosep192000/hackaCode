@@ -8,15 +8,17 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
 	@Autowired
 	CustomerServiceImpl customerService;
-	@PostMapping("/create")
-	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
-		customerService.create(customerRequestDto);
+	@PostMapping("/create/{id}")
+	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto,@PathVariable Long id) {
+		customerService.create(customerRequestDto,id);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new GeneralMessage("Customer Created!"));
 	}
 	@GetMapping("/{id}")

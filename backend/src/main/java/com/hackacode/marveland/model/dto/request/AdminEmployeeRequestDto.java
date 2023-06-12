@@ -22,5 +22,12 @@ public class AdminEmployeeRequestDto {
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
+	@Column(name= "DNI")
+	private int dni;
+
+	@Column(name = "EMAIL")
+	private String email;
+
+
 
 }

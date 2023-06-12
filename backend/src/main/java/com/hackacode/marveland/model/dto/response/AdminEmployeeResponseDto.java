@@ -20,5 +20,11 @@ public class AdminEmployeeResponseDto {
 	private String firstName;
 	@Column(name = "LAST_NAME")
 	private String lastName;
+
+	@Column(name= "DNI")
+	private int dni;
+
+	@Column(name = "EMAIL")
+	private String email;
 	List<Customer> listCustomer = new ArrayList<>();
 }
