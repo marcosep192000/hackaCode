@@ -1,7 +1,5 @@
 package com.hackacode.marveland.controller;
-
 import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
-import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
 import com.hackacode.marveland.repository.AdminEmployeeRepository;
 import com.hackacode.marveland.service.impl.AdminEmployeeServiceImpl;
 import com.hackacode.marveland.util.Exeptions.GeneralMessage;
@@ -20,7 +18,6 @@ public class AdminEmployeeController {
 	AdminEmployeeServiceImpl adminEmployee;
 	@Autowired
 	AdminEmployeeRepository admi;
-
 	//devuelve todos los admin mas sus clientes
 	@GetMapping("/all-admin-customer")
 	public ResponseEntity<?> ListCustomer() {
@@ -30,7 +27,6 @@ public class AdminEmployeeController {
 	public ResponseEntity<?> listAdmin() {
 		return ResponseEntity.status(HttpStatus.OK).body(adminEmployee.getAllAdmin());
 	}
-
 	@GetMapping("/find/{id}")
 	public ResponseEntity<?> findByDni(@PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(adminEmployee.getById(id));
@@ -40,6 +36,4 @@ public class AdminEmployeeController {
 	     adminEmployee.Update(requestDto,id);
 		return ResponseEntity.status(HttpStatus.OK).body(new GeneralMessage("Admin Update"));
 	}
-
-
 }

@@ -73,20 +73,7 @@ public class AuthServiceImpl implements IAuthService {
                                 .role(user.getRole())
                                 .token(jwt)
                                 .build();
-
-//                Employee employee = Employee.builder()
-//                                .firstName(request.getFirstName())
-//                                .lastName(request.getLastName())
-//                                .build();
-//                employee.setUser(user);
-//                userRepository.save(user);
-//                employeeRepository.save(employee);
-//                String jwt = jwtProvider.generateToken(user);
-//                return AuthResponseDto.builder()
-//                                .userId(user.getId())
-//                                .role(user.getRole())
-//                                .token(jwt)
-//                                .build();
+                
         }
         @Override
         public AuthResponseDto login(AuthRequestDto request) {
