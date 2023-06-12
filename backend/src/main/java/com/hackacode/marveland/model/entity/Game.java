@@ -23,4 +23,9 @@ public class Game {
     @ManyToOne
     @JoinColumn(name = "OPEN_HOURS_ID", referencedColumnName = "OPEN_HOURS_ID")
     private OpenHours openHours;
+
+    @Column(name = "PRICE")
+    private Double price;
+
+    // private GameEmployee gameEmployee
 }

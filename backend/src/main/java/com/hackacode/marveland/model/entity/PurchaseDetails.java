@@ -23,4 +23,8 @@ public class PurchaseDetails {
 
     @Column(name = "DATE")
     private Date date;
+
+    // private Customer customer
+
+    // private List<Ticket> tickets;
 }

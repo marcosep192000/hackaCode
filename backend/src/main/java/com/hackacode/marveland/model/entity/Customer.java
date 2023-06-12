@@ -50,9 +50,9 @@ public class Customer {
 	@Column(name = "updated_on_date")
 	private LocalDateTime updateDate;
 
-
-
 	@ManyToOne(fetch = EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "adminEmployee_id")
 	AdminEmployee adminEmployee;
+
+	// list <PurchaseDetails> purchases;
 }
