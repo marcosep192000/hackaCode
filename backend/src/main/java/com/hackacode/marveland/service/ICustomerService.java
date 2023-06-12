@@ -7,7 +7,7 @@ import com.hackacode.marveland.model.entity.Customer;
 import java.util.List;
 
 public interface ICustomerService {
-	void create(CustomerRequestDto requestDto);
+	void create(CustomerRequestDto requestDto,Long id );
 	Customer Update(CustomerRequestDto requestDto, Long id );
 
 	public List<CustomerResponseDto> getAll();
