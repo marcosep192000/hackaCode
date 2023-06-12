@@ -30,4 +30,6 @@ public class Ticket {
     @JoinColumn(name = "PURCHASE_DETAILS_ID", referencedColumnName = "PURCHASE_ID")
     private PurchaseDetails purchaseDetails;
 
+    // private GameEmployee gameemployee;
+
 }
