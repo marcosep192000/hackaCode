@@ -1,9 +1,12 @@
 package com.hackacode.marveland.service.impl;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
+import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
 import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
+import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.Customer;
 import com.hackacode.marveland.model.mapper.CustomerMapper;
+import com.hackacode.marveland.repository.AdminEmployeeRepository;
 import com.hackacode.marveland.repository.CustomerRepository;
 import com.hackacode.marveland.service.ICustomerService;
 import com.hackacode.marveland.util.Exeptions.GeneralMessage;
@@ -22,12 +25,18 @@ public class CustomerServiceImpl implements ICustomerService {
 	CustomerRepository customerRepository;
 	@Autowired
 	CustomerMapper mapper;
+	@Autowired
+	AdminEmployeeRepository adminEmployeeService;
 	@Override
-	public void create(CustomerRequestDto requestDto) {
+	@Transactional
+	public void create(CustomerRequestDto requestDto, Long id) {
+		AdminEmployee adminEmployee = adminEmployeeService.findById(id).orElseThrow(()-> new RuntimeException("Id not Exist"));
 		Optional<Customer> customer = Optional.ofNullable(customerRepository.findByDni(requestDto.getDni()));
+		System.out.println(customer);
 		if (customer.isEmpty()){
-          Customer customer1 = mapper.FromDtoToEntity(requestDto);
+          Customer customer1 = mapper.FromDtoToEntity(requestDto,adminEmployee);
 		  customerRepository.save(customer1);
+		  adminEmployee.getCustomerList().add(customer1);
 		}else{
 		throw new RuntimeException("this ID already exists");}
 	}

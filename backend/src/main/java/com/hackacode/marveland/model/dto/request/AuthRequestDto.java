@@ -1,5 +1,6 @@
 package com.hackacode.marveland.model.dto.request;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -22,4 +23,5 @@ public class AuthRequestDto {
 
     @NotBlank(message = "this field can not be blank")
     private String password;
+
 }

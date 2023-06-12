@@ -28,6 +28,12 @@ public class Person {
     @Column(name = "LAST_NAME")
     private String lastName;
 
+    @Column(name= "DNI")
+    private int dni;
+
+    @Column(name = "EMAIL")
+    private String email;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_FK", referencedColumnName = "USER_ID", insertable = false, updatable = false)
     private User user;

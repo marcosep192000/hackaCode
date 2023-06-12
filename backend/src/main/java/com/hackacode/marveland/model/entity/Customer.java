@@ -9,6 +9,8 @@ import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
+import static jakarta.persistence.FetchType.EAGER;
+
 @Builder
 @Getter
 @Setter
@@ -32,14 +34,12 @@ public class Customer {
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-
 	@Column(name = "DNI")
 	private  int dni;
 
 	@NotBlank(message = "this field can not be blank")
 	@Column(name = "EMAIL")
 	private String email;
-
 
 	@NotBlank(message = "this field can not be blank")
 	@Column(name = "BIRTH_DATE")
@@ -50,4 +50,9 @@ public class Customer {
 	@Column(name = "updated_on_date")
 	private LocalDateTime updateDate;
 
+
+
+	@ManyToOne(fetch = EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "adminEmployee_id")
+	AdminEmployee adminEmployee;
 }
