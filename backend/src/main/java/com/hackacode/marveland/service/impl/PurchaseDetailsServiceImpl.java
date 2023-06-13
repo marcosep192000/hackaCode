@@ -1,9 +1,7 @@
 package com.hackacode.marveland.service.impl;
 
 import com.hackacode.marveland.model.dto.request.PurchaseDetailsRequestDto;
-import com.hackacode.marveland.model.dto.response.GameResponseDto;
 import com.hackacode.marveland.model.dto.response.PurchaseDetailsResponseDto;
-import com.hackacode.marveland.model.entity.Game;
 import com.hackacode.marveland.model.entity.PurchaseDetails;
 import com.hackacode.marveland.model.mapper.PurchaseDetailsMapper;
 import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
@@ -12,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,4 +48,15 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     public void deletePurchase(Long id) {
         purchaseDetailsRepository.deleteById(id);
     }
+
+    /*@Override
+    public Double totalSalesByDay(Date date) {
+        List<PurchaseDetails> purchaseDetailsList = purchaseDetailsRepository.findByDate(date);
+        Double total;
+        for (PurchaseDetails purchase : purchaseDetailsList){
+            total = total * purchase.getTicket.getGame.getPrice;
+        }
+        return total;
+    }*/
+
 }

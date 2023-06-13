@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
+
 @Builder
 @Getter
 @Setter
@@ -24,7 +26,9 @@ public class PurchaseDetails {
     @Column(name = "DATE")
     private Date date;
 
-    // private Customer customer
+    @ManyToOne
+    private Customer customer;
 
-    // private List<Ticket> tickets;
+    @OneToMany
+    private List<Ticket> ticketList;
 }

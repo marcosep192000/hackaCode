@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static jakarta.persistence.FetchType.EAGER;
 
@@ -54,5 +55,7 @@ public class Customer {
 	@JoinColumn(name = "adminEmployee_id")
 	AdminEmployee adminEmployee;
 
-	// list <PurchaseDetails> purchases;
+	@OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "purchase_id")
+	List<PurchaseDetails> purchases;
 }

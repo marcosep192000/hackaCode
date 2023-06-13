@@ -18,4 +18,6 @@ public class TicketResponseDto implements Serializable {
     private Date expirationDate;
     private Game game;
     private PurchaseDetails purchaseDetails;
+    private String name;
+    private Long dni;
 }
