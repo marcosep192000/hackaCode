@@ -22,5 +22,5 @@ public class AdminEmployee extends Person {
 
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "adminEmployee" )
 	@JsonIgnoreProperties("adminEmployee")
-	List<Customer> customerList = new ArrayList<>();
+	private List<Customer> customerList = new ArrayList<>();
 }

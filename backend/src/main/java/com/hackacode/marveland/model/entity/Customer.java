@@ -1,15 +1,31 @@
 package com.hackacode.marveland.model.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import static jakarta.persistence.FetchType.EAGER;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
-import java.time.LocalDateTime;
-
-import static jakarta.persistence.FetchType.EAGER;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @Getter
@@ -21,8 +37,9 @@ import static jakarta.persistence.FetchType.EAGER;
 @Where(clause = "state=false")
 @Entity
 public class Customer {
+
 	@Id
-	@Column(name = "id", nullable = false)
+	@Column(name = "CUSTOMER_ID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
@@ -35,7 +52,7 @@ public class Customer {
 	private String lastName;
 
 	@Column(name = "DNI")
-	private  int dni;
+	private int dni;
 
 	@NotBlank(message = "this field can not be blank")
 	@Column(name = "EMAIL")
@@ -46,13 +63,15 @@ public class Customer {
 	private String birthDate;
 
 	private boolean state = Boolean.FALSE;
+
 	@UpdateTimestamp
 	@Column(name = "updated_on_date")
 	private LocalDateTime updateDate;
 
 	@ManyToOne(fetch = EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "adminEmployee_id")
-	AdminEmployee adminEmployee;
+	private AdminEmployee adminEmployee;
 
-	// list <PurchaseDetails> purchases;
+	@OneToMany(mappedBy = "customer")
+	private List<PurchaseDetails> purchases;
 }

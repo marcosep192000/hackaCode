@@ -1,10 +1,6 @@
 package com.hackacode.marveland.model.dto.request;
 
-import com.hackacode.marveland.model.entity.User;
 import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +23,4 @@ public class AdminEmployeeRequestDto {
 
 	@Column(name = "EMAIL")
 	private String email;
-
-
-
 }
