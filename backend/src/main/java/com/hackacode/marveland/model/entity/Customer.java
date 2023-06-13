@@ -59,9 +59,14 @@ public class Customer {
 	private String email;
 
 	@NotBlank(message = "this field can not be blank")
+	@Column(name = "PHONE")
+	private String phone;
+
+	@NotBlank(message = "this field can not be blank")
 	@Column(name = "BIRTH_DATE")
 	private String birthDate;
 
+	@Column(name = "STATE")
 	private boolean state = Boolean.FALSE;
 
 	@UpdateTimestamp

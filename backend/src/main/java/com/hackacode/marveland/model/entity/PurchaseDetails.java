@@ -3,6 +3,8 @@ package com.hackacode.marveland.model.entity;
 import java.util.Date;
 import java.util.List;
 
+import com.hackacode.marveland.util.enums.PaymentMethod;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,6 +42,9 @@ public class PurchaseDetails {
 
     @OneToMany(mappedBy = "purchaseDetails")
     private List<Ticket> tickets;
+
+    @Column(name = "PAYMENT_METHOD")
+    private PaymentMethod paymentMethod;
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_FK", referencedColumnName = "CUSTOMER_ID", insertable = false, updatable = false)

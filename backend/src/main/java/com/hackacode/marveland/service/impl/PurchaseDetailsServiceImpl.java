@@ -1,19 +1,23 @@
 package com.hackacode.marveland.service.impl;
 
-import com.hackacode.marveland.model.dto.request.PurchaseDetailsRequestDto;
-import com.hackacode.marveland.model.dto.response.GameResponseDto;
-import com.hackacode.marveland.model.dto.response.PurchaseDetailsResponseDto;
-import com.hackacode.marveland.model.entity.Game;
-import com.hackacode.marveland.model.entity.PurchaseDetails;
-import com.hackacode.marveland.model.mapper.PurchaseDetailsMapper;
-import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
-import com.hackacode.marveland.service.IPurchaseDetailsService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.hackacode.marveland.model.dto.request.PurchaseDetailsRequestDto;
+import com.hackacode.marveland.model.dto.response.PurchaseDetailsResponseDto;
+import com.hackacode.marveland.model.entity.Customer;
+import com.hackacode.marveland.model.entity.GameEmployee;
+import com.hackacode.marveland.model.entity.PurchaseDetails;
+import com.hackacode.marveland.model.mapper.PurchaseDetailsMapper;
+import com.hackacode.marveland.repository.CustomerRepository;
+import com.hackacode.marveland.repository.GameEmployeeRepository;
+import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
+import com.hackacode.marveland.service.IPurchaseDetailsService;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +25,15 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
 
     private final PurchaseDetailsMapper purchaseDetailsMapper;
     private final IPurchaseDetailsRepository purchaseDetailsRepository;
+    private final CustomerRepository customerRepository;
+    private final GameEmployeeRepository gameEmployeeRepository;
+
     @Override
     public void createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto) {
-        PurchaseDetails purchaseDetails = purchaseDetailsMapper.fromDtoToEntity(purchaseDetailsRequestDto);
+    
+        Customer customer = customerRepository.findById(purchaseDetailsRequestDto.getCustomerId()).orElseThrow();
+        GameEmployee gameEmployee = gameEmployeeRepository.findById(purchaseDetailsRequestDto.getGameEmployeeId()).orElseThrow();
+        PurchaseDetails purchaseDetails = purchaseDetailsMapper.fromDtoToEntity(purchaseDetailsRequestDto, customer, gameEmployee);
         purchaseDetailsRepository.save(purchaseDetails);
     }
 

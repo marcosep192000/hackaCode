@@ -1,30 +1,36 @@
 package com.hackacode.marveland.model.dto.response;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import com.hackacode.marveland.model.entity.Customer;
-import jakarta.persistence.Column;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminEmployeeResponseDto {
-	@Column(name = "EMPLOYEE_ID")
+
 	private Long id;
-	@Column(name = "FIRST_NAME")
+
 	private String firstName;
-	@Column(name = "LAST_NAME")
+
 	private String lastName;
 
-	@Column(name= "DNI")
 	private int dni;
 
-	@Column(name = "EMAIL")
 	private String email;
-	List<Customer> listCustomer = new ArrayList<>();
+
+	private LocalDateTime updateDate;
+
+	private String workingHours;
+
+	private List<Customer> customerList;
+
+	private Long userId;
 }

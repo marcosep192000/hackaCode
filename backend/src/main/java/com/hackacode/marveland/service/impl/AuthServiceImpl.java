@@ -2,10 +2,6 @@ package com.hackacode.marveland.service.impl;
 
 import java.util.Optional;
 
-import com.hackacode.marveland.model.entity.AdminEmployee;
-import com.hackacode.marveland.model.entity.GameEmployee;
-import com.hackacode.marveland.repository.AdminEmployeeRepository;
-import com.hackacode.marveland.repository.GameEmployeeRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,8 +13,11 @@ import com.hackacode.marveland.config.jwt.JwtProvider;
 import com.hackacode.marveland.model.dto.request.AuthRequestDto;
 import com.hackacode.marveland.model.dto.request.RegisterRequestDto;
 import com.hackacode.marveland.model.dto.response.AuthResponseDto;
-import com.hackacode.marveland.model.entity.Employee;
+import com.hackacode.marveland.model.entity.AdminEmployee;
+import com.hackacode.marveland.model.entity.GameEmployee;
 import com.hackacode.marveland.model.entity.User;
+import com.hackacode.marveland.repository.AdminEmployeeRepository;
+import com.hackacode.marveland.repository.GameEmployeeRepository;
 import com.hackacode.marveland.repository.IEmployeeRepository;
 import com.hackacode.marveland.repository.IUserRepository;
 import com.hackacode.marveland.service.IAuthService;
