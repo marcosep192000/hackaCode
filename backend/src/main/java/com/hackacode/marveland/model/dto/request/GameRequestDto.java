@@ -11,8 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GameRequestDto implements Serializable {
-
     private String description;
-
     private OpenHours openHours;
+
 }
