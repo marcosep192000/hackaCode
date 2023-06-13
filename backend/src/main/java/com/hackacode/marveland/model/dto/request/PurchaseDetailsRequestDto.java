@@ -14,6 +14,5 @@ import java.util.Date;
 public class PurchaseDetailsRequestDto implements Serializable {
 
     private String details;
-
     private Date date;
 }

@@ -17,7 +17,7 @@ public class TicketController {
     private final ITicketService ticketService;
 
     @PostMapping("/create")
-    public TicketRequestDto createTicket (@RequestBody TicketRequestDto ticket){
+    public TicketRequestDto createTicket(@RequestBody TicketRequestDto ticket){
         ticketService.createTicket(ticket);
         return ticket;
     }

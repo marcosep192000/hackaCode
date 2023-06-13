@@ -1,5 +1,6 @@
 package com.hackacode.marveland.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -8,6 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.FetchType.EAGER;
@@ -55,7 +58,11 @@ public class Customer {
 	@JoinColumn(name = "adminEmployee_id")
 	AdminEmployee adminEmployee;
 
-	@OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "purchase_id")
-	List<PurchaseDetails> purchases;
+
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "customer" )
+	List<PurchaseDetails> purchaseDetailsList = new ArrayList<>();
+
+
+	// list <PurchaseDetails> purchases;
+
 }
