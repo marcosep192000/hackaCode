@@ -13,10 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TicketRequestDto implements Serializable {
-
     private Date expirationDate;
-
     private Game game;
-
     private PurchaseDetails purchaseDetails;
 }

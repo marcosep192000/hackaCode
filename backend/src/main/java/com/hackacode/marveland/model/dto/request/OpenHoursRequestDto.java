@@ -13,6 +13,5 @@ import java.util.Date;
 public class OpenHoursRequestDto implements Serializable {
 
     private Date startTime;
-
     private Date endTime;
 }
