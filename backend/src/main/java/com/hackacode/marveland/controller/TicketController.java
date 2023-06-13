@@ -38,4 +38,14 @@ public class TicketController {
     public void deleteTicket(@RequestParam Long id){
         ticketService.deleteTicket(id);
     }
+
+    @GetMapping("/ticketsSoldByGame")
+    public List<Ticket> ticketsSoldByGame(@RequestParam Long gameId, @RequestParam Date date){
+        return ticketService.ticketsSoldByGame(gameId, date);
+    }
+
+    //@GetMapping("/ticketsSoldByDate")
+    //public Integer ticketsSoldByDate(@RequestParam Date date){
+    //    return ticketService.ticketsSoldByDay(date);
+    //}
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
+
 @Builder
 @Getter
 @Setter
@@ -19,8 +21,13 @@ public class OpenHours {
     private Long id;
 
     @Column(name = "START_TIME")
+    @Temporal(TemporalType.TIME)
     private Date startTime;
 
     @Column(name = "END_TIME")
+    @Temporal(TemporalType.TIME)
     private Date endTime;
+
+    @OneToMany
+    private List<Game> games;
 }

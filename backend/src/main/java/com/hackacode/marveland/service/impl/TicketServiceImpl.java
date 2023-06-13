@@ -10,9 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -48,4 +46,22 @@ public class TicketServiceImpl implements ITicketService {
     public void deleteTicket(Long id) {
         ticketRepository.deleteById(id);
     }
+
+    @Override //lista de tickets de un juego vendidos en un dia
+    public List<Ticket> ticketsSoldByGame(Long gameId, Date date){
+        List<Ticket> tickets = ticketRepository.findAll();
+        List<Ticket> ticketList = null;
+        for (Ticket ticket : tickets){
+            if(ticket.getGame().getId() == gameId && ticket.getPurchaseDetails().getDate() == date){
+                ticketList.add(ticket);
+            }
+        }
+        return ticketList;
+    }
+
+   /* @Override //lista de tickets vendidos en un dia
+    public List<Ticket> ticketsSoldByDay(Date date){
+        List<Ticket> tickets = ticketRepository.findByDate(date);
+        return tickets;
+    }*/
 }

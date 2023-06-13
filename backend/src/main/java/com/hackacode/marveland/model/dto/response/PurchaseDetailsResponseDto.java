@@ -14,6 +14,7 @@ public class PurchaseDetailsResponseDto implements Serializable {
 
     private Long id;
 
+
     private String details;
 
     private Date date;

@@ -14,6 +14,8 @@ public class TicketMapper {
                 .expirationDate(ticket.getExpirationDate())
                 .game(ticket.getGame())
                 .purchaseDetails(ticket.getPurchaseDetails())
+                .dni(ticket.getDni())
+                .name(ticket.getName())
                 .build();
     }
 
@@ -22,6 +24,8 @@ public class TicketMapper {
                 .expirationDate(ticketRequestDto.getExpirationDate())
                 .game(ticketRequestDto.getGame())
                 .purchaseDetails(ticketRequestDto.getPurchaseDetails())
+                .dni(ticketRequestDto.getDni())
+                .name(ticketRequestDto.getName())
                 .build();
     }
 }

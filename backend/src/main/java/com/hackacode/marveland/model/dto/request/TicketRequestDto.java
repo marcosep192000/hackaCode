@@ -19,4 +19,8 @@ public class TicketRequestDto implements Serializable {
     private Game game;
 
     private PurchaseDetails purchaseDetails;
+
+    private String name;
+
+    private Long dni;
 }

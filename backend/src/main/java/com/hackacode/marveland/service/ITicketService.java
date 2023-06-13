@@ -2,7 +2,9 @@ package com.hackacode.marveland.service;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.TicketResponseDto;
+import com.hackacode.marveland.model.entity.Ticket;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ITicketService {
@@ -14,4 +16,8 @@ public interface ITicketService {
     public TicketResponseDto getTicketById(Long id);
 
     public void deleteTicket(Long id);
+
+    public List<Ticket> ticketsSoldByGame(Long gameId, Date date);
+
+    //public List<Ticket> ticketsSoldByDay(Date date);
 }
