@@ -37,7 +37,6 @@ public class User implements UserDetails {
     @Column(name = "USER_ID")
     private Long id;
 
-
     @NotBlank(message = "your username cannot be empty")
     @Column(name = "USERNAME", unique = true)
     private String username;
