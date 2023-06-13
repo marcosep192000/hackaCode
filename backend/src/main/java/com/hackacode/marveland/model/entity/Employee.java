@@ -1,14 +1,11 @@
 package com.hackacode.marveland.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "EMPLOYEES")
 public class Employee {
 
@@ -34,6 +32,19 @@ public class Employee {
 
     @Column(name = "LAST_NAME")
     private String lastName;
+
+    @Column(name = "DNI")
+    private int dni;
+
+    @Column(name = "EMAIL")
+    private String email;
+
+    @UpdateTimestamp
+    @Column(name = "updated_on_date")
+    private LocalDateTime updateDate;
+
+    @Column(name = "WORKING_HOURS")
+    private String workingHours;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_FK", referencedColumnName = "USER_ID", insertable = false, updatable = false)

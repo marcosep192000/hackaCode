@@ -8,20 +8,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class TicketMapper {
 
-    public TicketResponseDto fromEntityToDto(Ticket ticket){
-        return TicketResponseDto.builder()
-                .id(ticket.getId())
-                .expirationDate(ticket.getExpirationDate())
-                .game(ticket.getGame())
-                .purchaseDetails(ticket.getPurchaseDetails())
-                .build();
-    }
+    // public TicketResponseDto fromEntityToDto(Ticket ticket){
+    //     return TicketResponseDto.builder()
+    //             .id(ticket.getId())
+    //             .expirationDate(ticket.getExpirationDate())
+    //             .game(ticket.getGame())
+    //             .purchaseDetails(ticket.getPurchaseDetails())
+    //             .build();
+    // }
 
-    public Ticket fromDtoToEntity(TicketRequestDto ticketRequestDto){
-        return Ticket.builder()
-                .expirationDate(ticketRequestDto.getExpirationDate())
-                .game(ticketRequestDto.getGame())
-                .purchaseDetails(ticketRequestDto.getPurchaseDetails())
-                .build();
-    }
+    // public Ticket fromDtoToEntity(TicketRequestDto ticketRequestDto){
+    //     return Ticket.builder()
+    //             .expirationDate(ticketRequestDto.getExpirationDate())
+    //             .game(ticketRequestDto.getGame())
+    //             .purchaseDetails(ticketRequestDto.getPurchaseDetails())
+    //             .build();
+    // }
 }

@@ -1,9 +1,12 @@
 package com.hackacode.marveland.model.dto.request;
 
-import com.hackacode.marveland.model.entity.OpenHours;
-import lombok.*;
-
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @Getter
@@ -14,5 +17,9 @@ public class GameRequestDto implements Serializable {
 
     private String description;
 
-    private OpenHours openHours;
+    private Long openHoursId;
+
+    private Integer capacity;
+    
+    private Double price;
 }

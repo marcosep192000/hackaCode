@@ -30,11 +30,11 @@ public class Ticket {
     @Column(name = "TICKET_ID", nullable = false)
     private Long id;
 
-    @Column(name = "FIRST_NAME")
-    private String firstName;
+    @Column(name = "FULL_NAME")
+    private String fullName;
 
-    @Column(name = "LAST_NAME")
-    private String lastName;
+    @Column(name = "DNI")
+    private Integer dni;
 
     @Column(name = "EXPIRATION_DATE")
     private Date expirationDate;

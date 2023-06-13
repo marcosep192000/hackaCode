@@ -1,11 +1,13 @@
 package com.hackacode.marveland.model.dto.request;
 
-import com.hackacode.marveland.model.entity.Game;
-import com.hackacode.marveland.model.entity.PurchaseDetails;
-import lombok.*;
-
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @Getter
@@ -14,9 +16,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class TicketRequestDto implements Serializable {
 
+    private String fullName;
+
+    private Integer dni;
+
     private Date expirationDate;
 
-    private Game game;
-
-    private PurchaseDetails purchaseDetails;
+    private Long gameId;
 }
