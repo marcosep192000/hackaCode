@@ -17,25 +17,25 @@ public class PurchaseDetailsController {
 
     private final IPurchaseDetailsService purchaseDetailsService;
     @PostMapping("/create")
-    public PurchaseDetailsRequestDto createPurchaseDetails(@RequestBody PurchaseDetailsRequestDto purchaseDetails){
+    public PurchaseDetailsRequestDto create(@RequestBody PurchaseDetailsRequestDto purchaseDetails){
         purchaseDetailsService.createPurchaseDetails(purchaseDetails);
         return purchaseDetails;
     }
 
     @GetMapping
-    public ResponseEntity<List<PurchaseDetailsResponseDto>> getAllPurchases(){
+    public ResponseEntity<List<PurchaseDetailsResponseDto>> getAll(){
         List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getAllPurchases();
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PurchaseDetailsResponseDto> getPurchaseById(@RequestParam Long id){
+    public ResponseEntity<PurchaseDetailsResponseDto> getById(@RequestParam Long id){
         PurchaseDetailsResponseDto response = purchaseDetailsService.getPurchaseById(id);
         return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePurchase(@RequestParam Long id){
+    public void delete(@RequestParam Long id){
         purchaseDetailsService.deletePurchase(id);
     }
 }
