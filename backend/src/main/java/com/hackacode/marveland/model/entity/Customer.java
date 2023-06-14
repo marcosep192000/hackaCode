@@ -1,7 +1,5 @@
 package com.hackacode.marveland.model.entity;
 
-import static jakarta.persistence.FetchType.EAGER;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,9 +7,9 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -75,7 +73,7 @@ public class Customer {
 	@Column(name = "UPDATE_DATE")
 	private LocalDateTime updateDate;
 
-	@ManyToOne(fetch = EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ADMIN_EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
 	private AdminEmployee adminEmployee;
 

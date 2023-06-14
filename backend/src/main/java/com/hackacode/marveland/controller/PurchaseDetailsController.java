@@ -18,7 +18,7 @@ import com.hackacode.marveland.service.IPurchaseDetailsService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/purchase-details")
+@RequestMapping("/api/v1/purchases")
 @RequiredArgsConstructor
 public class PurchaseDetailsController {
 

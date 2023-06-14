@@ -58,5 +58,4 @@ public class Employee {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", insertable = false, updatable = false)
     private User user;
-
 }

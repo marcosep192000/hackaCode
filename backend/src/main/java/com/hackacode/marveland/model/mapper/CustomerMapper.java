@@ -14,7 +14,6 @@ public class CustomerMapper {
 
 	public Customer FromDtoToEntity(CustomerRequestDto customerRequestDto, AdminEmployee adminEmployee) {
 		return Customer.builder()
-				.dni(customerRequestDto.getDni())
 				.firstName(customerRequestDto.getFirstName())
 				.lastName(customerRequestDto.getLastName())
 				.dni(customerRequestDto.getDni())
@@ -35,7 +34,6 @@ public class CustomerMapper {
 				.email(customer.getEmail())
 				.phone(customer.getPhone())
 				.birthdate(customer.getBirthdate())
-				.adminId(customer.getAdminEmployee().getId())
 				.purchases(customer.getPurchases())
 				.build();
 	}

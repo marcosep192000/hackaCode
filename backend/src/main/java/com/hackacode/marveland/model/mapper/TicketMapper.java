@@ -1,5 +1,7 @@
 package com.hackacode.marveland.model.mapper;
 
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Component;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
@@ -23,7 +25,7 @@ public class TicketMapper {
     public Ticket fromDtoToEntity(TicketRequestDto ticketRequestDto, Game game) {
         return Ticket.builder()
                 .fullName(ticketRequestDto.getFullName())
-                .expirationDate(ticketRequestDto.getExpirationDate())
+                .expirationDate(LocalDate.now().plusMonths(3))
                 .dni(ticketRequestDto.getDni())
                 .game(game)
                 .build();

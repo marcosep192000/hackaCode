@@ -39,12 +39,12 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     @Override
     public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto) {
 
-        // extraigo al customer y empleado del asignados en el dto del detalle de compra
+        // extraigo al customer y empleado asignados en el dto del detalle de compra
         Customer customer = customerRepository.findById(purchaseDetailsRequestDto.getCustomerId()).orElseThrow();
         GameEmployee gameEmployee = gameEmployeeRepository.findById(purchaseDetailsRequestDto.getGameEmployeeId())
                 .orElseThrow();
 
-        // extraigo los tickets del dto de detalle de compra y los guardo en bd llamando al servicio de tickets
+        // extraigo los tickets del dto de detalle de compra y los guardo llamando al servicio de tickets
         List<TicketRequestDto> ticketsDto = purchaseDetailsRequestDto.getTickets();
         List<Ticket> tickets = new ArrayList<>();
         for (TicketRequestDto ticketDto : ticketsDto) {
@@ -56,6 +56,7 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
 
         purchaseDetailsRepository.save(purchaseDetails);
 
+        // calcular el total de la compra
         Double finalPrice = 10.50;
         return purchaseDetailsMapper.fromEntityToDto(purchaseDetails, finalPrice);
     }

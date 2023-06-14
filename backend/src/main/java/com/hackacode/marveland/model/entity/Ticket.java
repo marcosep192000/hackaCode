@@ -1,6 +1,6 @@
 package com.hackacode.marveland.model.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,7 +37,7 @@ public class Ticket {
     private Integer dni;
 
     @Column(name = "EXPIRATION_DATE")
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
     @ManyToOne
     @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID", insertable = false, updatable = false)

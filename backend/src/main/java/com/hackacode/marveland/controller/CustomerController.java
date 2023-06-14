@@ -28,7 +28,7 @@ public class CustomerController {
 
 	private final ICustomerService customerService;
 
-	@PostMapping("/create/{id}")
+	@PostMapping("/create/{adminId}")
 	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto,
 			@PathVariable Long adminId) {
 		customerService.create(customerRequestDto, adminId);
@@ -36,7 +36,7 @@ public class CustomerController {
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<?> getAllGames() {
+	public ResponseEntity<List<?>> getAllCustomers() {
 		List<CustomerResponseDto> response = customerService.getAll();
 		return ResponseEntity.ok().body(response);
 	}
