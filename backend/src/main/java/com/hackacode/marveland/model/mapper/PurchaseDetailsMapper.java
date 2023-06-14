@@ -1,5 +1,6 @@
 package com.hackacode.marveland.model.mapper;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -14,11 +15,16 @@ import com.hackacode.marveland.model.entity.Ticket;
 @Component
 public class PurchaseDetailsMapper {
 
-    public PurchaseDetailsResponseDto fromEntityToDto(PurchaseDetails purchaseDetails) {
+    public PurchaseDetailsResponseDto fromEntityToDto(PurchaseDetails purchaseDetails, Double finalPrice) {
         return PurchaseDetailsResponseDto.builder()
                 .id(purchaseDetails.getId())
                 .details(purchaseDetails.getDetails())
-                .date(purchaseDetails.getDate())
+                .purchaseDate(purchaseDetails.getPurchaseDate())
+                .finalPrice(finalPrice)
+                .tickets(purchaseDetails.getTickets())
+                .paymentMethod(purchaseDetails.getPaymentMethod())
+                .customer(purchaseDetails.getCustomer())
+                .gameEmployee(purchaseDetails.getGameEmployee())
                 .build();
     }
 
@@ -26,11 +32,11 @@ public class PurchaseDetailsMapper {
             GameEmployee gameEmployee, List<Ticket> tickets) {
         return PurchaseDetails.builder()
                 .details(purchaseDetailsRequestDto.getDetails())
-                .date(purchaseDetailsRequestDto.getDate())
+                .purchaseDate(LocalDate.now())
+                .tickets(tickets)
                 .paymentMethod(purchaseDetailsRequestDto.getPaymentMethod())
                 .customer(customer)
                 .gameEmployee(gameEmployee)
-                .tickets(tickets)
                 .build();
     }
 }

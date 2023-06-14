@@ -56,6 +56,6 @@ public class Employee {
     private String workingHours;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_FK", referencedColumnName = "USER_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", insertable = false, updatable = false)
     private User user;
 }

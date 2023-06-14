@@ -9,14 +9,15 @@ import com.hackacode.marveland.model.entity.AdminEmployee;
 @Component
 public class AdminEmployeeMapper {
 
-	public AdminEmployeeResponseDto fromEntityToDto(AdminEmployee adminEmployee){
-        AdminEmployeeResponseDto responseDto = new AdminEmployeeResponseDto();
+	public AdminEmployeeResponseDto fromEntityToDto(AdminEmployee adminEmployee) {
+		AdminEmployeeResponseDto responseDto = new AdminEmployeeResponseDto();
 		responseDto.setId(adminEmployee.getId());
 		responseDto.setFirstName(adminEmployee.getFirstName());
 		responseDto.setLastName(adminEmployee.getLastName());
 		return responseDto;
 	}
-	public AdminEmployee update(AdminEmployee adminEmployee, AdminEmployeeRequestDto requestDto){
+
+	public AdminEmployee update(AdminEmployee adminEmployee, AdminEmployeeRequestDto requestDto) {
 		adminEmployee.setDni(requestDto.getDni());
 		adminEmployee.setEmail(requestDto.getEmail());
 		adminEmployee.setFirstName(requestDto.getFirstName());

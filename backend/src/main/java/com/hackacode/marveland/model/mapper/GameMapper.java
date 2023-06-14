@@ -17,6 +17,8 @@ public class GameMapper {
                 .openHours(game.getOpenHours())
                 .capacity(game.getCapacity())
                 .price(game.getPrice())
+                .gameEmployee(game.getGameEmployee())
+                .tickets(game.getTickets())
                 .build();
     }
 
@@ -29,8 +31,11 @@ public class GameMapper {
                 .build();
     }
 
-    public Game updateGame(Game game, GameRequestDto gameRequestDto) {
+    public Game updateGame(Game game, GameRequestDto gameRequestDto, OpenHours openHours) {
         game.setDescription(gameRequestDto.getDescription());
+        game.setOpenHours(openHours);
+        game.setCapacity(gameRequestDto.getCapacity());
+        game.setPrice(gameRequestDto.getPrice());
         return game;
     }
 }

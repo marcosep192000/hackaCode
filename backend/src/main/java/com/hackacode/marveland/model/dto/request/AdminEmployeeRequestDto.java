@@ -18,4 +18,6 @@ public class AdminEmployeeRequestDto {
 	private Integer dni;
 
 	private String email;
+
+	private String workingHours;
 }

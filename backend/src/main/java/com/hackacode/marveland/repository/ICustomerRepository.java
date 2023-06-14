@@ -6,5 +6,5 @@ import com.hackacode.marveland.model.entity.Customer;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 
-	public Customer findByDni(int dni);
+	public Customer findByDni(Integer dni);
 }

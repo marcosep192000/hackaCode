@@ -1,9 +1,11 @@
 package com.hackacode.marveland.model.dto.response;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
+import com.hackacode.marveland.model.entity.Customer;
 import com.hackacode.marveland.model.entity.GameEmployee;
+import com.hackacode.marveland.model.entity.Ticket;
 import com.hackacode.marveland.util.enums.PaymentMethod;
 
 import lombok.AllArgsConstructor;
@@ -23,13 +25,15 @@ public class PurchaseDetailsResponseDto {
 
     private String details;
 
-    private Date date;
+    private LocalDate purchaseDate;
 
-    private List<TicketResponseDto> tickets;
+    private Double finalPrice;
+
+    private List<Ticket> tickets;
 
     private PaymentMethod paymentMethod;
 
-    private CustomerResponseDto customer;
+    private Customer customer;
 
     private GameEmployee gameEmployee;
 }

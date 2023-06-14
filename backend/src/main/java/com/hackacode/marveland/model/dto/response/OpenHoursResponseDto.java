@@ -1,6 +1,6 @@
 package com.hackacode.marveland.model.dto.response;
 
-import java.util.Date;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +17,7 @@ public class OpenHoursResponseDto {
 
     private Long id;
 
-    private Date startTime;
+    private LocalTime startTime;
 
-    private Date endTime;
+    private LocalTime endTime;
 }
