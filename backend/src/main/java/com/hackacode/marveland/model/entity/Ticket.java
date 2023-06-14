@@ -40,10 +40,10 @@ public class Ticket {
     private Date expirationDate;
 
     @ManyToOne
-    @JoinColumn(name = "GAME_FK", referencedColumnName = "GAME_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID", insertable = false, updatable = false)
     private Game game;
 
     @ManyToOne
-    @JoinColumn(name = "PURCHASE_DETAILS_ID", referencedColumnName = "PURCHASE_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "PURCHASE_DETAILS_ID", referencedColumnName = "PURCHASE_DETAILS_ID", insertable = false, updatable = false)
     private PurchaseDetails purchaseDetails;
 }

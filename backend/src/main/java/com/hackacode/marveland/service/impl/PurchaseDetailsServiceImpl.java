@@ -37,15 +37,14 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     private final ITicketService ticketService;
 
     @Override
-    public PurchaseDetails createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto) {
+    public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto) {
 
-        // extraigo al customer y empleado asignados en el dto del detalle de compra
+        // extraigo al customer y empleado del asignados en el dto del detalle de compra
         Customer customer = customerRepository.findById(purchaseDetailsRequestDto.getCustomerId()).orElseThrow();
         GameEmployee gameEmployee = gameEmployeeRepository.findById(purchaseDetailsRequestDto.getGameEmployeeId())
                 .orElseThrow();
 
-        // extraigo los tickets del dto de detalle de compra y los creo, llamando al
-        // servicio de tickets
+        // extraigo los tickets del dto de detalle de compra y los guardo en bd llamando al servicio de tickets
         List<TicketRequestDto> ticketsDto = purchaseDetailsRequestDto.getTickets();
         List<Ticket> tickets = new ArrayList<>();
         for (TicketRequestDto ticketDto : ticketsDto) {
@@ -55,15 +54,19 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
         PurchaseDetails purchaseDetails = purchaseDetailsMapper.fromDtoToEntity(purchaseDetailsRequestDto, customer,
                 gameEmployee, tickets);
 
-        return purchaseDetailsRepository.save(purchaseDetails);
+        purchaseDetailsRepository.save(purchaseDetails);
+
+        Double finalPrice = 10.50;
+        return purchaseDetailsMapper.fromEntityToDto(purchaseDetails, finalPrice);
     }
 
     @Override
     public List<PurchaseDetailsResponseDto> getAllPurchases() {
         List<PurchaseDetails> purchases = purchaseDetailsRepository.findAll();
         List<PurchaseDetailsResponseDto> purchaseResponseDtoList = new ArrayList<>();
+        Double finalPrice = 10.50;
         purchases.forEach(purchase -> {
-            PurchaseDetailsResponseDto response = purchaseDetailsMapper.fromEntityToDto(purchase);
+            PurchaseDetailsResponseDto response = purchaseDetailsMapper.fromEntityToDto(purchase, finalPrice);
             purchaseResponseDtoList.add(response);
         });
         return purchaseResponseDtoList;
@@ -72,7 +75,8 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     @Override
     public PurchaseDetailsResponseDto getPurchaseById(Long id) {
         Optional<PurchaseDetails> purchase = purchaseDetailsRepository.findById(id);
-        PurchaseDetailsResponseDto response = purchaseDetailsMapper.fromEntityToDto(purchase.get());
+        Double finalPrice = 10.50;
+        PurchaseDetailsResponseDto response = purchaseDetailsMapper.fromEntityToDto(purchase.get(), finalPrice);
         return response;
     }
 

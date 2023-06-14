@@ -1,6 +1,5 @@
 package com.hackacode.marveland.model.dto.request;
 
-import java.util.Date;
 import java.util.List;
 
 import com.hackacode.marveland.util.enums.PaymentMethod;
@@ -20,13 +19,11 @@ public class PurchaseDetailsRequestDto {
 
     private String details;
 
-    private Date date;
+    private List<TicketRequestDto> tickets;
 
     private PaymentMethod paymentMethod;
 
     private Long customerId;
 
     private Long gameEmployeeId;
-
-    private List<TicketRequestDto> tickets;
 }

@@ -1,6 +1,6 @@
 package com.hackacode.marveland.model.dto.request;
 
-import java.util.Date;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +13,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OpenHoursRequestDto  {
+public class OpenHoursRequestDto {
 
-    private Date startTime;
+    private LocalTime startTime;
 
-    private Date endTime;
+    private LocalTime endTime;
 }

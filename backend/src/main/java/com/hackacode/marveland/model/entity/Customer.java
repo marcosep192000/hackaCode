@@ -23,17 +23,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Builder.Default;
 
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "CUSTOMER")
+@Table(name = "CUSTOMERS")
 @SQLDelete(sql = "UPDATE CUSTOMER SET state = true WHERE id =?")
 @Where(clause = "state=false")
 @Entity
@@ -53,7 +53,7 @@ public class Customer {
 	private String lastName;
 
 	@Column(name = "DNI")
-	private int dni;
+	private Integer dni;
 
 	@NotBlank(message = "this field can not be blank")
 	@Column(name = "EMAIL")
@@ -64,19 +64,19 @@ public class Customer {
 	private String phone;
 
 	@NotBlank(message = "this field can not be blank")
-	@Column(name = "BIRTH_DATE")
-	private String birthDate;
+	@Column(name = "BIRTHDATE")
+	private String birthdate;
 
 	@Column(name = "STATE")
 	@Default
 	private boolean state = Boolean.FALSE;
 
 	@UpdateTimestamp
-	@Column(name = "updated_on_date")
+	@Column(name = "UPDATE_DATE")
 	private LocalDateTime updateDate;
 
 	@ManyToOne(fetch = EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "adminEmployee_id")
+	@JoinColumn(name = "ADMIN_EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
 	private AdminEmployee adminEmployee;
 
 	@OneToMany(mappedBy = "customer")

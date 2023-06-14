@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.PurchaseDetailsRequestDto;
 import com.hackacode.marveland.model.dto.response.PurchaseDetailsResponseDto;
-import com.hackacode.marveland.model.entity.PurchaseDetails;
 import com.hackacode.marveland.service.IPurchaseDetailsService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,9 +25,9 @@ public class PurchaseDetailsController {
     private final IPurchaseDetailsService purchaseDetailsService;
 
     @PostMapping("/create")
-    public ResponseEntity<PurchaseDetails> createPurchaseDetails(
+    public ResponseEntity<PurchaseDetailsResponseDto> createPurchaseDetails(
             @RequestBody PurchaseDetailsRequestDto purchaseDetails) {
-        PurchaseDetails response = purchaseDetailsService.createPurchaseDetails(purchaseDetails);
+        PurchaseDetailsResponseDto response = purchaseDetailsService.createPurchaseDetails(purchaseDetails);
         return ResponseEntity.ok().body(response);
     }
 

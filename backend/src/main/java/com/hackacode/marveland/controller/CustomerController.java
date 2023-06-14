@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.entity.Customer;
+import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.service.ICustomerService;
 import com.hackacode.marveland.util.Exeptions.GeneralMessage;
 
@@ -29,7 +29,7 @@ public class CustomerController {
 	@PostMapping("/create/{id}")
 	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto, @PathVariable Long id) {
 		customerService.create(customerRequestDto, id);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new GeneralMessage("Customer Created!"));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new GeneralMessage("Customer created!"));
 	}
 
 	@GetMapping("/{id}")
@@ -38,13 +38,14 @@ public class CustomerController {
 	}
 
 	@GetMapping("/dni/{dni}")
-	public ResponseEntity<?> findByDni(@PathVariable int dni) {
+	public ResponseEntity<?> findByDni(@PathVariable Integer dni) {
 		return ResponseEntity.status(HttpStatus.OK).body(customerService.getByDni(dni));
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody CustomerRequestDto requestDto) {
-		Customer customer = customerService.update(requestDto, id);
+	public ResponseEntity<CustomerResponseDto> update(@Valid @PathVariable Long id,
+			@RequestBody CustomerRequestDto requestDto) {
+		CustomerResponseDto customer = customerService.update(requestDto, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(customer);
 	}
 

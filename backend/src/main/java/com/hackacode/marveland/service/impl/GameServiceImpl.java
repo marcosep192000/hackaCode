@@ -38,7 +38,8 @@ public class GameServiceImpl implements IGameService {
     @Transactional
     public GameResponseDto updateGame(Long id, GameRequestDto gameRequestDto) {
         Game game = gameRepository.findById(id).orElseThrow();
-        Game updateGame = gameMapper.updateGame(game, gameRequestDto);
+        OpenHours openHours = openHoursRepository.findById(gameRequestDto.getOpenHoursId()).orElseThrow();
+        Game updateGame = gameMapper.updateGame(game, gameRequestDto, openHours);
         gameRepository.save(updateGame);
         GameResponseDto response = gameMapper.fromEntityToDto(updateGame);
         return response;

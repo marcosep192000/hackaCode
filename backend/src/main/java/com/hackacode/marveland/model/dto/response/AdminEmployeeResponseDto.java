@@ -1,9 +1,6 @@
 package com.hackacode.marveland.model.dto.response;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
-import com.hackacode.marveland.model.entity.Customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,8 +26,4 @@ public class AdminEmployeeResponseDto {
 	private LocalDateTime updateDate;
 
 	private String workingHours;
-
-	private List<Customer> customerList;
-
-	private Long userId;
 }

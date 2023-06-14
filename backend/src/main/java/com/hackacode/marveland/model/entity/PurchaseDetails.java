@@ -1,6 +1,6 @@
 package com.hackacode.marveland.model.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.hackacode.marveland.util.enums.PaymentMethod;
@@ -31,14 +31,14 @@ public class PurchaseDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PURCHASE_ID")
+    @Column(name = "PURCHASE_DETAILS_ID")
     private Long id;
 
     @Column(name = "DETAILS")
     private String details;
 
-    @Column(name = "DATE")
-    private Date date;
+    @Column(name = "PURCHASE_DATE")
+    private LocalDate purchaseDate;
 
     @OneToMany(mappedBy = "purchaseDetails")
     private List<Ticket> tickets;
@@ -47,7 +47,7 @@ public class PurchaseDetails {
     private PaymentMethod paymentMethod;
 
     @ManyToOne
-    @JoinColumn(name = "CUSTOMER_FK", referencedColumnName = "CUSTOMER_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID", insertable = false, updatable = false)
     private Customer customer;
 
     @ManyToOne

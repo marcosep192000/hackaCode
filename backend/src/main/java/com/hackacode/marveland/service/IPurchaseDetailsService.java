@@ -4,11 +4,10 @@ import java.util.List;
 
 import com.hackacode.marveland.model.dto.request.PurchaseDetailsRequestDto;
 import com.hackacode.marveland.model.dto.response.PurchaseDetailsResponseDto;
-import com.hackacode.marveland.model.entity.PurchaseDetails;
 
 public interface IPurchaseDetailsService {
 
-    public PurchaseDetails createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto);
+    public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto);
 
     public List<PurchaseDetailsResponseDto> getAllPurchases();
 
