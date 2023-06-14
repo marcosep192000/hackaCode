@@ -40,7 +40,6 @@ public class GameController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
     @DeleteMapping("/{id}")
-    public void deleteGame(@PathVariable Long id){
-        gameService.deleteGame(id);
+    public void deleteGame(@PathVariable Long id){gameService.deleteGame(id);
     }
 }

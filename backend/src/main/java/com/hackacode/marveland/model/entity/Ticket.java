@@ -46,4 +46,5 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "PURCHASE_DETAILS_ID", referencedColumnName = "PURCHASE_DETAILS_ID", insertable = false, updatable = false)
     private PurchaseDetails purchaseDetails;
+
 }
