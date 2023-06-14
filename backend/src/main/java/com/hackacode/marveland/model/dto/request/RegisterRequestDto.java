@@ -16,7 +16,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RegisterRequestDto {
 
-    @NotBlank(message = "this field can not be blank")
     @Email(message = "incorrect format")
     private String username;
 
@@ -34,10 +33,8 @@ public class RegisterRequestDto {
     @Size(min = 3, max = 50, message = "min 3 characters max 50")
     private String lastName;
 
-    @NotBlank(message = "this field can not be blank")
     private Integer dni;
 
-    // 10:00 a 14:00
     @NotBlank(message = "this field can not be blank")
     private String workingHours;
 }

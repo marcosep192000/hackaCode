@@ -57,8 +57,8 @@ public class CustomerServiceImpl implements ICustomerService {
 		List<Customer> customers = customerRepository.findAll();
 		List<CustomerResponseDto> customerResponseDtoList = new ArrayList<>();
 		customers.forEach(customer -> {
-			CustomerResponseDto response = customerMapper.fromEntityToDto(customer);
-			customerResponseDtoList.add(response);
+			CustomerResponseDto customerDto = customerMapper.fromEntityToDto(customer);
+			customerResponseDtoList.add(customerDto);
 		});
 		return customerResponseDtoList;
 	}

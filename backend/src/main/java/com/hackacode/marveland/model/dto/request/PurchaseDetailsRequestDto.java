@@ -19,11 +19,11 @@ public class PurchaseDetailsRequestDto {
 
     private String details;
 
-    private List<TicketRequestDto> tickets;
-
     private PaymentMethod paymentMethod;
 
     private Long customerId;
 
     private Long gameEmployeeId;
+
+    private List<TicketRequestDto> tickets;
 }

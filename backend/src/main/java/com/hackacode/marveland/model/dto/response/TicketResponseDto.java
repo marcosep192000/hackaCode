@@ -1,6 +1,6 @@
 package com.hackacode.marveland.model.dto.response;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.hackacode.marveland.model.entity.Game;
 
@@ -23,7 +23,7 @@ public class TicketResponseDto {
 
     private Integer dni;
 
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
     private Game game;
 }
