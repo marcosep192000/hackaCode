@@ -24,7 +24,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "GAME")
+@Table(name = "GAMES")
 public class Game {
 
     @Id
