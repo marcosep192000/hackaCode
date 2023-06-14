@@ -23,7 +23,7 @@ public class CustomerRequestDto implements Serializable {
 
 	private String email;
 
-	private String birthdate;
-
 	private String phone;
+
+	private String birthdate;
 }

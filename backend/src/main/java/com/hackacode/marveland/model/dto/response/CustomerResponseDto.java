@@ -1,5 +1,6 @@
 package com.hackacode.marveland.model.dto.response;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.hackacode.marveland.model.entity.PurchaseDetails;
@@ -30,6 +31,10 @@ public class CustomerResponseDto {
 	private String phone;
 
 	private String birthdate;
+
+	private Long adminId;
+
+	private LocalDateTime updateDate;
 
 	private List<PurchaseDetails> purchases;
 }

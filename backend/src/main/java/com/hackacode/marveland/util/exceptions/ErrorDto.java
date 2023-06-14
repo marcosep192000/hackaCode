@@ -1,4 +1,4 @@
-package com.hackacode.marveland.util.Exeptions;
+package com.hackacode.marveland.util.exceptions;
 
 import lombok.Builder;
 import lombok.Data;

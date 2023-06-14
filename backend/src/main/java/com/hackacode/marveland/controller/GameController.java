@@ -28,7 +28,8 @@ public class GameController {
         GameResponseDto response = gameService.updateGame(id, game);
         return ResponseEntity.ok().body(response);
     }
-    @GetMapping
+
+    @GetMapping("/all")
     public ResponseEntity<List<GameResponseDto>> getAllGames(){
         List<GameResponseDto> response = gameService.getAllGames();
         return ResponseEntity.ok().body(response);

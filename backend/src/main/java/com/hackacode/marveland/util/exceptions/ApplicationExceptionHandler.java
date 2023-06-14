@@ -1,4 +1,4 @@
-package com.hackacode.marveland.util.Exeptions;
+package com.hackacode.marveland.util.exceptions;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -34,7 +34,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "CUSTOMERS")
-@SQLDelete(sql = "UPDATE CUSTOMER SET state = true WHERE id =?")
+@SQLDelete(sql = "UPDATE CUSTOMERS SET state = true WHERE id =?")
 @Where(clause = "state=false")
 @Entity
 public class Customer {

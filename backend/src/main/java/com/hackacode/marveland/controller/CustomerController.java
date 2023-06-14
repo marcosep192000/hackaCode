@@ -1,5 +1,7 @@
 package com.hackacode.marveland.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
 import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.service.ICustomerService;
-import com.hackacode.marveland.util.Exeptions.GeneralMessage;
+import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +29,16 @@ public class CustomerController {
 	private final ICustomerService customerService;
 
 	@PostMapping("/create/{id}")
-	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto, @PathVariable Long id) {
-		customerService.create(customerRequestDto, id);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new GeneralMessage("Customer created!"));
+	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto,
+			@PathVariable Long adminId) {
+		customerService.create(customerRequestDto, adminId);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new GeneralMessage("Customer created"));
+	}
+
+	@GetMapping("/all")
+	public ResponseEntity<?> getAllGames() {
+		List<CustomerResponseDto> response = customerService.getAll();
+		return ResponseEntity.ok().body(response);
 	}
 
 	@GetMapping("/{id}")

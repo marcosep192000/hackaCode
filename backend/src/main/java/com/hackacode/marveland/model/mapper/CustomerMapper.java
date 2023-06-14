@@ -1,5 +1,7 @@
 package com.hackacode.marveland.model.mapper;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
@@ -19,6 +21,7 @@ public class CustomerMapper {
 				.email(customerRequestDto.getEmail())
 				.phone(customerRequestDto.getPhone())
 				.birthdate(customerRequestDto.getBirthdate())
+				.updateDate(LocalDateTime.now())
 				.adminEmployee(adminEmployee)
 				.build();
 	}
@@ -32,6 +35,7 @@ public class CustomerMapper {
 				.email(customer.getEmail())
 				.phone(customer.getPhone())
 				.birthdate(customer.getBirthdate())
+				.adminId(customer.getAdminEmployee().getId())
 				.purchases(customer.getPurchases())
 				.build();
 	}
@@ -40,6 +44,7 @@ public class CustomerMapper {
 		customer.setFirstName(customerRequestDto.getFirstName());
 		customer.setLastName(customerRequestDto.getLastName());
 		customer.setDni(customerRequestDto.getDni());
+		customer.setEmail(customerRequestDto.getEmail());
 		customer.setPhone(customerRequestDto.getPhone());
 		customer.setBirthdate(customerRequestDto.getBirthdate());
 		return customer;
