@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackacode.marveland.model.entity.AdminEmployee;
 
-public interface AdminEmployeeRepository extends JpaRepository<AdminEmployee, Long> {
+public interface IAdminEmployeeRepository extends JpaRepository<AdminEmployee, Long> {
 
 }

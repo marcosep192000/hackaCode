@@ -1,5 +1,11 @@
 package com.hackacode.marveland.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
 import com.hackacode.marveland.model.dto.response.GameResponseDto;
 import com.hackacode.marveland.model.entity.Game;
@@ -8,13 +14,9 @@ import com.hackacode.marveland.model.mapper.GameMapper;
 import com.hackacode.marveland.repository.IGameRepository;
 import com.hackacode.marveland.repository.IOpenHoursRepository;
 import com.hackacode.marveland.service.IGameService;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class GameServiceImpl implements IGameService {
     private final IGameRepository gameRepository;
 
     private final IOpenHoursRepository openHoursRepository;
-    
+
     @Transactional
     public void createGame(GameRequestDto gameRequestDto) {
         OpenHours openHours = openHoursRepository.findById(gameRequestDto.getOpenHoursId()).orElseThrow();

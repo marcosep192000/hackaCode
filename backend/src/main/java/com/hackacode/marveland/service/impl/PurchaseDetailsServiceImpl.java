@@ -14,8 +14,8 @@ import com.hackacode.marveland.model.entity.GameEmployee;
 import com.hackacode.marveland.model.entity.PurchaseDetails;
 import com.hackacode.marveland.model.entity.Ticket;
 import com.hackacode.marveland.model.mapper.PurchaseDetailsMapper;
-import com.hackacode.marveland.repository.CustomerRepository;
-import com.hackacode.marveland.repository.GameEmployeeRepository;
+import com.hackacode.marveland.repository.ICustomerRepository;
+import com.hackacode.marveland.repository.IGameEmployeeRepository;
 import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
 import com.hackacode.marveland.service.IPurchaseDetailsService;
 import com.hackacode.marveland.service.ITicketService;
@@ -27,9 +27,13 @@ import lombok.RequiredArgsConstructor;
 public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
 
     private final PurchaseDetailsMapper purchaseDetailsMapper;
+
     private final IPurchaseDetailsRepository purchaseDetailsRepository;
-    private final CustomerRepository customerRepository;
-    private final GameEmployeeRepository gameEmployeeRepository;
+
+    private final ICustomerRepository customerRepository;
+
+    private final IGameEmployeeRepository gameEmployeeRepository;
+
     private final ITicketService ticketService;
 
     @Override

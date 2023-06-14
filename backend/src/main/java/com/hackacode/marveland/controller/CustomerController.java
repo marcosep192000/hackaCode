@@ -1,6 +1,5 @@
 package com.hackacode.marveland.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,16 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
 import com.hackacode.marveland.model.entity.Customer;
-import com.hackacode.marveland.service.impl.CustomerServiceImpl;
+import com.hackacode.marveland.service.ICustomerService;
 import com.hackacode.marveland.util.Exeptions.GeneralMessage;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/customer")
+@RequestMapping("/api/v1/customers")
+@RequiredArgsConstructor
 public class CustomerController {
-	@Autowired
-	CustomerServiceImpl customerService;
+
+	private final ICustomerService customerService;
 
 	@PostMapping("/create/{id}")
 	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto, @PathVariable Long id) {
@@ -43,7 +44,7 @@ public class CustomerController {
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody CustomerRequestDto requestDto) {
-		Customer customer = customerService.Update(requestDto, id);
+		Customer customer = customerService.update(requestDto, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(customer);
 	}
 

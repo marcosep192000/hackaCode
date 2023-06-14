@@ -16,9 +16,8 @@ import com.hackacode.marveland.model.dto.response.AuthResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.GameEmployee;
 import com.hackacode.marveland.model.entity.User;
-import com.hackacode.marveland.repository.AdminEmployeeRepository;
-import com.hackacode.marveland.repository.GameEmployeeRepository;
-import com.hackacode.marveland.repository.IEmployeeRepository;
+import com.hackacode.marveland.repository.IAdminEmployeeRepository;
+import com.hackacode.marveland.repository.IGameEmployeeRepository;
 import com.hackacode.marveland.repository.IUserRepository;
 import com.hackacode.marveland.service.IAuthService;
 
@@ -27,13 +26,18 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements IAuthService {
+
         private final IUserRepository userRepository;
-        private final IEmployeeRepository employeeRepository;
+       
         private final PasswordEncoder passwordEncoder;
+
         private final JwtProvider jwtProvider;
+
         private final AuthenticationManager authenticationManager;
-        private final GameEmployeeRepository gameEmployeeRepository;
-        private final AdminEmployeeRepository adminEmployeeRepository;
+
+        private final IGameEmployeeRepository gameEmployeeRepository;
+
+        private final IAdminEmployeeRepository adminEmployeeRepository;
 
         @Override
         public AuthResponseDto register(RegisterRequestDto request) {
@@ -46,6 +50,7 @@ public class AuthServiceImpl implements IAuthService {
                                 .password(passwordEncoder.encode(request.getPassword()))
                                 .role(request.getRole())
                                 .build();
+
                 if (user.getRole().contains("ADMIN")) {
                         AdminEmployee adminEmployee = new AdminEmployee();
                         adminEmployee.setFirstName(request.getFirstName());
@@ -56,6 +61,7 @@ public class AuthServiceImpl implements IAuthService {
                         userRepository.save(user);
                         adminEmployee.setUser(user);
                         adminEmployeeRepository.save(adminEmployee);
+
                 } else if (user.getRole().contains("EMPLOYEE")) {
                         GameEmployee gameEmployee = new GameEmployee();
                         gameEmployee.setFirstName(request.getFirstName());
@@ -66,6 +72,7 @@ public class AuthServiceImpl implements IAuthService {
                         userRepository.save(user);
                         gameEmployeeRepository.save(gameEmployee);
                 }
+                
                 String jwt = jwtProvider.generateToken(user);
                 return AuthResponseDto.builder()
                                 .userId(user.getId())
@@ -78,9 +85,8 @@ public class AuthServiceImpl implements IAuthService {
         @Override
         public AuthResponseDto login(AuthRequestDto request) {
                 try {
-                        authenticationManager
-                                        .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),
-                                                        request.getPassword()));
+                        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                                        request.getUsername(), request.getPassword()));
                 } catch (AuthenticationException e) {
                         throw new BadCredentialsException("Incorrect username or password", e);
                 }
