@@ -1,5 +1,6 @@
 package com.hackacode.marveland.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImpl implements IAuthService {
 
         private final IUserRepository userRepository;
-       
+
         private final PasswordEncoder passwordEncoder;
 
         private final JwtProvider jwtProvider;
@@ -57,9 +58,10 @@ public class AuthServiceImpl implements IAuthService {
                         adminEmployee.setLastName(request.getLastName());
                         adminEmployee.setDni(request.getDni());
                         adminEmployee.setEmail(request.getEmail());
+                        adminEmployee.setUpdateDate(LocalDateTime.now());
+                        adminEmployee.setWorkingHours(request.getWorkingHours());
                         adminEmployee.setUser(user);
                         userRepository.save(user);
-                        adminEmployee.setUser(user);
                         adminEmployeeRepository.save(adminEmployee);
 
                 } else if (user.getRole().contains("EMPLOYEE")) {
@@ -68,11 +70,13 @@ public class AuthServiceImpl implements IAuthService {
                         gameEmployee.setLastName(request.getLastName());
                         gameEmployee.setDni(request.getDni());
                         gameEmployee.setEmail(request.getEmail());
+                        gameEmployee.setUpdateDate(LocalDateTime.now());
+                        gameEmployee.setWorkingHours(request.getWorkingHours());
                         gameEmployee.setUser(user);
                         userRepository.save(user);
                         gameEmployeeRepository.save(gameEmployee);
                 }
-                
+
                 String jwt = jwtProvider.generateToken(user);
                 return AuthResponseDto.builder()
                                 .userId(user.getId())

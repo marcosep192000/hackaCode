@@ -1,6 +1,5 @@
 package com.hackacode.marveland.model.dto.response;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.hackacode.marveland.model.entity.OpenHours;
@@ -16,7 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameResponseDto implements Serializable {
+public class GameResponseDto {
 
     private Long id;
 
