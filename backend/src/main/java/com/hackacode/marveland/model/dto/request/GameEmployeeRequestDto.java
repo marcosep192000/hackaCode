@@ -15,7 +15,7 @@ public class GameEmployeeRequestDto {
 
     private String lastName;
 
-    private int dni;
+    private Integer dni;
 
     private String email;
 

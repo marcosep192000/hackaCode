@@ -43,13 +43,13 @@ public class Employee {
     private String lastName;
 
     @Column(name = "DNI")
-    private int dni;
+    private Integer dni;
 
     @Column(name = "EMAIL")
     private String email;
 
     @UpdateTimestamp
-    @Column(name = "updated_on_date")
+    @Column(name = "UPDATE_DATE")
     private LocalDateTime updateDate;
 
     @Column(name = "WORKING_HOURS")

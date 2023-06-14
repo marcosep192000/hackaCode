@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GameEmployeeResponseDto {
+	
 	@Column(name = "EMPLOYEE_ID")
 	private Long id;
 

@@ -26,6 +26,4 @@ public class TicketResponseDto {
     private String gameDescription;
 
     private Double gamePrice;
-
-    private PurchaseDetailsResponseDto purchaseDetails;
 }
