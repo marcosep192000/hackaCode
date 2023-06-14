@@ -18,7 +18,7 @@ public class OpenHoursController {
     private final IOpenHoursService openHoursService;
 
     @PostMapping("/create")
-    public OpenHoursRequestDto createOpenHours(@RequestBody OpenHoursRequestDto openHours){
+    public OpenHoursRequestDto  createOpenHours(@RequestBody OpenHoursRequestDto openHours){
         openHoursService.createOpenHours(openHours);
         return openHours;
     }
