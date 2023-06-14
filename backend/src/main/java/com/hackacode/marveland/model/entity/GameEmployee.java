@@ -19,5 +19,4 @@ public class GameEmployee extends Employee {
 
     @OneToMany(mappedBy = "gameEmployee")
     private List<PurchaseDetails> salesList;
-    // openhours relations
 }

@@ -1,18 +1,13 @@
 package com.hackacode.marveland.model.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
 import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
-import com.hackacode.marveland.repository.AdminEmployeeRepository;
-import org.springframework.stereotype.Component;
 
 @Component
 public class AdminEmployeeMapper {
-	private final AdminEmployeeRepository adminEmployeeRepository;
-
-	public AdminEmployeeMapper(AdminEmployeeRepository adminEmployeeRepository) {
-		this.adminEmployeeRepository = adminEmployeeRepository;
-	}
 
 	public AdminEmployeeResponseDto fromEntityToDto(AdminEmployee adminEmployee){
         AdminEmployeeResponseDto responseDto = new AdminEmployeeResponseDto();

@@ -1,13 +1,14 @@
 package com.hackacode.marveland.service;
 
+import java.util.List;
+
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.TicketResponseDto;
-
-import java.util.List;
+import com.hackacode.marveland.model.entity.Ticket;
 
 public interface ITicketService {
 
-    public void createTicket (TicketRequestDto ticketRequestDto);
+    public Ticket createTicket(TicketRequestDto ticketRequestDto);
 
     public List<TicketResponseDto> getAllTickets();
 

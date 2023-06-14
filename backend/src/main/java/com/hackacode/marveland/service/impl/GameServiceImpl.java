@@ -3,8 +3,10 @@ package com.hackacode.marveland.service.impl;
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
 import com.hackacode.marveland.model.dto.response.GameResponseDto;
 import com.hackacode.marveland.model.entity.Game;
+import com.hackacode.marveland.model.entity.OpenHours;
 import com.hackacode.marveland.model.mapper.GameMapper;
 import com.hackacode.marveland.repository.IGameRepository;
+import com.hackacode.marveland.repository.IOpenHoursRepository;
 import com.hackacode.marveland.service.IGameService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +23,13 @@ public class GameServiceImpl implements IGameService {
     private final GameMapper gameMapper;
 
     private final IGameRepository gameRepository;
+
+    private final IOpenHoursRepository openHoursRepository;
+    
     @Transactional
     public void createGame(GameRequestDto gameRequestDto) {
-        Game game = gameMapper.fromDtoToEntity(gameRequestDto);
+        OpenHours openHours = openHoursRepository.findById(gameRequestDto.getOpenHoursId()).orElseThrow();
+        Game game = gameMapper.fromDtoToEntity(gameRequestDto, openHours);
         gameRepository.save(game);
     }
 

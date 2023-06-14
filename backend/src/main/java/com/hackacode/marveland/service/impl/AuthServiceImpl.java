@@ -34,6 +34,7 @@ public class AuthServiceImpl implements IAuthService {
         private final AuthenticationManager authenticationManager;
         private final GameEmployeeRepository gameEmployeeRepository;
         private final AdminEmployeeRepository adminEmployeeRepository;
+
         @Override
         public AuthResponseDto register(RegisterRequestDto request) {
                 Optional<User> userOptional = userRepository.findByUsername(request.getUsername());
@@ -41,10 +42,10 @@ public class AuthServiceImpl implements IAuthService {
                         throw new RuntimeException("Username already in use");
                 }
                 User user = User.builder()
-                        .username(request.getUsername())
-                        .password(passwordEncoder.encode(request.getPassword()))
-                        .role(request.getRole())
-                        .build();
+                                .username(request.getUsername())
+                                .password(passwordEncoder.encode(request.getPassword()))
+                                .role(request.getRole())
+                                .build();
                 if (user.getRole().contains("ADMIN")) {
                         AdminEmployee adminEmployee = new AdminEmployee();
                         adminEmployee.setFirstName(request.getFirstName());
@@ -55,8 +56,7 @@ public class AuthServiceImpl implements IAuthService {
                         userRepository.save(user);
                         adminEmployee.setUser(user);
                         adminEmployeeRepository.save(adminEmployee);
-                }
-                else if (user.getRole().contains("EMPLOYEE")) {
+                } else if (user.getRole().contains("EMPLOYEE")) {
                         GameEmployee gameEmployee = new GameEmployee();
                         gameEmployee.setFirstName(request.getFirstName());
                         gameEmployee.setLastName(request.getLastName());
@@ -72,16 +72,18 @@ public class AuthServiceImpl implements IAuthService {
                                 .role(user.getRole())
                                 .token(jwt)
                                 .build();
-                
+
         }
+
         @Override
         public AuthResponseDto login(AuthRequestDto request) {
                 try {
                         authenticationManager
-                                .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),
-                                        request.getPassword()));
+                                        .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),
+                                                        request.getPassword()));
                 } catch (AuthenticationException e) {
-                        throw new BadCredentialsException("Incorrect username or password", e);}
+                        throw new BadCredentialsException("Incorrect username or password", e);
+                }
                 User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
                 String jwt = jwtProvider.generateToken(user);
                 return AuthResponseDto.builder()

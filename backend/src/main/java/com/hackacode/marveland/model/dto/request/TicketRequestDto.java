@@ -1,6 +1,5 @@
 package com.hackacode.marveland.model.dto.request;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TicketRequestDto implements Serializable {
+public class TicketRequestDto {
 
     private String fullName;
 
