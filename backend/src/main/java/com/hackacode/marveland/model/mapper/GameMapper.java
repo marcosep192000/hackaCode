@@ -13,7 +13,7 @@ public class GameMapper {
     public GameResponseDto fromEntityToDto(Game game) {
         return GameResponseDto.builder()
                 .id(game.getId())
-                .description(game.getDescription())
+                .name(game.getName())
                 .openHours(game.getOpenHours())
                 .capacity(game.getCapacity())
                 .price(game.getPrice())
@@ -24,7 +24,7 @@ public class GameMapper {
 
     public Game fromDtoToEntity(GameRequestDto gameRequestDto, OpenHours openHours) {
         return Game.builder()
-                .description(gameRequestDto.getDescription())
+                .name(gameRequestDto.getName())
                 .openHours(openHours)
                 .capacity(gameRequestDto.getCapacity())
                 .price(gameRequestDto.getPrice())
@@ -32,7 +32,7 @@ public class GameMapper {
     }
 
     public Game updateGame(Game game, GameRequestDto gameRequestDto, OpenHours openHours) {
-        game.setDescription(gameRequestDto.getDescription());
+        game.setName(gameRequestDto.getName());
         game.setOpenHours(openHours);
         game.setCapacity(gameRequestDto.getCapacity());
         game.setPrice(gameRequestDto.getPrice());
