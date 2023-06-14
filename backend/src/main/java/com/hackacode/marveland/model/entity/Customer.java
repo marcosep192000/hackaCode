@@ -26,6 +26,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Builder.Default;
 
 @Builder
 @Getter
@@ -67,6 +68,7 @@ public class Customer {
 	private String birthDate;
 
 	@Column(name = "STATE")
+	@Default
 	private boolean state = Boolean.FALSE;
 
 	@UpdateTimestamp

@@ -22,6 +22,7 @@ public class OpenHoursController {
         openHoursService.createOpenHours(openHours);
         return openHours;
     }
+    
     @PostMapping("/update")
     public ResponseEntity<OpenHoursResponseDto> updateOpenHours(@RequestParam Long id, @RequestBody OpenHoursRequestDto openHours){
         OpenHoursResponseDto response = openHoursService.updateHours(id, openHours);

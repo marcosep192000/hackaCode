@@ -11,7 +11,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsUtils;
 
 import com.hackacode.marveland.config.jwt.JwtAuthFilter;
-import com.hackacode.marveland.util.enums.Role;
 
 import lombok.RequiredArgsConstructor;
 

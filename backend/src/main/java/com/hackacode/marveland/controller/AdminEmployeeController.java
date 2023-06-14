@@ -1,6 +1,5 @@
 package com.hackacode.marveland.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,39 +10,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
-import com.hackacode.marveland.repository.AdminEmployeeRepository;
-import com.hackacode.marveland.service.impl.AdminEmployeeServiceImpl;
+import com.hackacode.marveland.service.IAdminEmployeeService;
 import com.hackacode.marveland.util.Exeptions.GeneralMessage;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/admin")
+@RequiredArgsConstructor
 public class AdminEmployeeController {
-	@Autowired
-	AdminEmployeeServiceImpl adminEmployee;
-	@Autowired
-	AdminEmployeeRepository admi;
+
+	private final IAdminEmployeeService adminEmployeeService;
 
 	// devuelve todos los admin mas sus clientes
 	@GetMapping("/all-admin-customer")
 	public ResponseEntity<?> ListCustomer() {
-		return ResponseEntity.status(HttpStatus.OK).body(adminEmployee.getAllAdminCustomer());
+		return ResponseEntity.status(HttpStatus.OK).body(adminEmployeeService.getAllAdminCustomer());
 	}
 
 	@GetMapping("/all-admin")
 	public ResponseEntity<?> listAdmin() {
-		return ResponseEntity.status(HttpStatus.OK).body(adminEmployee.getAllAdmin());
+		return ResponseEntity.status(HttpStatus.OK).body(adminEmployeeService.getAllAdmin());
 	}
 
 	@GetMapping("/find/{id}")
 	public ResponseEntity<?> findByDni(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(adminEmployee.getById(id));
+		return ResponseEntity.status(HttpStatus.OK).body(adminEmployeeService.getById(id));
 	}
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody AdminEmployeeRequestDto requestDto) {
-		adminEmployee.Update(requestDto, id);
-		return ResponseEntity.status(HttpStatus.OK).body(new GeneralMessage("Admin Update"));
+		adminEmployeeService.update(requestDto, id);
+		return ResponseEntity.status(HttpStatus.OK).body(new GeneralMessage("Admin Updated"));
 	}
 }
