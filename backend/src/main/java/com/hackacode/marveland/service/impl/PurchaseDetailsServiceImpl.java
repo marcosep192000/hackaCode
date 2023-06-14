@@ -7,15 +7,18 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.PurchaseDetailsRequestDto;
+import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.PurchaseDetailsResponseDto;
 import com.hackacode.marveland.model.entity.Customer;
 import com.hackacode.marveland.model.entity.GameEmployee;
 import com.hackacode.marveland.model.entity.PurchaseDetails;
+import com.hackacode.marveland.model.entity.Ticket;
 import com.hackacode.marveland.model.mapper.PurchaseDetailsMapper;
 import com.hackacode.marveland.repository.CustomerRepository;
 import com.hackacode.marveland.repository.GameEmployeeRepository;
 import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
 import com.hackacode.marveland.service.IPurchaseDetailsService;
+import com.hackacode.marveland.service.ITicketService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,14 +30,28 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     private final IPurchaseDetailsRepository purchaseDetailsRepository;
     private final CustomerRepository customerRepository;
     private final GameEmployeeRepository gameEmployeeRepository;
+    private final ITicketService ticketService;
 
     @Override
-    public void createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto) {
-    
+    public PurchaseDetails createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto) {
+
+        // extraigo al customer y empleado asignados en el dto del detalle de compra
         Customer customer = customerRepository.findById(purchaseDetailsRequestDto.getCustomerId()).orElseThrow();
-        GameEmployee gameEmployee = gameEmployeeRepository.findById(purchaseDetailsRequestDto.getGameEmployeeId()).orElseThrow();
-        PurchaseDetails purchaseDetails = purchaseDetailsMapper.fromDtoToEntity(purchaseDetailsRequestDto, customer, gameEmployee);
-        purchaseDetailsRepository.save(purchaseDetails);
+        GameEmployee gameEmployee = gameEmployeeRepository.findById(purchaseDetailsRequestDto.getGameEmployeeId())
+                .orElseThrow();
+
+        // extraigo los tickets del dto de detalle de compra y los creo, llamando al
+        // servicio de tickets
+        List<TicketRequestDto> ticketsDto = purchaseDetailsRequestDto.getTickets();
+        List<Ticket> tickets = new ArrayList<>();
+        for (TicketRequestDto ticketDto : ticketsDto) {
+            tickets.add(ticketService.createTicket(ticketDto));
+        }
+
+        PurchaseDetails purchaseDetails = purchaseDetailsMapper.fromDtoToEntity(purchaseDetailsRequestDto, customer,
+                gameEmployee, tickets);
+
+        return purchaseDetailsRepository.save(purchaseDetails);
     }
 
     @Override

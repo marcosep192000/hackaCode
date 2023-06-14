@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GameEmployeeRequestDto {
 
-	private String firstName;
+    private String firstName;
 
     private String lastName;
 
@@ -19,8 +19,7 @@ public class GameEmployeeRequestDto {
 
     private String email;
 
-	private String password;
+    private String password;
 
-	// "18:00 a 22:00"
     private String workingHours;
 }

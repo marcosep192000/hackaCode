@@ -41,7 +41,7 @@ public class Game {
 
     @Column(name = "CAPACITY")
     private Integer capacity;
-    
+
     @Column(name = "PRICE")
     private Double price;
 

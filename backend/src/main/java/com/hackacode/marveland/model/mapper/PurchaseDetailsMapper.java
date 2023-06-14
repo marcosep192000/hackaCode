@@ -23,14 +23,14 @@ public class PurchaseDetailsMapper {
     }
 
     public PurchaseDetails fromDtoToEntity(PurchaseDetailsRequestDto purchaseDetailsRequestDto, Customer customer,
-            GameEmployee gameEmployee /*,List<Ticket> tickets*/) {
+            GameEmployee gameEmployee, List<Ticket> tickets) {
         return PurchaseDetails.builder()
                 .details(purchaseDetailsRequestDto.getDetails())
                 .date(purchaseDetailsRequestDto.getDate())
                 .paymentMethod(purchaseDetailsRequestDto.getPaymentMethod())
                 .customer(customer)
                 .gameEmployee(gameEmployee)
-                // .tickets(tickets)
+                .tickets(tickets)
                 .build();
     }
 }

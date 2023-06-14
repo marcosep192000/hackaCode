@@ -18,7 +18,7 @@ import lombok.Setter;
 @Table(name = "ADMIN_EMPLOYEE")
 public class AdminEmployee extends Employee {
 
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "adminEmployee" )
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "adminEmployee")
 	@JsonIgnoreProperties("adminEmployee")
 	private List<Customer> customerList = new ArrayList<>();
 }

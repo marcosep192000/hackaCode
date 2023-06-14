@@ -1,5 +1,7 @@
 package com.hackacode.marveland.model.dto.request;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerRequestDto {
+public class CustomerRequestDto implements Serializable {
 
 	private String firstName;
 

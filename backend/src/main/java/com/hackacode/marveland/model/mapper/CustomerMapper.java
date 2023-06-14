@@ -1,26 +1,27 @@
 package com.hackacode.marveland.model.mapper;
 
-import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
+import org.springframework.stereotype.Component;
+
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
 import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.Customer;
-import org.springframework.stereotype.Component;
 
 @Component
 public class CustomerMapper {
-	public Customer FromDtoToEntity(CustomerRequestDto requestDto, AdminEmployee adminEmployee){
-	return Customer.builder()
-			.dni(requestDto.getDni())
-			.email(requestDto.getEmail())
-			.firstName(requestDto.getFirstName())
-			.birthDate(requestDto.getBirthDate())
-			.lastName(requestDto.getLastName())
-			.adminEmployee(adminEmployee)
-			.build();
+	
+	public Customer FromDtoToEntity(CustomerRequestDto requestDto, AdminEmployee adminEmployee) {
+		return Customer.builder()
+				.dni(requestDto.getDni())
+				.email(requestDto.getEmail())
+				.firstName(requestDto.getFirstName())
+				.birthDate(requestDto.getBirthDate())
+				.lastName(requestDto.getLastName())
+				.adminEmployee(adminEmployee)
+				.build();
 	}
-	public CustomerResponseDto fromEntityToDto (Customer customer){
+
+	public CustomerResponseDto fromEntityToDto(Customer customer) {
 		return CustomerResponseDto.builder()
 				.id(customer.getId())
 				.birthDate(customer.getBirthDate())
@@ -30,7 +31,7 @@ public class CustomerMapper {
 				.build();
 	}
 
-	public Customer Update(Customer customer, CustomerRequestDto customerRequestDto ) {
+	public Customer Update(Customer customer, CustomerRequestDto customerRequestDto) {
 		customer.setBirthDate(customerRequestDto.getBirthDate());
 		customer.setDni(customerRequestDto.getDni());
 		customer.setLastName(customerRequestDto.getLastName());

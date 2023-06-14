@@ -1,10 +1,8 @@
 package com.hackacode.marveland.model.dto.request;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.hackacode.marveland.model.entity.Ticket;
 import com.hackacode.marveland.util.enums.PaymentMethod;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +16,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PurchaseDetailsRequestDto implements Serializable {
+public class PurchaseDetailsRequestDto {
 
     private String details;
 
@@ -30,5 +28,5 @@ public class PurchaseDetailsRequestDto implements Serializable {
 
     private Long gameEmployeeId;
 
-    private List<Ticket> tickets;
+    private List<TicketRequestDto> tickets;
 }

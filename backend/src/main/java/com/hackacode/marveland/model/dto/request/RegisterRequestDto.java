@@ -3,7 +3,6 @@ package com.hackacode.marveland.model.dto.request;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,13 +35,11 @@ public class RegisterRequestDto {
     @Size(min = 3, max = 50, message = "min 3 characters max 50")
     private String lastName;
 
-    @Column(name= "DNI")
+    @Column(name = "DNI")
     private int dni;
 
     @Email(message = "incorrect format")
     @NotBlank(message = "this field can not be blank")
     @Column(name = "EMAIL")
     private String email;
-
-
 }
