@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GameRequestDto {
 
-    private String description;
+    private String name;
 
     private Long openHoursId;
 

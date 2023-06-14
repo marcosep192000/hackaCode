@@ -21,7 +21,7 @@ public class GameResponseDto {
 
     private Long id;
 
-    private String description;
+    private String name;
 
     private OpenHours openHours;
 

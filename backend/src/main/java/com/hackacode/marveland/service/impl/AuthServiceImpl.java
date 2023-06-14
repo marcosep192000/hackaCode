@@ -57,7 +57,7 @@ public class AuthServiceImpl implements IAuthService {
                         adminEmployee.setFirstName(request.getFirstName());
                         adminEmployee.setLastName(request.getLastName());
                         adminEmployee.setDni(request.getDni());
-                        adminEmployee.setEmail(request.getEmail());
+                        adminEmployee.setEmail(request.getUsername());
                         adminEmployee.setUpdateDate(LocalDateTime.now());
                         adminEmployee.setWorkingHours(request.getWorkingHours());
                         adminEmployee.setUser(user);
@@ -69,7 +69,7 @@ public class AuthServiceImpl implements IAuthService {
                         gameEmployee.setFirstName(request.getFirstName());
                         gameEmployee.setLastName(request.getLastName());
                         gameEmployee.setDni(request.getDni());
-                        gameEmployee.setEmail(request.getEmail());
+                        gameEmployee.setEmail(request.getUsername());
                         gameEmployee.setUpdateDate(LocalDateTime.now());
                         gameEmployee.setWorkingHours(request.getWorkingHours());
                         gameEmployee.setUser(user);

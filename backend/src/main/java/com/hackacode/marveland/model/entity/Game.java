@@ -32,8 +32,8 @@ public class Game {
     @Column(name = "GAME_ID", nullable = false)
     private Long id;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "NAME")
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "OPEN_HOURS_ID", referencedColumnName = "OPEN_HOURS_ID")
