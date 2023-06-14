@@ -29,7 +29,7 @@ public class OpenHoursController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<OpenHoursResponseDto>> getAllOpenHours(){
         List<OpenHoursResponseDto> response = openHoursService.getAllOpenHours();
         return ResponseEntity.ok().body(response);

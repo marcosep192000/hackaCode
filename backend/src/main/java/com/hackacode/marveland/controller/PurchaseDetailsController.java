@@ -31,13 +31,13 @@ public class PurchaseDetailsController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<PurchaseDetailsResponseDto>> getAllPurchases() {
         List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getAllPurchases();
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PurchaseDetailsResponseDto> getPurchaseById(@RequestParam Long id) {
         PurchaseDetailsResponseDto response = purchaseDetailsService.getPurchaseById(id);
         return ResponseEntity.ok().body(response);

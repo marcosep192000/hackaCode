@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
 import com.hackacode.marveland.service.IAdminEmployeeService;
-import com.hackacode.marveland.util.Exeptions.GeneralMessage;
+import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
