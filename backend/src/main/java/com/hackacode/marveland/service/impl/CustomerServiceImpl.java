@@ -1,5 +1,6 @@
 package com.hackacode.marveland.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,13 +30,12 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Override
 	@Transactional
-	public void create(CustomerRequestDto requestDto, Long id) {
-		AdminEmployee adminEmployee = adminEmployeeService.findById(id)
+	public void create(CustomerRequestDto customerRequestDto, Long adminId) {
+		AdminEmployee adminEmployee = adminEmployeeService.findById(adminId)
 				.orElseThrow(() -> new RuntimeException("Id does not exist"));
-		Optional<Customer> customer = Optional.ofNullable(customerRepository.findByDni(requestDto.getDni()));
-		System.out.println(customer);
+		Optional<Customer> customer = Optional.ofNullable(customerRepository.findByDni(customerRequestDto.getDni()));
 		if (customer.isEmpty()) {
-			Customer customer1 = customerMapper.FromDtoToEntity(requestDto, adminEmployee);
+			Customer customer1 = customerMapper.FromDtoToEntity(customerRequestDto, adminEmployee);
 			customerRepository.save(customer1);
 			adminEmployee.getCustomerList().add(customer1);
 		} else {
@@ -54,7 +54,13 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Override
 	public List<CustomerResponseDto> getAll() {
-		return null;
+		List<Customer> customers = customerRepository.findAll();
+		List<CustomerResponseDto> customerResponseDtoList = new ArrayList<>();
+		customers.forEach(customer -> {
+			CustomerResponseDto response = customerMapper.fromEntityToDto(customer);
+			customerResponseDtoList.add(response);
+		});
+		return customerResponseDtoList;
 	}
 
 	@Override

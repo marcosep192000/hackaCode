@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "game_employee")
+@Table(name = "GAME_EMPLOYEES")
 public class GameEmployee extends Employee {
 
     @OneToMany(mappedBy = "gameEmployee")
