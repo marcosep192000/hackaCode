@@ -42,26 +42,26 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull(message = "this field can not be blank")
+
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 
-	@NotBlank(message = "this field can not be blank")
+
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
 	@Column(name = "DNI")
 	private Integer dni;
 
-	@NotBlank(message = "this field can not be blank")
+
 	@Column(name = "EMAIL")
 	private String email;
 
-	@NotBlank(message = "this field can not be blank")
+
 	@Column(name = "PHONE")
 	private String phone;
 
-	@NotBlank(message = "this field can not be blank")
+
 	@Column(name = "BIRTHDATE")
 	private String birthdate;
 
