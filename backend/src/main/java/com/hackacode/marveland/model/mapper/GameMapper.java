@@ -17,7 +17,7 @@ public class GameMapper {
                 .openHours(game.getOpenHours())
                 .capacity(game.getCapacity())
                 .price(game.getPrice())
-                .gameEmployee(game.getGameEmployee())
+                .employees(game.getEmployees())
                 .tickets(game.getTickets())
                 .build();
     }

@@ -6,7 +6,7 @@ import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
 import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 
-public interface IAdminEmployeeService {
+public interface IEmployeeService {
 
 	public void update(AdminEmployeeRequestDto requestDto, Long id);
 

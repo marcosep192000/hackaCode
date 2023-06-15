@@ -29,7 +29,7 @@ public class GameResponseDto {
 
     private Double price;
 
-    private GameEmployee gameEmployee;
+    private List<GameEmployee> employees;
 
     private List<Ticket> tickets;
 }

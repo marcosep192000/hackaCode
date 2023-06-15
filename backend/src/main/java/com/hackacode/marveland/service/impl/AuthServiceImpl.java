@@ -38,7 +38,6 @@ public class AuthServiceImpl implements IAuthService {
 
         private final IEmployeeRepository employeeRepository;
 
-
         @Override
         public AuthResponseDto register(RegisterRequestDto request) {
                 Optional<User> userOptional = userRepository.findByUsername(request.getUsername());
@@ -71,11 +70,10 @@ public class AuthServiceImpl implements IAuthService {
                 userRepository.save(user);
                 employeeRepository.save(employee);
 
-                String jwt = jwtProvider.generateToken(user);
                 return AuthResponseDto.builder()
                                 .userId(user.getId())
                                 .role(user.getRole())
-                                .token(jwt)
+                                .token(jwtProvider.generateToken(user))
                                 .build();
         }
 
@@ -88,11 +86,10 @@ public class AuthServiceImpl implements IAuthService {
                         throw new BadCredentialsException("Incorrect username or password", e);
                 }
                 User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
-                String jwt = jwtProvider.generateToken(user);
                 return AuthResponseDto.builder()
                                 .userId(user.getId())
                                 .role(user.getRole())
-                                .token(jwt)
+                                .token(jwtProvider.generateToken(user))
                                 .build();
         }
 }
