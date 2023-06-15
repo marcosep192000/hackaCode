@@ -8,20 +8,20 @@ import org.springframework.stereotype.Service;
 import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
 import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
-import com.hackacode.marveland.model.mapper.AdminEmployeeMapper;
+import com.hackacode.marveland.model.mapper.EmployeeMapper;
 import com.hackacode.marveland.repository.IAdminEmployeeRepository;
-import com.hackacode.marveland.service.IAdminEmployeeService;
+import com.hackacode.marveland.service.IEmployeeService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AdminEmployeeServiceImpl implements IAdminEmployeeService {
+public class EmployeeServiceImpl implements IEmployeeService {
 
 	private final IAdminEmployeeRepository adminEmployeeRepository;
 
-	private final AdminEmployeeMapper mapper;
+	private final EmployeeMapper mapper;
 
 	@Override
 	public void update(AdminEmployeeRequestDto requestDto, Long id) {

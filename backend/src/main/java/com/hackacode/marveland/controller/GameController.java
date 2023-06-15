@@ -17,6 +17,8 @@ public class GameController {
 
     private final IGameService gameService;
 
+    // Juego con la mayor cantidad de entradas vendidas
+    
     @PostMapping("/create")
     public GameRequestDto createGame(@RequestBody GameRequestDto game){
         gameService.createGame(game);
@@ -40,6 +42,7 @@ public class GameController {
         GameResponseDto response = gameService.getGameById(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
+    
     @DeleteMapping("/{id}")
     public void deleteGame(@PathVariable Long id){gameService.deleteGame(id);
     }

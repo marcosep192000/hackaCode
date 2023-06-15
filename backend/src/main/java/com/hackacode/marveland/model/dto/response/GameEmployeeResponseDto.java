@@ -26,4 +26,6 @@ public class GameEmployeeResponseDto {
 	private LocalDateTime updateDate;
 
 	private String workingHours;
+
+	private String game;
 }

@@ -28,6 +28,8 @@ public class CustomerController {
 
 	private final ICustomerService customerService;
 
+	// Comprador que más entradas compró en un determinado mes y año.
+
 	@PostMapping("/create/{adminId}")
 	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto,
 			@PathVariable Long adminId) {

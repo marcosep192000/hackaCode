@@ -24,6 +24,9 @@ public class PurchaseDetailsController {
 
     private final IPurchaseDetailsService purchaseDetailsService;
 
+    // Sumatoria total de los montos de ventas en un determinado día.
+    // Sumatoria total de los montos de ventas en un determinado mes y año.
+
     @PostMapping("/create")
     public ResponseEntity<PurchaseDetailsResponseDto> createPurchaseDetails(
             @RequestBody PurchaseDetailsRequestDto purchaseDetails) {
