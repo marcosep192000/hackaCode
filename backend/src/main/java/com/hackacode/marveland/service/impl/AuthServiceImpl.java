@@ -15,10 +15,10 @@ import com.hackacode.marveland.model.dto.request.AuthRequestDto;
 import com.hackacode.marveland.model.dto.request.RegisterRequestDto;
 import com.hackacode.marveland.model.dto.response.AuthResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
+import com.hackacode.marveland.model.entity.Employee;
 import com.hackacode.marveland.model.entity.GameEmployee;
 import com.hackacode.marveland.model.entity.User;
-import com.hackacode.marveland.repository.IAdminEmployeeRepository;
-import com.hackacode.marveland.repository.IGameEmployeeRepository;
+import com.hackacode.marveland.repository.IEmployeeRepository;
 import com.hackacode.marveland.repository.IUserRepository;
 import com.hackacode.marveland.service.IAuthService;
 
@@ -36,9 +36,8 @@ public class AuthServiceImpl implements IAuthService {
 
         private final AuthenticationManager authenticationManager;
 
-        private final IGameEmployeeRepository gameEmployeeRepository;
+        private final IEmployeeRepository employeeRepository;
 
-        private final IAdminEmployeeRepository adminEmployeeRepository;
 
         @Override
         public AuthResponseDto register(RegisterRequestDto request) {
@@ -52,30 +51,25 @@ public class AuthServiceImpl implements IAuthService {
                                 .role(request.getRole())
                                 .build();
 
+                Employee employee;
                 if (user.getRole().contains("ADMIN")) {
-                        AdminEmployee adminEmployee = new AdminEmployee();
-                        adminEmployee.setFirstName(request.getFirstName());
-                        adminEmployee.setLastName(request.getLastName());
-                        adminEmployee.setDni(request.getDni());
-                        adminEmployee.setEmail(request.getUsername());
-                        adminEmployee.setUpdateDate(LocalDateTime.now());
-                        adminEmployee.setWorkingHours(request.getWorkingHours());
-                        adminEmployee.setUser(user);
-                        userRepository.save(user);
-                        adminEmployeeRepository.save(adminEmployee);
-
+                        employee = new AdminEmployee();
                 } else if (user.getRole().contains("EMPLOYEE")) {
-                        GameEmployee gameEmployee = new GameEmployee();
-                        gameEmployee.setFirstName(request.getFirstName());
-                        gameEmployee.setLastName(request.getLastName());
-                        gameEmployee.setDni(request.getDni());
-                        gameEmployee.setEmail(request.getUsername());
-                        gameEmployee.setUpdateDate(LocalDateTime.now());
-                        gameEmployee.setWorkingHours(request.getWorkingHours());
-                        gameEmployee.setUser(user);
-                        userRepository.save(user);
-                        gameEmployeeRepository.save(gameEmployee);
+                        employee = new GameEmployee();
+                } else {
+                        throw new RuntimeException("Invalid role");
                 }
+
+                employee.setFirstName(request.getFirstName());
+                employee.setLastName(request.getLastName());
+                employee.setDni(request.getDni());
+                employee.setEmail(request.getUsername());
+                employee.setUpdateDate(LocalDateTime.now());
+                employee.setWorkingHours(request.getWorkingHours());
+                employee.setUser(user);
+
+                userRepository.save(user);
+                employeeRepository.save(employee);
 
                 String jwt = jwtProvider.generateToken(user);
                 return AuthResponseDto.builder()
@@ -83,7 +77,6 @@ public class AuthServiceImpl implements IAuthService {
                                 .role(user.getRole())
                                 .token(jwt)
                                 .build();
-
         }
 
         @Override

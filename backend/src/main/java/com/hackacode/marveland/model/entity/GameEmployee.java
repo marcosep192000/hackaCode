@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +15,8 @@ import lombok.Setter;
 @Table(name = "GAME_EMPLOYEES")
 public class GameEmployee extends Employee {
 
-    @OneToMany(mappedBy = "gameEmployee")
-    private List<Game> games;
+    @OneToOne(mappedBy = "gameEmployee")
+    private Game game;
 
     @OneToMany(mappedBy = "gameEmployee")
     private List<PurchaseDetails> salesList;
