@@ -1,5 +1,5 @@
 package com.hackacode.marveland.specification;
 
-public class CustomerSpec {
+public class PurchaseDetailsSpecification {
     
 }

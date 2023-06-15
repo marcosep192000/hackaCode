@@ -30,7 +30,7 @@ public class CustomerController {
 
 	// Comprador que más entradas compró en un determinado mes y año.
 
-	@PostMapping("/create/{adminId}")
+	@PostMapping("/create")
 	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto,
 			@PathVariable Long adminId) {
 		customerService.create(customerRequestDto, adminId);
