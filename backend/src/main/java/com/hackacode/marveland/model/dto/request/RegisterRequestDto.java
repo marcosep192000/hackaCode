@@ -37,4 +37,6 @@ public class RegisterRequestDto {
 
     @NotBlank(message = "this field can not be blank")
     private String workingHours;
+
+    private Long gameId;
 }
