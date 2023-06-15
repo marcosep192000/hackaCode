@@ -44,7 +44,8 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
         GameEmployee gameEmployee = gameEmployeeRepository.findById(purchaseDetailsRequestDto.getGameEmployeeId())
                 .orElseThrow();
 
-        // extraigo los tickets del dto de detalle de compra y los guardo llamando al servicio de tickets
+        // extraigo los tickets del dto de detalle de compra y los guardo llamando al
+        // servicio de tickets
         List<TicketRequestDto> ticketsDto = purchaseDetailsRequestDto.getTickets();
         List<Ticket> tickets = new ArrayList<>();
         for (TicketRequestDto ticketDto : ticketsDto) {
@@ -57,8 +58,17 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
         purchaseDetailsRepository.save(purchaseDetails);
 
         // calcular el total de la compra
-        Double finalPrice = 10.50;
+        Double finalPrice = this.calculateFinalPrice(purchaseDetails.getTickets());
+
         return purchaseDetailsMapper.fromEntityToDto(purchaseDetails, finalPrice);
+    }
+
+    private Double calculateFinalPrice(List<Ticket> tickets) {
+        Double finalPrice = 0.00;
+        for (Ticket ticket : tickets) {
+            finalPrice += ticket.getGame().getPrice();
+        }
+        return finalPrice;
     }
 
     @Override
