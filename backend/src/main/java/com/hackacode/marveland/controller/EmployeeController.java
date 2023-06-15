@@ -21,31 +21,31 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmployeeController {
 
-	private final IEmployeeService adminEmployeeService;
+	private final IEmployeeService employeeService;
 
-	// getmapping --> traer lista de empleados por filtro: rol, horario de trabajo, etc
+	// getmapping --> traer lista de empleados por filtro: rol, horario de trabajo,
+	// etc
+	// Ej: Lista de empleados encargados
+	// getmapping --> traer lista de empleados por filtro: rol, horario de trabajo,
+	// etc
 	// Ej: Lista de empleados encargados de juegos con su juego asignado.
+	// postmapping --> asignar juego a un empleado de juegos con su juego asignado.
 	// postmapping --> asignar juego a un empleado
 
-	// devuelve todos los admin mas sus clientes
-	@GetMapping("/all-admin-customer")
-	public ResponseEntity<?> ListCustomer() {
-		return ResponseEntity.status(HttpStatus.OK).body(adminEmployeeService.getAllAdminCustomer());
-	}
-
 	@GetMapping("/all")
-	public ResponseEntity<?> listAdmin() {
-		return ResponseEntity.status(HttpStatus.OK).body(adminEmployeeService.getAllAdmin());
+	public ResponseEntity<?> getAllEmployees() {
+		return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllEmployees());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> findByDni(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(adminEmployeeService.getById(id));
+	public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(employeeService.getEmployeeById(id));
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody AdminEmployeeRequestDto requestDto) {
-		adminEmployeeService.update(requestDto, id);
-		return ResponseEntity.status(HttpStatus.OK).body(new GeneralMessage("Admin Updated"));
+	public ResponseEntity<?> updateEmployee(@Valid @PathVariable Long id,
+			@RequestBody AdminEmployeeRequestDto requestDto) {
+		employeeService.updateEmployee(requestDto, id);
+		return ResponseEntity.status(HttpStatus.OK).body(new GeneralMessage("Employee Updated"));
 	}
 }

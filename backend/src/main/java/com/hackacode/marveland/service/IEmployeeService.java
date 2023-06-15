@@ -4,19 +4,17 @@ import java.util.List;
 
 import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
 import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
-import com.hackacode.marveland.model.entity.AdminEmployee;
+import com.hackacode.marveland.model.entity.Employee;
 
 public interface IEmployeeService {
 
-	public void update(AdminEmployeeRequestDto requestDto, Long id);
+	public List<AdminEmployeeResponseDto> getAllEmployees();
 
-	public List<AdminEmployee> getAllAdminCustomer();
+	public AdminEmployeeResponseDto getEmployeeById(Long id);
 
-	public List<AdminEmployeeResponseDto> getAllAdmin();
+	public List<Employee> getEmployeesByFilters();
 
-	public AdminEmployeeResponseDto getById(Long id);
+	public void updateEmployee(AdminEmployeeRequestDto requestDto, Long id);
 
-	public AdminEmployeeResponseDto getByDni(int dni);
-
-	public void delete(Long id);
+	public void deleteEmployee(Long id);
 }

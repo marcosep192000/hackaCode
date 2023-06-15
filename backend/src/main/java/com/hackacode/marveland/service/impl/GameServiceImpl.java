@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
 import com.hackacode.marveland.model.dto.response.GameResponseDto;
 import com.hackacode.marveland.model.entity.Game;
+import com.hackacode.marveland.model.entity.GameEmployee;
 import com.hackacode.marveland.model.entity.OpenHours;
 import com.hackacode.marveland.model.mapper.GameMapper;
+import com.hackacode.marveland.repository.IGameEmployeeRepository;
 import com.hackacode.marveland.repository.IGameRepository;
 import com.hackacode.marveland.repository.IOpenHoursRepository;
 import com.hackacode.marveland.service.IGameService;
@@ -26,6 +28,8 @@ public class GameServiceImpl implements IGameService {
 
     private final IGameRepository gameRepository;
 
+    private final IGameEmployeeRepository gameEmployeeRepository;
+
     private final IOpenHoursRepository openHoursRepository;
 
     @Transactional
@@ -33,6 +37,20 @@ public class GameServiceImpl implements IGameService {
         OpenHours openHours = openHoursRepository.findById(gameRequestDto.getOpenHoursId()).orElseThrow();
         Game game = gameMapper.fromDtoToEntity(gameRequestDto, openHours);
         gameRepository.save(game);
+    }
+
+    @Override
+    public GameResponseDto assignEmployeeToGame(Long gameEmployeeId, Long gameId) {
+        GameEmployee gameEmployee = gameEmployeeRepository.findById(gameEmployeeId).orElseThrow();
+        Game game = gameRepository.findById(gameId).orElseThrow();
+
+        gameEmployee.setGame(game);
+        game.getEmployees().add(gameEmployee);
+
+        gameEmployeeRepository.save(gameEmployee);
+        gameRepository.save(game);
+
+        return gameMapper.fromEntityToDto(game);
     }
 
     @Transactional
@@ -43,6 +61,24 @@ public class GameServiceImpl implements IGameService {
         gameRepository.save(updateGame);
         GameResponseDto response = gameMapper.fromEntityToDto(updateGame);
         return response;
+    }
+
+    @Override
+    public GameResponseDto getMostPopularGame() {
+        List<Game> games = gameRepository.findAll();
+
+        Game mostPopularGame = null;
+        int maxTicketsSold = 0;
+
+        for (Game game : games) {
+            int totalTickets = game.getTickets().size();
+            if (totalTickets > maxTicketsSold) {
+                maxTicketsSold = totalTickets;
+                mostPopularGame = game;
+            }
+        }
+
+        return gameMapper.fromEntityToDto(mostPopularGame);
     }
 
     @Override
