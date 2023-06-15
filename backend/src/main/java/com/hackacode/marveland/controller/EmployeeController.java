@@ -2,13 +2,7 @@ package com.hackacode.marveland.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
 import com.hackacode.marveland.service.IEmployeeService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
@@ -17,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/employees")
 @RequiredArgsConstructor
 public class EmployeeController {
