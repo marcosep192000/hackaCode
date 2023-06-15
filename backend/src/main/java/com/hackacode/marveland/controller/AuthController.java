@@ -2,11 +2,7 @@ package com.hackacode.marveland.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.hackacode.marveland.model.dto.request.AuthRequestDto;
 import com.hackacode.marveland.model.dto.request.RegisterRequestDto;
 import com.hackacode.marveland.model.dto.response.AuthResponseDto;
@@ -17,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@CrossOrigin(origins ="*")
 @RequiredArgsConstructor
 public class AuthController {
 
