@@ -61,8 +61,8 @@ public class Customer {
 	private boolean state = Boolean.FALSE;
 
 	@UpdateTimestamp
-    @Column(name = "REGISTRATION_DATE")
-    private LocalDateTime registrationDate;
+	@Column(name = "REGISTRATION_DATE")
+	private LocalDateTime registrationDate;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ADMIN_EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)

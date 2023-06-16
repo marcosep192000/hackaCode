@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GameDetailsResponseDto {
+public class GameListResponseDto {
 
     private Long id;
 

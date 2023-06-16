@@ -35,7 +35,6 @@ public class CustomerMapper {
 				.phone(customer.getPhone())
 				.birthdate(customer.getBirthdate())
 				.registrationDate(customer.getRegistrationDate())
-				.purchases(customer.getPurchases())
 				.build();
 	}
 
