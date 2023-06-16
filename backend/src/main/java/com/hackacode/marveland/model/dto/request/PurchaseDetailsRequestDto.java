@@ -25,13 +25,13 @@ public class PurchaseDetailsRequestDto {
 
     @NotBlank(message = "Payment method cannot be blank")
     private PaymentMethod paymentMethod;
-    
+
     @NotNull(message = "Customer Id cannot be null")
     private Long customerId;
-    
+
     @NotNull(message = "Game Employee Id cannot be null")
     private Long gameEmployeeId;
-    
+
     @NotEmpty(message = "Ticket list cannot be empty")
     private List<TicketRequestDto> tickets;
 }

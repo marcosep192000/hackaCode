@@ -11,9 +11,9 @@ public interface IPurchaseDetailsService {
 
     public List<PurchaseDetailsResponseDto> getPurchaseDetailsByFilters();
 
-public List<PurchaseDetails> findByPurchaseDate(LocalDate date);
+    public List<PurchaseDetails> findByPurchaseDate(LocalDate date);
 
-    Double totalSalesByDate(LocalDate date);
+    public Double totalSalesByDate(LocalDate date);
 
     public PurchaseDetailsResponseDto getPurchaseDetailsById(Long id);
 

@@ -38,7 +38,6 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
 
     private final ITicketService ticketService;
 
-
     private PurchaseDetails findPurchaseDetailsById(Long id) {
         return purchaseDetailsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Purchase not found"));
@@ -119,21 +118,21 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     }
 
     @Override
-    public Double totalSalesByDate(LocalDate date){
+    public Double totalSalesByDate(LocalDate date) {
         List<PurchaseDetails> purchases = findByPurchaseDate(date);
         double total = 0.00;
-        for (PurchaseDetails purchase : purchases){
-            total = calculateFinalPrice(purchase.getTickets());
+        for (PurchaseDetails purchase : purchases) {
+            total = calculateTotalPrice(purchase.getTickets());
         }
         return total;
     }
 
-    private Double totalSalesByYear(Integer year){
+    public Double totalSalesByYear(Integer year) {
         List<PurchaseDetails> purchases = purchaseDetailsRepository.findAll();
         double total = 0.00;
-        for (PurchaseDetails purchase : purchases){
-            if (purchase.getPurchaseDate().getMonth().equals(year)){
-                total = calculateFinalPrice(purchase.getTickets());
+        for (PurchaseDetails purchase : purchases) {
+            if (purchase.getPurchaseDate().getMonth().equals(year)) {
+                total = calculateTotalPrice(purchase.getTickets());
             }
         }
         return total;

@@ -1,15 +1,17 @@
 package com.hackacode.marveland.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
@@ -18,8 +20,6 @@ import com.hackacode.marveland.model.entity.Ticket;
 import com.hackacode.marveland.service.ITicketService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
-import java.time.LocalDate;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -34,15 +34,16 @@ public class TicketController {
         List<TicketResponseDto> response = ticketService.getTicketsByFilters();
         return ResponseEntity.ok(response);
     }
-  
-  @GetMapping("/ticketsSoldByGameAndGame")
-    public List<Ticket> soldByGameAndDate(@RequestParam Long gameId, @RequestParam LocalDate date){
+
+    @GetMapping("/ticketsSoldByGameAndGame")
+    public List<Ticket> soldByGameAndDate(@RequestParam Long gameId, @RequestParam LocalDate date) {
         return ticketService.soldByGameAndDate(gameId, date);
     }
 
     @GetMapping("/ticketSoldByDate")
-    public List<Ticket> soldByDate(@RequestParam LocalDate date){
-        return ticketService.soldByDate(date);}
+    public List<Ticket> soldByDate(@RequestParam LocalDate date) {
+        return ticketService.soldByDate(date);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<TicketResponseDto> getTicketById(@PathVariable Long id) {

@@ -3,7 +3,6 @@ package com.hackacode.marveland.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.hackacode.marveland.model.mapper.GameMapper;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
@@ -11,10 +10,8 @@ import com.hackacode.marveland.model.dto.response.GameListResponseDto;
 import com.hackacode.marveland.model.entity.Game;
 import com.hackacode.marveland.model.entity.GameEmployee;
 import com.hackacode.marveland.model.entity.OpenHours;
-
 import com.hackacode.marveland.model.mapper.GameMapper;
 import com.hackacode.marveland.repository.IGameEmployeeRepository;
-
 import com.hackacode.marveland.repository.IGameRepository;
 import com.hackacode.marveland.repository.IOpenHoursRepository;
 import com.hackacode.marveland.service.IGameService;
@@ -71,7 +68,6 @@ public class GameServiceImpl implements IGameService {
         Game game = findGameById(id);
         return gameMapper.fromEntityToDto(game);
     }
-
 
     @Transactional
     public GameListResponseDto createGame(GameRequestDto request) {
