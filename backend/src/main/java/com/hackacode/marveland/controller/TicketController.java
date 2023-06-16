@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.TicketResponseDto;
+import com.hackacode.marveland.model.entity.Ticket;
 import com.hackacode.marveland.service.ITicketService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
+import java.time.LocalDate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,6 +34,15 @@ public class TicketController {
         List<TicketResponseDto> response = ticketService.getTicketsByFilters();
         return ResponseEntity.ok(response);
     }
+  
+  @GetMapping("/ticketsSoldByGameAndGame")
+    public List<Ticket> soldByGameAndDate(@RequestParam Long gameId, @RequestParam LocalDate date){
+        return ticketService.soldByGameAndDate(gameId, date);
+    }
+
+    @GetMapping("/ticketSoldByDate")
+    public List<Ticket> soldByDate(@RequestParam LocalDate date){
+        return ticketService.soldByDate(date);}
 
     @GetMapping("/{id}")
     public ResponseEntity<TicketResponseDto> getTicketById(@PathVariable Long id) {
