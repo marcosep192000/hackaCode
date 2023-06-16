@@ -1,26 +1,23 @@
 package com.hackacode.marveland.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.TicketResponseDto;
 import com.hackacode.marveland.model.entity.Ticket;
-import com.hackacode.marveland.model.entity.Ticket;
-
-import java.util.Date;
-import java.util.List;
 
 public interface ITicketService {
 
-    public Ticket createTicket(TicketRequestDto ticketRequestDto);
+    public Ticket create(TicketRequestDto ticketRequestDto);
 
-    public List<TicketResponseDto> getAllTickets();
+    public List<TicketResponseDto> getAll();
 
-    public TicketResponseDto getTicketById(Long id);
+    public TicketResponseDto getById(Long id);
 
-    public void deleteTicket(Long id);
+    public void delete(Long id);
 
-    public List<Ticket> ticketsSoldByGame(Long gameId, Date date);
+    public List<Ticket> soldByGameAndDate(Long gameId, LocalDate date);
 
-    //public List<Ticket> ticketsSoldByDay(Date date);
+    public List<Ticket> soldByDate(LocalDate date);
 }

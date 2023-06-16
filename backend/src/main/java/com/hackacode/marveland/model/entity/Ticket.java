@@ -46,10 +46,4 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "PURCHASE_DETAILS_ID", referencedColumnName = "PURCHASE_DETAILS_ID", insertable = false, updatable = false)
     private PurchaseDetails purchaseDetails;
-
-    @Column(name = "FULL_NAME")
-    private String name;
-
-    @Column(name = "DNI")
-    private Long dni;
 }

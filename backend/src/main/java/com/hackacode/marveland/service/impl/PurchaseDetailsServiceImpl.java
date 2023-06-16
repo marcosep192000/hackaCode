@@ -1,5 +1,6 @@
 package com.hackacode.marveland.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,14 +20,7 @@ import com.hackacode.marveland.repository.IGameEmployeeRepository;
 import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
 import com.hackacode.marveland.service.IPurchaseDetailsService;
 import com.hackacode.marveland.service.ITicketService;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +37,7 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     private final ITicketService ticketService;
 
     @Override
-    public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto) {
+    public PurchaseDetailsResponseDto create(PurchaseDetailsRequestDto purchaseDetailsRequestDto) {
 
         // extraigo al customer y empleado asignados en el dto del detalle de compra
         Customer customer = customerRepository.findById(purchaseDetailsRequestDto.getCustomerId()).orElseThrow();
@@ -55,7 +49,7 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
         List<TicketRequestDto> ticketsDto = purchaseDetailsRequestDto.getTickets();
         List<Ticket> tickets = new ArrayList<>();
         for (TicketRequestDto ticketDto : ticketsDto) {
-            tickets.add(ticketService.createTicket(ticketDto));
+            tickets.add(ticketService.create(ticketDto));
         }
 
         PurchaseDetails purchaseDetails = purchaseDetailsMapper.fromDtoToEntity(purchaseDetailsRequestDto, customer,
@@ -78,7 +72,7 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     }
 
     @Override
-    public List<PurchaseDetailsResponseDto> getAllPurchases() {
+    public List<PurchaseDetailsResponseDto> getAll() {
         List<PurchaseDetails> purchases = purchaseDetailsRepository.findAll();
         List<PurchaseDetailsResponseDto> purchaseResponseDtoList = new ArrayList<>();
         Double finalPrice = 10.50;
@@ -90,7 +84,7 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     }
 
     @Override
-    public PurchaseDetailsResponseDto getPurchaseById(Long id) {
+    public PurchaseDetailsResponseDto getById(Long id) {
         Optional<PurchaseDetails> purchase = purchaseDetailsRepository.findById(id);
         Double finalPrice = 10.50;
         PurchaseDetailsResponseDto response = purchaseDetailsMapper.fromEntityToDto(purchase.get(), finalPrice);
@@ -98,18 +92,34 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     }
 
     @Override
-    public void deletePurchase(Long id) {
+    public void delete(Long id) {
         purchaseDetailsRepository.deleteById(id);
     }
 
-    /*@Override
-    public Double totalSalesByDay(Date date) {
-        List<PurchaseDetails> purchaseDetailsList = purchaseDetailsRepository.findByDate(date);
-        Double total;
-        for (PurchaseDetails purchase : purchaseDetailsList){
-            total = total * purchase.getTicket.getGame.getPrice;
+    @Override
+    public List<PurchaseDetails> findByPurchaseDate(LocalDate date) {
+        List<PurchaseDetails> purchaseList = purchaseDetailsRepository.findByPurchaseDate(date);
+        return purchaseList;
+    }
+
+    @Override
+    public Double totalSalesByDate(LocalDate date){
+        List<PurchaseDetails> purchases = findByPurchaseDate(date);
+        double total = 0.00;
+        for (PurchaseDetails purchase : purchases){
+            total = calculateFinalPrice(purchase.getTickets());
         }
         return total;
-    }*/
+    }
 
+    public Double totalSalesByYear(Integer year){
+        List<PurchaseDetails> purchases = purchaseDetailsRepository.findAll();
+        double total = 0.00;
+        for (PurchaseDetails purchase : purchases){
+            if (purchase.getPurchaseDate().getMonth().equals(year)){
+                total = calculateFinalPrice(purchase.getTickets());
+            }
+        }
+        return total;
+    }
 }

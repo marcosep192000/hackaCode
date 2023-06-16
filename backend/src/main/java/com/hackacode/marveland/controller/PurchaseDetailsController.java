@@ -1,5 +1,6 @@
 package com.hackacode.marveland.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -28,26 +29,31 @@ public class PurchaseDetailsController {
     // Sumatoria total de los montos de ventas en un determinado mes y año.
 
     @PostMapping("/create")
-    public ResponseEntity<PurchaseDetailsResponseDto> createPurchaseDetails(
+    public ResponseEntity<PurchaseDetailsResponseDto> create(
             @RequestBody PurchaseDetailsRequestDto purchaseDetails) {
-        PurchaseDetailsResponseDto response = purchaseDetailsService.createPurchaseDetails(purchaseDetails);
+        PurchaseDetailsResponseDto response = purchaseDetailsService.create(purchaseDetails);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<PurchaseDetailsResponseDto>> getAllPurchases() {
-        List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getAllPurchases();
+    public ResponseEntity<List<PurchaseDetailsResponseDto>> getAll() {
+        List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getAll();
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PurchaseDetailsResponseDto> getPurchaseById(@RequestParam Long id) {
-        PurchaseDetailsResponseDto response = purchaseDetailsService.getPurchaseById(id);
+    public ResponseEntity<PurchaseDetailsResponseDto> getById(@RequestParam Long id) {
+        PurchaseDetailsResponseDto response = purchaseDetailsService.getById(id);
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/totalSalesByDate")
+    public Double totalSalesByDate(@RequestParam LocalDate date){
+        return purchaseDetailsService.totalSalesByDate(date);
+    }
+
     @DeleteMapping("/{id}")
-    public void deletePurchase(@RequestParam Long id) {
-        purchaseDetailsService.deletePurchase(id);
+    public void delete(@RequestParam Long id) {
+        purchaseDetailsService.delete(id);
     }
 }

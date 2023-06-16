@@ -1,22 +1,23 @@
 package com.hackacode.marveland.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.hackacode.marveland.model.dto.request.PurchaseDetailsRequestDto;
 import com.hackacode.marveland.model.dto.response.PurchaseDetailsResponseDto;
-
-import java.util.Date;
-import java.util.List;
+import com.hackacode.marveland.model.entity.PurchaseDetails;
 
 public interface IPurchaseDetailsService {
 
-    public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto);
+    public PurchaseDetailsResponseDto create(PurchaseDetailsRequestDto purchaseDetailsRequestDto);
 
-    public List<PurchaseDetailsResponseDto> getAllPurchases();
+    public List<PurchaseDetailsResponseDto> getAll();
 
-    public PurchaseDetailsResponseDto getPurchaseById(Long id);
+    public PurchaseDetailsResponseDto getById(Long id);
 
-    public void deletePurchase(Long id);
+    public void delete(Long id);
 
-    //Double totalSalesByDay (Date date);
+    public List<PurchaseDetails> findByPurchaseDate(LocalDate date);
+
+    Double totalSalesByDate(LocalDate date);
 }

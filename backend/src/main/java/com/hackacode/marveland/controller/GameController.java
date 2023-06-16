@@ -20,30 +20,30 @@ public class GameController {
     // Juego con la mayor cantidad de entradas vendidas
     
     @PostMapping("/create")
-    public GameRequestDto createGame(@RequestBody GameRequestDto game){
-        gameService.createGame(game);
+    public GameRequestDto create(@RequestBody GameRequestDto game){
+        gameService.create(game);
         return game;
     }
 
     @PostMapping("/update")
-    public ResponseEntity<GameResponseDto> updateGame(@RequestParam Long id, @RequestBody GameRequestDto game){
-        GameResponseDto response = gameService.updateGame(id, game);
+    public ResponseEntity<GameResponseDto> update(@RequestParam Long id, @RequestBody GameRequestDto game){
+        GameResponseDto response = gameService.update(id, game);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<GameResponseDto>> getAllGames(){
-        List<GameResponseDto> response = gameService.getAllGames();
+    public ResponseEntity<List<GameResponseDto>> getAll(){
+        List<GameResponseDto> response = gameService.getAll();
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GameResponseDto> getGameById(@PathVariable Long id){
-        GameResponseDto response = gameService.getGameById(id);
+    public ResponseEntity<GameResponseDto> getById(@PathVariable Long id){
+        GameResponseDto response = gameService.getById(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
     
     @DeleteMapping("/{id}")
-    public void deleteGame(@PathVariable Long id){gameService.deleteGame(id);
+    public void delete(@PathVariable Long id){gameService.delete(id);
     }
 }
