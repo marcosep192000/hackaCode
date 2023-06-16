@@ -28,33 +28,33 @@ public class OpenHoursController {
     private final IOpenHoursService openHoursService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<OpenHoursResponseDto>> getAllOpenHours() {
+    public ResponseEntity<List<OpenHoursResponseDto>> getAll() {
         List<OpenHoursResponseDto> response = openHoursService.getAllOpenHours();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OpenHoursResponseDto> getOpenHoursById(@PathVariable Long id) {
+    public ResponseEntity<OpenHoursResponseDto> getById(@PathVariable Long id) {
         OpenHoursResponseDto response = openHoursService.getOpenHoursById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<OpenHoursResponseDto> createOpenHours(@RequestBody OpenHoursRequestDto request) {
+    public ResponseEntity<OpenHoursResponseDto> create(@RequestBody OpenHoursRequestDto request) {
         OpenHoursResponseDto response = openHoursService.createOpenHours(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<OpenHoursResponseDto> updateOpenHours(@PathVariable Long id,
+    public ResponseEntity<OpenHoursResponseDto> update(@PathVariable Long id,
             @RequestBody OpenHoursRequestDto request) {
         OpenHoursResponseDto response = openHoursService.updateOpenHours(request, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<GeneralMessage> deleteOpenHours(@PathVariable Long id) {
+    public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
         openHoursService.deleteOpenHours(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("OpenHours successfully deleted"));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Open Hours successfully deleted"));
     }
 }
