@@ -7,16 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class AuthRequestDto {
 
-    @NotBlank(message = "this field can not be blank")
+    @NotBlank(message = "Email cannot be blank")
     private String username;
 
-    @NotBlank(message = "this field can not be blank")
+    @NotBlank(message = "Password cannot be blank")
     private String password;
 }

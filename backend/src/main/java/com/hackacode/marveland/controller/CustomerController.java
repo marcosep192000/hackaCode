@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hackacode.marveland.config.jwt.JwtProvider;
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
+import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
 import com.hackacode.marveland.service.ICustomerService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,41 +29,38 @@ public class CustomerController {
 
 	private final ICustomerService customerService;
 
-	// Comprador que más entradas compró en un determinado mes y año.
+	private final JwtProvider jwtProvider;
 
-	@PostMapping("/create/{adminId}")
-	public ResponseEntity<?> create(@Valid @RequestBody CustomerRequestDto customerRequestDto,
-			@PathVariable Long adminId) {
-		customerService.create(customerRequestDto, adminId);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new GeneralMessage("Customer created"));
-	}
-
-	@GetMapping("/all")
-	public ResponseEntity<List<?>> getAllCustomers() {
-		List<CustomerResponseDto> response = customerService.getAll();
-		return ResponseEntity.ok().body(response);
+	@GetMapping("/filters")
+	public ResponseEntity<List<CustomerListResponseDto>> getCustomersByFilters() {
+		List<CustomerListResponseDto> response = customerService.getCustomersByFilters();
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> findById(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(customerService.getById(id));
+	public ResponseEntity<CustomerListResponseDto> getCustomerById(@PathVariable Long id) {
+		CustomerListResponseDto response = customerService.getCustomerById(id);
+		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping("/dni/{dni}")
-	public ResponseEntity<?> findByDni(@PathVariable Integer dni) {
-		return ResponseEntity.status(HttpStatus.OK).body(customerService.getByDni(dni));
+	@PostMapping("/create")
+	public ResponseEntity<CustomerListResponseDto> createCustomer(@RequestHeader("Authorization") String token,
+			@RequestBody CustomerRequestDto request) {
+		String email = jwtProvider.extractUsername(token.substring(7));
+		CustomerListResponseDto response = customerService.createCustomer(request, email);
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<CustomerResponseDto> update(@Valid @PathVariable Long id,
-			@RequestBody CustomerRequestDto requestDto) {
-		CustomerResponseDto customer = customerService.update(requestDto, id);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(customer);
+	public ResponseEntity<CustomerListResponseDto> updateCustomer(@PathVariable Long id,
+			@RequestBody CustomerRequestDto request) {
+		CustomerListResponseDto response = customerService.updateCustomer(request, id);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> delete(@PathVariable Long id) {
-		customerService.delete(id);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Customer Deleted"));
+	public ResponseEntity<GeneralMessage> deleteCustomer(@PathVariable Long id) {
+		customerService.deleteCustomer(id);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Customer successfully deleted"));
 	}
 }

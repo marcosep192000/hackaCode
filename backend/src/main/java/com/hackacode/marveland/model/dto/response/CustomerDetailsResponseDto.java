@@ -1,6 +1,6 @@
 package com.hackacode.marveland.model.dto.response;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,13 +13,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TicketResponseDto {
+public class CustomerDetailsResponseDto {
 
     private Long id;
 
-    private String fullName;
+    private String firstName;
+
+    private String lastName;
 
     private Integer dni;
 
-    private LocalDate expirationDate;
+    private String email;
+
+    private String phone;
+
+    private String birthdate;
+
+    private LocalDateTime registrationDate;
 }

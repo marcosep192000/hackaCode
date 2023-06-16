@@ -1,14 +1,24 @@
 package com.hackacode.marveland.controller;
 
-import com.hackacode.marveland.model.dto.request.GameRequestDto;
-import com.hackacode.marveland.model.dto.response.GameResponseDto;
-import com.hackacode.marveland.service.IGameService;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.hackacode.marveland.model.dto.request.GameRequestDto;
+import com.hackacode.marveland.model.dto.response.GameListResponseDto;
+import com.hackacode.marveland.service.IGameService;
+import com.hackacode.marveland.util.exceptions.GeneralMessage;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/games")
@@ -17,33 +27,34 @@ public class GameController {
 
     private final IGameService gameService;
 
-    // Juego con la mayor cantidad de entradas vendidas
-    
-    @PostMapping("/create")
-    public GameRequestDto create(@RequestBody GameRequestDto game){
-        gameService.create(game);
-        return game;
-    }
-
-    @PostMapping("/update")
-    public ResponseEntity<GameResponseDto> update(@RequestParam Long id, @RequestBody GameRequestDto game){
-        GameResponseDto response = gameService.update(id, game);
-        return ResponseEntity.ok().body(response);
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<GameResponseDto>> getAll(){
-        List<GameResponseDto> response = gameService.getAll();
-        return ResponseEntity.ok().body(response);
+    @GetMapping("/filters")
+    public ResponseEntity<List<GameListResponseDto>> getGamesByFilters() {
+        List<GameListResponseDto> response = gameService.getGamesByFilters();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GameResponseDto> getById(@PathVariable Long id){
-        GameResponseDto response = gameService.getById(id);
+    public ResponseEntity<GameListResponseDto> getGameById(@PathVariable Long id) {
+        GameListResponseDto response = gameService.getGameById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<GameListResponseDto> createGame(@RequestBody GameRequestDto request) {
+        GameListResponseDto response = gameService.createGame(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<GameListResponseDto> updateGame(@PathVariable Long id,
+            @RequestBody GameRequestDto request) {
+        GameListResponseDto response = gameService.updateGame(request, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
-    
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){gameService.delete(id);
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<GeneralMessage> deleteGame(@PathVariable Long id) {
+        gameService.deleteGame(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Game successfully deleted"));
     }
 }
