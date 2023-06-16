@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
-import com.hackacode.marveland.model.dto.response.GameResponseDto;
+import com.hackacode.marveland.model.dto.response.GameDetailsResponseDto;
 import com.hackacode.marveland.model.entity.Game;
 import com.hackacode.marveland.model.entity.GameEmployee;
 import com.hackacode.marveland.model.entity.OpenHours;
@@ -40,7 +40,7 @@ public class GameServiceImpl implements IGameService {
     }
 
     @Override
-    public GameResponseDto assignEmployeeToGame(Long gameEmployeeId, Long gameId) {
+    public GameDetailsResponseDto assignEmployeeToGame(Long gameEmployeeId, Long gameId) {
         GameEmployee gameEmployee = gameEmployeeRepository.findById(gameEmployeeId).orElseThrow();
         Game game = gameRepository.findById(gameId).orElseThrow();
 
@@ -54,17 +54,17 @@ public class GameServiceImpl implements IGameService {
     }
 
     @Transactional
-    public GameResponseDto updateGame(Long id, GameRequestDto gameRequestDto) {
+    public GameDetailsResponseDto updateGame(Long id, GameRequestDto gameRequestDto) {
         Game game = gameRepository.findById(id).orElseThrow();
         OpenHours openHours = openHoursRepository.findById(gameRequestDto.getOpenHoursId()).orElseThrow();
         Game updateGame = gameMapper.updateGame(game, gameRequestDto, openHours);
         gameRepository.save(updateGame);
-        GameResponseDto response = gameMapper.fromEntityToDto(updateGame);
+        GameDetailsResponseDto response = gameMapper.fromEntityToDto(updateGame);
         return response;
     }
 
     @Override
-    public GameResponseDto getMostPopularGame() {
+    public GameDetailsResponseDto getMostPopularGame() {
         List<Game> games = gameRepository.findAll();
 
         Game mostPopularGame = null;
@@ -82,20 +82,20 @@ public class GameServiceImpl implements IGameService {
     }
 
     @Override
-    public List<GameResponseDto> getAllGames() {
+    public List<GameDetailsResponseDto> getAllGames() {
         List<Game> games = gameRepository.findAll();
-        List<GameResponseDto> gameResponseDtoList = new ArrayList<>();
+        List<GameDetailsResponseDto> gameResponseDtoList = new ArrayList<>();
         games.forEach(game -> {
-            GameResponseDto response = gameMapper.fromEntityToDto(game);
+            GameDetailsResponseDto response = gameMapper.fromEntityToDto(game);
             gameResponseDtoList.add(response);
         });
         return gameResponseDtoList;
     }
 
     @Override
-    public GameResponseDto getGameById(Long id) {
+    public GameDetailsResponseDto getGameById(Long id) {
         Optional<Game> game = gameRepository.findById(id);
-        GameResponseDto response = gameMapper.fromEntityToDto(game.get());
+        GameDetailsResponseDto response = gameMapper.fromEntityToDto(game.get());
         return response;
     }
 

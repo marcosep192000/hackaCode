@@ -18,7 +18,6 @@ public class TicketMapper {
                 .fullName(ticket.getFullName())
                 .dni(ticket.getDni())
                 .expirationDate(ticket.getExpirationDate())
-                .game(ticket.getGame())
                 .build();
     }
 

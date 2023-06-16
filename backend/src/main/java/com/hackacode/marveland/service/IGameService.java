@@ -3,21 +3,17 @@ package com.hackacode.marveland.service;
 import java.util.List;
 
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
-import com.hackacode.marveland.model.dto.response.GameResponseDto;
+import com.hackacode.marveland.model.dto.response.GameDetailsResponseDto;
 
 public interface IGameService {
 
-    public void createGame(GameRequestDto gameRequestDto);
+    public List<GameDetailsResponseDto> getGamesByFilters();
 
-    public GameResponseDto assignEmployeeToGame(Long gameEmployeeId, Long gameId);
+    public GameDetailsResponseDto getGameById(Long id);
 
-    public GameResponseDto updateGame(Long id, GameRequestDto gameRequestDto);
+    public GameDetailsResponseDto createGame(GameRequestDto request);
 
-    public List<GameResponseDto> getAllGames();
-
-    public GameResponseDto getGameById(Long id);
-
-    public GameResponseDto getMostPopularGame();
+    public GameDetailsResponseDto updateGame(GameRequestDto request, Long id);
 
     public void deleteGame(Long id);
 }

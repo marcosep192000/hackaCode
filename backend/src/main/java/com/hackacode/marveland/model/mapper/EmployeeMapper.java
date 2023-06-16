@@ -2,7 +2,7 @@ package com.hackacode.marveland.model.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
+import com.hackacode.marveland.model.dto.request.EmployeeRequestDto;
 import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 
@@ -21,7 +21,7 @@ public class EmployeeMapper {
 		return responseDto;
 	}
 
-	public AdminEmployee update(AdminEmployee adminEmployee, AdminEmployeeRequestDto requestDto) {
+	public AdminEmployee update(AdminEmployee adminEmployee, EmployeeRequestDto requestDto) {
 		adminEmployee.setFirstName(requestDto.getFirstName());
 		adminEmployee.setLastName(requestDto.getLastName());
 		adminEmployee.setDni(requestDto.getDni());

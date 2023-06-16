@@ -21,44 +21,41 @@ import lombok.RequiredArgsConstructor;
 public class OpenHoursServiceImpl implements IOpenHoursService {
 
     private final OpenHoursMapper openHoursMapper;
-
     private final IOpenHoursRepository openHoursRepository;
 
-    @Transactional
-    public void createOpenHours(OpenHoursRequestDto openHoursRequestDto) {
-        OpenHours openHours = openHoursMapper.fromDtoToEntity(openHoursRequestDto);
-        openHoursRepository.save(openHours);
-    }
-
     @Override
-    public OpenHoursResponseDto updateHours(Long id, OpenHoursRequestDto openHoursRequestDto) {
-        OpenHours openHours = openHoursRepository.findById(id).orElseThrow();
-        OpenHours updateHours = openHoursMapper.updateOpenHours(openHours, openHoursRequestDto);
-        openHoursRepository.save(updateHours);
-        OpenHoursResponseDto response = openHoursMapper.fromEntityToDto(updateHours);
-        return response;
-    }
-
-    @Override
-    public List<OpenHoursResponseDto> getAllOpenHours() {
-        List<OpenHours> openHours = openHoursRepository.findAll();
-        List<OpenHoursResponseDto> openHoursResponseDtoList = new ArrayList<>();
-        openHours.forEach(openHour -> {
-            OpenHoursResponseDto response = openHoursMapper.fromEntityToDto(openHour);
-            openHoursResponseDtoList.add(response);
-        });
-        return openHoursResponseDtoList;
+    public List<OpenHoursResponseDto> getOpenHoursByFilters() {
+        List<OpenHours> openHoursList = openHoursRepository.findOpenHoursByFilters();
+        return openHoursMapper.mapToResponseDtoList(openHoursList);
     }
 
     @Override
     public OpenHoursResponseDto getOpenHoursById(Long id) {
-        Optional<OpenHours> openHours = openHoursRepository.findById(id);
-        OpenHoursResponseDto response = openHoursMapper.fromEntityToDto(openHours.get());
-        return response;
+        OpenHours openHours = openHoursRepository.findOpenHoursById(id);
+        return openHoursMapper.mapToResponseDto(openHours);
+    }
+
+    @Override
+    public OpenHoursResponseDto createOpenHours(OpenHoursRequestDto request) {
+        OpenHours openHours = openHoursMapper.mapToEntity(request);
+        OpenHours savedOpenHours = openHoursRepository.save(openHours);
+        return openHoursMapper.mapToResponseDto(savedOpenHours);
+    }
+
+    @Override
+    public OpenHoursResponseDto updateOpenHours(OpenHoursRequestDto request, Long id) {
+        OpenHours existingOpenHours = openHoursRepository.findOpenHoursById(id);
+        existingOpenHours.setStartTime(request.getStartTime());
+        existingOpenHours.setEndTime(request.getEndTime());
+        OpenHours updatedOpenHours = openHoursRepository.save(existingOpenHours);
+        return openHoursMapper.mapToResponseDto(updatedOpenHours);
     }
 
     @Override
     public void deleteOpenHours(Long id) {
+        // Aquí implementa la lógica para eliminar un horario de apertura por su ID
+        // Utiliza openHoursRepository para buscar y eliminar el horario de apertura
+        // Ejemplo de implementación:
         openHoursRepository.deleteById(id);
     }
 }

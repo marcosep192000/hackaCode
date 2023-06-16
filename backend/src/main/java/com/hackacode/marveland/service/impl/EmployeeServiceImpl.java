@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
+import com.hackacode.marveland.model.dto.request.EmployeeRequestDto;
 import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.Employee;
@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 
 	@Override
-	public void updateEmployee(AdminEmployeeRequestDto requestDto, Long id) {
+	public void updateEmployee(EmployeeRequestDto requestDto, Long id) {
 		AdminEmployee adminEmployee1 = adminEmployeeRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("This id not exist"));
 		AdminEmployee adminEmployee = mapper.update(adminEmployee1, requestDto);

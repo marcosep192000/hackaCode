@@ -7,11 +7,13 @@ import com.hackacode.marveland.model.dto.response.PurchaseDetailsResponseDto;
 
 public interface IPurchaseDetailsService {
 
-    public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto purchaseDetailsRequestDto);
+    public List<PurchaseDetailsResponseDto> getPurchaseDetailsByFilters();
 
-    public List<PurchaseDetailsResponseDto> getAllPurchases();
+    public PurchaseDetailsResponseDto getPurchaseDetailsById(Long id);
 
-    public PurchaseDetailsResponseDto getPurchaseById(Long id);
+    public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto request);
 
-    public void deletePurchase(Long id);
+    public PurchaseDetailsResponseDto updatePurchaseDetails(PurchaseDetailsRequestDto request, Long id);
+
+    public void deletePurchaseDetails(Long id);
 }
