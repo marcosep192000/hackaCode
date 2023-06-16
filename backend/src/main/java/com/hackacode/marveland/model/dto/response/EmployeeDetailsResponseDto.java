@@ -11,21 +11,19 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameEmployeeResponseDto {
+public class EmployeeDetailsResponseDto {
 
-	private Long id;
+    private Long id;
 
-	private String firstName;
+    private String firstName;
 
-	private String lastName;
+    private String lastName;
 
-	private Integer dni;
+    private Integer dni;
 
-	private String email;
+    private String email;
 
-	private LocalDateTime updateDate;
+    private LocalDateTime registrationDate;
 
-	private String workingHours;
-
-	private String game;
+    private String workingHours;
 }

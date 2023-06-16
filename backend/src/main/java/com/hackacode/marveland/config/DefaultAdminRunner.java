@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.User;
-import com.hackacode.marveland.repository.IAdminEmployeeRepository;
+import com.hackacode.marveland.repository.IEmployeeRepository;
 import com.hackacode.marveland.repository.IUserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class DefaultAdminRunner implements ApplicationRunner {
 
     private final IUserRepository userRepository;
 
-    private final IAdminEmployeeRepository adminEmployeeRepository;
+    private final IEmployeeRepository employeeRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -40,16 +40,16 @@ public class DefaultAdminRunner implements ApplicationRunner {
         adminEmployee.setLastName("Messi");
         adminEmployee.setDni(12345678);
         adminEmployee.setEmail("lionelmessi@gmail.com");
-        adminEmployee.setUpdateDate(LocalDateTime.now());
+        adminEmployee.setRegistrationDate(LocalDateTime.now());
         adminEmployee.setWorkingHours("10:00 a 18:00");
         adminEmployee.setUser(user);
-        
+
         userRepository.save(user);
-        adminEmployeeRepository.save(adminEmployee);
+        employeeRepository.save(adminEmployee);
 
         if (!userRepository.findByUsername(user.getUsername()).isPresent()) {
             userRepository.save(user);
-            adminEmployeeRepository.save(adminEmployee);
+            employeeRepository.save(adminEmployee);
         }
     }
 }

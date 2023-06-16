@@ -21,14 +21,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "EMPLOYEES")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "EMPLOYEES")
+@Builder
 public class Employee {
 
     @Id
@@ -49,8 +49,8 @@ public class Employee {
     private String email;
 
     @UpdateTimestamp
-    @Column(name = "UPDATE_DATE")
-    private LocalDateTime updateDate;
+    @Column(name = "REGISTRATION_DATE")
+    private LocalDateTime registrationDate;
 
     @Column(name = "WORKING_HOURS")
     private String workingHours;

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.hackacode.marveland.repository.IUserRepository;
@@ -22,6 +23,18 @@ import lombok.RequiredArgsConstructor;
 public class AppConfig implements WebMvcConfigurer {
 
     private final IUserRepository userRepository;
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("*")
+                        .allowedOrigins("http://localhost:8080");
+            }
+        };
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {

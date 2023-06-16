@@ -1,8 +1,6 @@
 package com.hackacode.marveland.model.dto.response;
 
-import java.util.List;
-
-import com.hackacode.marveland.model.entity.PurchaseDetails;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +10,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerResponseDto {
+@Builder
+public class CustomerListResponseDto {
 
 	private Long id;
 
@@ -31,5 +29,5 @@ public class CustomerResponseDto {
 
 	private String birthdate;
 
-	private List<PurchaseDetails> purchases;
+	private LocalDateTime registrationDate;
 }
