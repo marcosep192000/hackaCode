@@ -30,7 +30,7 @@ public class PurchaseDetailsController {
     private final IPurchaseDetailsService purchaseDetailsService;
 
     @GetMapping("/filters")
-    public ResponseEntity<List<PurchaseDetailsResponseDto>> getPurchaseDetailsByFilters() {
+    public ResponseEntity<List<PurchaseDetailsResponseDto>> getPByFilters() {
         List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getPurchaseDetailsByFilters();
         return ResponseEntity.ok(response);
     }
@@ -41,27 +41,37 @@ public class PurchaseDetailsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PurchaseDetailsResponseDto> getPurchaseDetailsById(@PathVariable Long id) {
+    public ResponseEntity<PurchaseDetailsResponseDto> getById(@PathVariable Long id) {
         PurchaseDetailsResponseDto response = purchaseDetailsService.getPurchaseDetailsById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<PurchaseDetailsResponseDto> createPurchaseDetails(
+    public ResponseEntity<PurchaseDetailsResponseDto> create(
             @RequestBody PurchaseDetailsRequestDto request) {
         PurchaseDetailsResponseDto response = purchaseDetailsService.createPurchaseDetails(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<PurchaseDetailsResponseDto> updatePurchaseDetails(@PathVariable Long id,
+    public ResponseEntity<PurchaseDetailsResponseDto> update(@PathVariable Long id,
             @RequestBody PurchaseDetailsRequestDto request) {
         PurchaseDetailsResponseDto response = purchaseDetailsService.updatePurchaseDetails(request, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
+
+    @GetMapping("/totalSalesByMonth")
+    public Double totalSalesByMonth(@RequestParam int month){
+        return purchaseDetailsService.totalSalesByMonth(month);
+    }
+
+    @GetMapping("/totalSalesByYear")
+    public Double totalSalesByYear(@RequestParam int year){
+        return purchaseDetailsService.totalSalesByYear(year);
+    }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<GeneralMessage> deletePurchaseDetails(@PathVariable Long id) {
+    public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
         purchaseDetailsService.deletePurchaseDetails(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(new GeneralMessage("Purchase successfully deleted"));
