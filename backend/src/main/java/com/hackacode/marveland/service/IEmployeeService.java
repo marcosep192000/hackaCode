@@ -12,8 +12,6 @@ public interface IEmployeeService {
 
     public EmployeeDetailsResponseDto getEmployeeById(Long id);
 
-    public EmployeeDetailsResponseDto createEmployee(EmployeeRequestDto request);
-
     public EmployeeDetailsResponseDto updateEmployee(EmployeeRequestDto request, Long id);
 
     public void deleteEmployee(Long id);

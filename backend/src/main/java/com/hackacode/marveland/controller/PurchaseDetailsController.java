@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,43 +25,38 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PurchaseDetailsController {
 
-    private final IPurchaseDetailsService PurchaseDetailsService;
+    private final IPurchaseDetailsService purchaseDetailsService;
 
     @GetMapping("/filters")
-    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYEE')")
-    public ResponseEntity<List<PurchaseDetailsResponseDto>> getPurchaseDetailssByFilters() {
-        List<PurchaseDetailsResponseDto> response = PurchaseDetailsService.getPurchaseDetailsByFilters();
+    public ResponseEntity<List<PurchaseDetailsResponseDto>> getPurchaseDetailsByFilters() {
+        List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getPurchaseDetailsByFilters();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYEE')")
     public ResponseEntity<PurchaseDetailsResponseDto> getPurchaseDetailsById(@PathVariable Long id) {
-        PurchaseDetailsResponseDto response = PurchaseDetailsService.getPurchaseDetailsById(id);
+        PurchaseDetailsResponseDto response = purchaseDetailsService.getPurchaseDetailsById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('EMPLOYEE')")
     public ResponseEntity<PurchaseDetailsResponseDto> createPurchaseDetails(
             @RequestBody PurchaseDetailsRequestDto request) {
-        PurchaseDetailsResponseDto response = PurchaseDetailsService.createPurchaseDetails(request);
+        PurchaseDetailsResponseDto response = purchaseDetailsService.createPurchaseDetails(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PatchMapping("/update/{id}")
-    @PreAuthorize("hasRole('EMPLOYEE')")
     public ResponseEntity<PurchaseDetailsResponseDto> updatePurchaseDetails(@PathVariable Long id,
             @RequestBody PurchaseDetailsRequestDto request) {
-        PurchaseDetailsResponseDto response = PurchaseDetailsService.updatePurchaseDetails(request, id);
+        PurchaseDetailsResponseDto response = purchaseDetailsService.updatePurchaseDetails(request, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('EMPLOYEE')")
     public ResponseEntity<GeneralMessage> deletePurchaseDetails(@PathVariable Long id) {
-        PurchaseDetailsService.deletePurchaseDetails(id);
+        purchaseDetailsService.deletePurchaseDetails(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .body(new GeneralMessage("PurchaseDetails successfully deleted"));
+                .body(new GeneralMessage("Purchase successfully deleted"));
     }
 }

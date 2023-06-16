@@ -31,7 +31,7 @@ public class GameMapper {
                 .build();
     }
 
-    public Game updateGame(Game game, GameRequestDto gameRequestDto, OpenHours openHours) {
+    public Game updateGame(Game game, OpenHours openHours, GameRequestDto gameRequestDto) {
         game.setName(gameRequestDto.getName());
         game.setOpenHours(openHours);
         game.setCapacity(gameRequestDto.getCapacity());

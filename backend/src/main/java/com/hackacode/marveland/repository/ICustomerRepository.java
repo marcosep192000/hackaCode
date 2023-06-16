@@ -6,5 +6,5 @@ import com.hackacode.marveland.model.entity.Customer;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 
-    public boolean existsByDni(Integer dni);
+    public Boolean existsByDni(Integer dni);
 }
