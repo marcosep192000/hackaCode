@@ -1,7 +1,6 @@
 package com.hackacode.marveland.model.dto.response;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import com.hackacode.marveland.util.enums.PaymentMethod;
 
@@ -16,10 +15,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PurchaseDetailsResponseDto {
+public class PurchaseListResponseDto {
 
     private Long id;
-
 
     private String details;
 
@@ -29,9 +27,9 @@ public class PurchaseDetailsResponseDto {
 
     private Double finalPrice;
 
-    private List<TicketResponseDto> tickets;
+    private Integer totalTickets;
 
-    private CustomerListResponseDto customer;
+    private Long customerId;
 
-    private EmployeeListResponseDto gameEmployee;
+    private Long gameEmployeeid;
 }

@@ -9,15 +9,17 @@ import com.hackacode.marveland.model.entity.Ticket;
 
 public interface ITicketService {
 
-    public Ticket create(TicketRequestDto ticketRequestDto);
+    public List<TicketResponseDto> getTicketsByFilters();
 
-    public List<TicketResponseDto> getAll();
-
-    public TicketResponseDto getById(Long id);
-
-    public void delete(Long id);
+    public TicketResponseDto getTicketById(Long id);
 
     public List<Ticket> soldByGameAndDate(Long gameId, LocalDate date);
 
     public List<Ticket> soldByDate(LocalDate date);
+
+    public Ticket createTicket(TicketRequestDto request);
+
+    public TicketResponseDto updateTicket(TicketRequestDto request, Long id);
+
+    public void deleteTicket(Long id);
 }
