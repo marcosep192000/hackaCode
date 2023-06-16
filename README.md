@@ -1,15 +1,15 @@
 <img align="center" src="https://res.cloudinary.com/dqkkehztd/image/upload/v1685997451/readme/mjnvdbjbs7mj3mslvyo5.png">
 
-<h3>👉🏻  Buy, trade, and hold 350+ cryptocurrencies on Binance.</h3>
+<h4>👉🏻 Buy, trade, and hold 350+ cryptocurrencies on Binance.</h3>
 
-<h3>👉🏻  <b>Visit our website at <a href="https://s8-01-t-java-angular-binance.web.app/">Marveland</a> 🎡</b></h3>
+<h4>👉🏻 <b>Visit our website at <a href="https://s8-01-t-java-angular-binance.web.app/">Marveland</a> 🎡</b></h3>
 
-<h3>👉🏻 <b><a href="http://localhost:8080/doc/swagger-ui/index.html">API Documentation</a> 📄</b></h3>
+<h4>👉🏻 <b><a href="http://localhost:8080/doc/swagger-ui/index.html">API Documentation</a> 📄</b></h3>
 
 <hr/>
 
-### 🛠️ Tech Stack:
-  
+#### 🛠️ Tech Stack:
+ 
 ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=Spring%20Boot&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=json-web-tokens&logoColor=white)
@@ -26,7 +26,7 @@
 
 <hr/>
 
-### 🧑‍💻 Developers:
+#### 🧑‍💻 Developers:
 
 | <img src="https://res.cloudinary.com/dqkkehztd/image/upload/v1681943770/readme/thm4sniemmlxs0mdqzd8.png" width=50>| <img src="https://avatars.githubusercontent.com/u/99411527?v=4" width=50>| <img src="https://avatars.githubusercontent.com/u/69874820?v=4" width=50>|
 |:-:|:-:|:-:|
