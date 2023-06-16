@@ -9,7 +9,7 @@ public interface IOpenHoursService {
 
     public List<OpenHoursResponseDto> getAllOpenHours();
 
-    public OpenHoursResponseDto getById(Long id);
+    public OpenHoursResponseDto getOpenHoursById(Long id);
 
     public OpenHoursResponseDto createOpenHours(OpenHoursRequestDto request);
 
