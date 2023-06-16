@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/game")
+@RequestMapping("/api/v1/games")
 @RequiredArgsConstructor
 public class GameController {
 
     private final IGameService gameService;
 
+    // Juego con la mayor cantidad de entradas vendidas
+    
     @PostMapping("/create")
     public GameRequestDto createGame(@RequestBody GameRequestDto game){
         gameService.createGame(game);
@@ -28,7 +30,8 @@ public class GameController {
         GameResponseDto response = gameService.updateGame(id, game);
         return ResponseEntity.ok().body(response);
     }
-    @GetMapping
+
+    @GetMapping("/all")
     public ResponseEntity<List<GameResponseDto>> getAllGames(){
         List<GameResponseDto> response = gameService.getAllGames();
         return ResponseEntity.ok().body(response);
@@ -39,6 +42,7 @@ public class GameController {
         GameResponseDto response = gameService.getGameById(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
+    
     @DeleteMapping("/{id}")
     public void deleteGame(@PathVariable Long id){gameService.deleteGame(id);
     }

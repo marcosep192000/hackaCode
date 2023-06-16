@@ -1,9 +1,9 @@
 package com.hackacode.marveland.service;
 
+import java.util.List;
+
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
 import com.hackacode.marveland.model.dto.response.GameResponseDto;
-
-import java.util.List;
 
 public interface IGameService {
 

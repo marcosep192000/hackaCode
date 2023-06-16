@@ -1,26 +1,19 @@
 package com.hackacode.marveland.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "ADMIN_EMPLOYEE")
-public class AdminEmployee extends Person {
+@Table(name = "ADMIN_EMPLOYEES")
+public class AdminEmployee extends Employee {
 
-	@UpdateTimestamp
-	@Column(name = "updated_on_date")
-	private LocalDateTime updateDate;
-
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "adminEmployee" )
-	@JsonIgnoreProperties("adminEmployee")
-	List<Customer> customerList = new ArrayList<>();
+	@OneToMany(mappedBy = "adminEmployee")
+	private List<Customer> customerList;
 }

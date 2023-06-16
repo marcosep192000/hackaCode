@@ -1,86 +1,93 @@
 package com.hackacode.marveland.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.AdminEmployeeResponseDto;
 import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.Customer;
 import com.hackacode.marveland.model.mapper.CustomerMapper;
-import com.hackacode.marveland.repository.AdminEmployeeRepository;
-import com.hackacode.marveland.repository.CustomerRepository;
+import com.hackacode.marveland.repository.IAdminEmployeeRepository;
+import com.hackacode.marveland.repository.ICustomerRepository;
 import com.hackacode.marveland.service.ICustomerService;
-import com.hackacode.marveland.util.Exeptions.GeneralMessage;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements ICustomerService {
-	@Autowired
-	CustomerRepository customerRepository;
-	@Autowired
-	CustomerMapper mapper;
-	@Autowired
-	AdminEmployeeRepository adminEmployeeService;
-	@Override
-	@Transactional
-	public void create(CustomerRequestDto requestDto, Long id) {
-		AdminEmployee adminEmployee = adminEmployeeService.findById(id).orElseThrow(()-> new RuntimeException("Id not Exist"));
-		Optional<Customer> customer = Optional.ofNullable(customerRepository.findByDni(requestDto.getDni()));
-		System.out.println(customer);
-		if (customer.isEmpty()){
-          Customer customer1 = mapper.FromDtoToEntity(requestDto,adminEmployee);
-		  customerRepository.save(customer1);
-		  adminEmployee.getCustomerList().add(customer1);
-		}else{
-		throw new RuntimeException("this ID already exists");}
-	}
 
+	private final ICustomerRepository customerRepository;
+
+	private final CustomerMapper customerMapper;
+
+	private final IAdminEmployeeRepository adminEmployeeService;
 
 	@Override
 	@Transactional
-	public Customer Update(CustomerRequestDto requestDto, Long id) {
-		Customer customer = customerRepository.findById(id).orElseThrow(()->new RuntimeException("Id not exist!"));
-		Customer updateCustomer = mapper.Update(customer,requestDto);
-	    customerRepository.save(updateCustomer);
-		return updateCustomer;
+	public void create(CustomerRequestDto customerRequestDto, Long adminId) {
+		AdminEmployee adminEmployee = adminEmployeeService.findById(adminId)
+				.orElseThrow(() -> new RuntimeException("Id does not exist"));
+		Optional<Customer> customer = Optional.ofNullable(customerRepository.findByDni(customerRequestDto.getDni()));
+		if (customer.isEmpty()) {
+			Customer customer1 = customerMapper.FromDtoToEntity(customerRequestDto, adminEmployee);
+			customerRepository.save(customer1);
+			adminEmployee.getCustomerList().add(customer1);
+		} else {
+			throw new RuntimeException("Id already exists");
+		}
 	}
 
-
+	@Override
+	@Transactional
+	public CustomerResponseDto update(CustomerRequestDto requestDto, Long id) {
+		Customer customer = customerRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not exist!"));
+		Customer updatedCustomer = customerMapper.update(customer, requestDto);
+		customerRepository.save(updatedCustomer);
+		return customerMapper.fromEntityToDto(updatedCustomer);
+	}
 
 	@Override
 	public List<CustomerResponseDto> getAll() {
-		return null;
+		List<Customer> customers = customerRepository.findAll();
+		List<CustomerResponseDto> customerResponseDtoList = new ArrayList<>();
+		customers.forEach(customer -> {
+			CustomerResponseDto customerDto = customerMapper.fromEntityToDto(customer);
+			customerResponseDtoList.add(customerDto);
+		});
+		return customerResponseDtoList;
 	}
 
 	@Override
 	public CustomerResponseDto getById(Long id) {
-		Optional<Customer> customer = Optional.ofNullable(Optional.of(customerRepository.getReferenceById(id)).orElseThrow(() -> new RuntimeException("dni not exist")));
+		Optional<Customer> customer = Optional.ofNullable(Optional.of(customerRepository.getReferenceById(id))
+				.orElseThrow(() -> new RuntimeException("Dni does not exist")));
 		if (customer.isPresent()) {
-			CustomerResponseDto customerResponse = mapper.fromEntityToDto(customer.get());
+			CustomerResponseDto customerResponse = customerMapper.fromEntityToDto(customer.get());
 			return customerResponse;
 		}
-	throw new RuntimeException("id not exist");
+		throw new RuntimeException("id does not exist");
 	}
 
 	@Override
-	public CustomerResponseDto getByDni(int dni) {
+	public CustomerResponseDto getByDni(Integer dni) {
 		Optional<Customer> customer = Optional.ofNullable(customerRepository.findByDni(dni));
 		if (customer.isPresent()) {
-			CustomerResponseDto customerResponse = mapper.fromEntityToDto(customer.get());
+			CustomerResponseDto customerResponse = customerMapper.fromEntityToDto(customer.get());
 			return customerResponse;
-		}else {
-		throw new RuntimeException("Dni not exist");}
+		} else {
+			throw new RuntimeException("Dni does not exist");
+		}
 	}
 
 	@Override
 	public void delete(Long id) {
-		Customer customer = customerRepository.findById(id).orElseThrow(()-> new RuntimeException("Id bot exist!"));
+		customerRepository.findById(id).orElseThrow(() -> new RuntimeException("Id does not exist"));
 		customerRepository.deleteById(id);
 	}
 }

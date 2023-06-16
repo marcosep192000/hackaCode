@@ -1,20 +1,20 @@
 package com.hackacode.marveland.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.hackacode.marveland.model.dto.request.OpenHoursRequestDto;
-import com.hackacode.marveland.model.dto.response.GameResponseDto;
 import com.hackacode.marveland.model.dto.response.OpenHoursResponseDto;
-import com.hackacode.marveland.model.entity.Game;
 import com.hackacode.marveland.model.entity.OpenHours;
 import com.hackacode.marveland.model.mapper.OpenHoursMapper;
 import com.hackacode.marveland.repository.IOpenHoursRepository;
 import com.hackacode.marveland.service.IOpenHoursService;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +23,7 @@ public class OpenHoursServiceImpl implements IOpenHoursService {
     private final OpenHoursMapper openHoursMapper;
 
     private final IOpenHoursRepository openHoursRepository;
+
     @Transactional
     public void createOpenHours(OpenHoursRequestDto openHoursRequestDto) {
         OpenHours openHours = openHoursMapper.fromDtoToEntity(openHoursRequestDto);
