@@ -17,7 +17,7 @@ public interface ITicketService {
 
     public void delete(Long id);
 
-    public List<Ticket> soldByGameAndDate(Long gameId, LocalDate date);
+    public Integer salesByGameAndDate(Long gameId, LocalDate date);
 
-    public List<Ticket> soldByDate(LocalDate date);
+    public Integer salesByDate(LocalDate date);
 }

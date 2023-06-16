@@ -52,6 +52,16 @@ public class PurchaseDetailsController {
         return purchaseDetailsService.totalSalesByDate(date);
     }
 
+    @GetMapping("/totalSalesByMonth")
+    public Double totalSalesByMonth(@RequestParam int month){
+        return purchaseDetailsService.totalSalesByMonth(month);
+    }
+
+    @GetMapping("/totalSalesByYear")
+    public Double totalSalesByYear(@RequestParam int year){
+        return purchaseDetailsService.totalSalesByYear(year);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@RequestParam Long id) {
         purchaseDetailsService.delete(id);

@@ -18,12 +18,6 @@ public class TicketController {
 
     private final ITicketService ticketService;
 
-    @PostMapping("/create")
-    public TicketRequestDto create(@RequestBody TicketRequestDto ticket) {
-        ticketService.create(ticket);
-        return ticket;
-    }
-
     @GetMapping("/all")
     public ResponseEntity<List<TicketResponseDto>> getAll() {
         List<TicketResponseDto> response = ticketService.getAll();
@@ -42,12 +36,12 @@ public class TicketController {
     }
 
     @GetMapping("/ticketsSoldByGameAndGame")
-    public List<Ticket> soldByGameAndDate(@RequestParam Long gameId, @RequestParam LocalDate date){
-        return ticketService.soldByGameAndDate(gameId, date);
+    public Integer soldByGameAndDate(@RequestParam Long gameId, @RequestParam LocalDate date){
+        return ticketService.salesByGameAndDate(gameId, date);
     }
 
     @GetMapping("/ticketSoldByDate")
-    public List<Ticket> soldByDate(@RequestParam LocalDate date){
-        return ticketService.soldByDate(date);
+    public Integer soldByDate(@RequestParam LocalDate date){
+        return ticketService.salesByDate(date);
     }
 }
