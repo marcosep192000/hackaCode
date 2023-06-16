@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.EmployeeRequestDto;
-import com.hackacode.marveland.model.dto.response.EmployeeDetailsResponseDto;
 import com.hackacode.marveland.model.dto.response.EmployeeListResponseDto;
 import com.hackacode.marveland.service.IEmployeeService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
@@ -34,15 +33,15 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EmployeeDetailsResponseDto> getEmployeeById(@PathVariable Long id) {
-		EmployeeDetailsResponseDto response = employeeService.getEmployeeById(id);
+	public ResponseEntity<EmployeeListResponseDto> getEmployeeById(@PathVariable Long id) {
+		EmployeeListResponseDto response = employeeService.getEmployeeById(id);
 		return ResponseEntity.ok(response);
 	}
 
 	@PatchMapping("/update/{id}")
-	public ResponseEntity<EmployeeDetailsResponseDto> updateEmployee(@PathVariable Long id,
+	public ResponseEntity<EmployeeListResponseDto> updateEmployee(@PathVariable Long id,
 			@RequestBody EmployeeRequestDto request) {
-		EmployeeDetailsResponseDto response = employeeService.updateEmployee(request, id);
+		EmployeeListResponseDto response = employeeService.updateEmployee(request, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
 	}
 

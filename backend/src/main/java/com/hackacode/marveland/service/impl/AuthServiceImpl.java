@@ -63,7 +63,7 @@ public class AuthServiceImpl implements IAuthService {
                 employee.setLastName(request.getLastName());
                 employee.setDni(request.getDni());
                 employee.setEmail(request.getUsername());
-                employee.setUpdateDate(LocalDateTime.now());
+                employee.setRegistrationDate(LocalDateTime.now());
                 employee.setWorkingHours(request.getWorkingHours());
                 employee.setUser(user);
 

@@ -40,7 +40,7 @@ public class DefaultAdminRunner implements ApplicationRunner {
         adminEmployee.setLastName("Messi");
         adminEmployee.setDni(12345678);
         adminEmployee.setEmail("lionelmessi@gmail.com");
-        adminEmployee.setUpdateDate(LocalDateTime.now());
+        adminEmployee.setRegistrationDate(LocalDateTime.now());
         adminEmployee.setWorkingHours("10:00 a 18:00");
         adminEmployee.setUser(user);
         

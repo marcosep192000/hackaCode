@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.TicketResponseDto;
-import com.hackacode.marveland.model.entity.Game;
 import com.hackacode.marveland.model.entity.Ticket;
 
 @Component
@@ -21,12 +20,15 @@ public class TicketMapper {
                 .build();
     }
 
-    public Ticket fromDtoToEntity(TicketRequestDto ticketRequestDto, Game game) {
+    public Ticket fromDtoToEntity(TicketRequestDto request) {
         return Ticket.builder()
-                .fullName(ticketRequestDto.getFullName())
+                .fullName(request.getFullName())
+                .dni(request.getDni())
                 .expirationDate(LocalDate.now().plusMonths(3))
-                .dni(ticketRequestDto.getDni())
-                .game(game)
                 .build();
+    }
+
+    public Ticket updateTicket(Ticket ticket, TicketRequestDto request) {
+        return null;
     }
 }

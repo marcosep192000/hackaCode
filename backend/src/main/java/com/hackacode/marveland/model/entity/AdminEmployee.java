@@ -20,5 +20,5 @@ import lombok.Setter;
 public class AdminEmployee extends Employee {
 
 	@OneToMany(mappedBy = "adminEmployee")
-	private List<Customer> customerList;
+	private List<Customer> customers;
 }

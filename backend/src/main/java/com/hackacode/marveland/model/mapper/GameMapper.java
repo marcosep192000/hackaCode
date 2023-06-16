@@ -22,20 +22,20 @@ public class GameMapper {
                 .build();
     }
 
-    public Game fromDtoToEntity(GameRequestDto gameRequestDto, OpenHours openHours) {
+    public Game fromDtoToEntity(GameRequestDto request, OpenHours openHours) {
         return Game.builder()
-                .name(gameRequestDto.getName())
+                .name(request.getName())
                 .openHours(openHours)
-                .capacity(gameRequestDto.getCapacity())
-                .price(gameRequestDto.getPrice())
+                .capacity(request.getCapacity())
+                .price(request.getPrice())
                 .build();
     }
 
-    public Game updateGame(Game game, OpenHours openHours, GameRequestDto gameRequestDto) {
-        game.setName(gameRequestDto.getName());
+    public Game updateGame(Game game, OpenHours openHours, GameRequestDto request) {
+        game.setName(request.getName());
         game.setOpenHours(openHours);
-        game.setCapacity(gameRequestDto.getCapacity());
-        game.setPrice(gameRequestDto.getPrice());
+        game.setCapacity(request.getCapacity());
+        game.setPrice(request.getPrice());
         return game;
     }
 }

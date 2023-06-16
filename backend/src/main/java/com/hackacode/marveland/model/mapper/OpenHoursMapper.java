@@ -17,16 +17,16 @@ public class OpenHoursMapper {
                 .build();
     }
 
-    public OpenHours fromDtoToEntity(OpenHoursRequestDto openHoursRequestDto) {
+    public OpenHours fromDtoToEntity(OpenHoursRequestDto request) {
         return OpenHours.builder()
-                .startTime(openHoursRequestDto.getStartTime())
-                .endTime(openHoursRequestDto.getEndTime())
+                .startTime(request.getStartTime())
+                .endTime(request.getEndTime())
                 .build();
     }
 
-    public OpenHours updateOpenHours(OpenHours openHours, OpenHoursRequestDto openHoursRequestDto) {
-        openHours.setStartTime(openHoursRequestDto.getStartTime());
-        openHours.setEndTime(openHoursRequestDto.getEndTime());
+    public OpenHours updateOpenHours(OpenHours openHours, OpenHoursRequestDto request) {
+        openHours.setStartTime(request.getStartTime());
+        openHours.setEndTime(request.getEndTime());
         return openHours;
     }
 }

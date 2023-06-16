@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.config.jwt.JwtProvider;
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.CustomerDetailsResponseDto;
+import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
 import com.hackacode.marveland.service.ICustomerService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
@@ -32,29 +32,29 @@ public class CustomerController {
 	private final JwtProvider jwtProvider;
 
 	@GetMapping("/filters")
-	public ResponseEntity<List<CustomerDetailsResponseDto>> getCustomersByFilters() {
-		List<CustomerDetailsResponseDto> response = customerService.getCustomersByFilters();
+	public ResponseEntity<List<CustomerListResponseDto>> getCustomersByFilters() {
+		List<CustomerListResponseDto> response = customerService.getCustomersByFilters();
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CustomerDetailsResponseDto> getCustomerById(@PathVariable Long id) {
-		CustomerDetailsResponseDto response = customerService.getCustomerById(id);
+	public ResponseEntity<CustomerListResponseDto> getCustomerById(@PathVariable Long id) {
+		CustomerListResponseDto response = customerService.getCustomerById(id);
 		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<CustomerDetailsResponseDto> createCustomer(@RequestHeader("Authorization") String token,
+	public ResponseEntity<CustomerListResponseDto> createCustomer(@RequestHeader("Authorization") String token,
 			@RequestBody CustomerRequestDto request) {
 		String email = jwtProvider.extractUsername(token.substring(7));
-		CustomerDetailsResponseDto response = customerService.createCustomer(request, email);
+		CustomerListResponseDto response = customerService.createCustomer(request, email);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
 	@PatchMapping("/update/{id}")
-	public ResponseEntity<CustomerDetailsResponseDto> updateCustomer(@PathVariable Long id,
+	public ResponseEntity<CustomerListResponseDto> updateCustomer(@PathVariable Long id,
 			@RequestBody CustomerRequestDto request) {
-		CustomerDetailsResponseDto response = customerService.updateCustomer(request, id);
+		CustomerListResponseDto response = customerService.updateCustomer(request, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
 	}
 

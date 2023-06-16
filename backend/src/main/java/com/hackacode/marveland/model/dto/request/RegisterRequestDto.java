@@ -32,6 +32,4 @@ public class RegisterRequestDto {
     private Integer dni;
 
     private String workingHours;
-
-    private Long gameId;
 }

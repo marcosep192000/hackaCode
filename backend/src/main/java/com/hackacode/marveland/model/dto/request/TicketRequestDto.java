@@ -16,6 +16,4 @@ public class TicketRequestDto {
     private String fullName;
 
     private Integer dni;
-
-    private Long gameId;
 }
