@@ -57,4 +57,16 @@ public class TicketServiceImpl implements ITicketService {
     public void deleteTicket(Long id) {
         ticketRepository.deleteById(id);
     }
+
+    @Override
+    public List<TicketResponseDto> getTicketsByFilters() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTicketsByFilters'");
+    }
+
+    @Override
+    public TicketResponseDto updateTicket(TicketRequestDto request, Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateTicket'");
+    }
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hackacode.marveland.config.jwt.JwtProvider;
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
 import com.hackacode.marveland.model.dto.response.CustomerDetailsResponseDto;
-import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
 import com.hackacode.marveland.service.ICustomerService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
@@ -26,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/customers")
-@PreAuthorize("hasRole('ADMIN')")
 @RequiredArgsConstructor
 public class CustomerController {
 

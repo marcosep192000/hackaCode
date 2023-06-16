@@ -12,7 +12,7 @@ import com.hackacode.marveland.model.entity.Customer;
 @Component
 public class CustomerMapper {
 
-	public Customer FromDtoToEntity(CustomerRequestDto customerRequestDto, AdminEmployee adminEmployee) {
+	public Customer fromDtoToEntity(CustomerRequestDto customerRequestDto, AdminEmployee adminEmployee) {
 		return Customer.builder()
 				.firstName(customerRequestDto.getFirstName())
 				.lastName(customerRequestDto.getLastName())
