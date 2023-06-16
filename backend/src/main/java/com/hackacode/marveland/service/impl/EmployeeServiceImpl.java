@@ -35,6 +35,57 @@ public class EmployeeServiceImpl implements IEmployeeService {
 				.collect(Collectors.toList());
 	}
 
+
+    // @Override
+    // public List<TransactionResponseDto> getTransactionsByFilters(Long paymentMethodId,
+    //         TransactionType transactionType,
+    //         LocalDate transactionDate, Long purchaseCoinId, Double purchaseAmount, Long saleCoinId,
+    //         Double saleAmount, Long walletId) {
+
+    //     Specification<Transaction> spec = Specification.where(null);
+
+    //     if (paymentMethodId != null) {
+    //         spec = spec.and(TransactionSpecification.hasPaymentMethod(paymentMethodId));
+    //     }
+
+    //     if (transactionType != null) {
+    //         spec = spec.and(TransactionSpecification.hasTransactionType(transactionType));
+    //     }
+
+    //     if (transactionDate != null) {
+    //         spec = spec.and(TransactionSpecification.hasTransactionDate(transactionDate));
+    //     }
+
+    //     if (purchaseCoinId != null) {
+    //         spec = spec.and(TransactionSpecification.hasPurchaseCoin(purchaseCoinId));
+    //     }
+
+    //     if (purchaseAmount != null) {
+    //         spec = spec.and(TransactionSpecification.hasPurchaseAmount(purchaseAmount));
+    //     }
+
+    //     if (saleCoinId != null) {
+    //         spec = spec.and(TransactionSpecification.hasSaleCoin(saleCoinId));
+    //     }
+
+    //     if (saleAmount != null) {
+    //         spec = spec.and(TransactionSpecification.hasSaleAmount(saleAmount));
+    //     }
+
+    //     if (walletId != null) {
+    //         spec = spec.and(TransactionSpecification.hasWalletId(walletId));
+    //     }
+
+    //     List<Transaction> transactionsFiltered = transactionRepository.findAll(spec);
+    //     List<TransactionResponseDto> TransactionResponseDtoList = new ArrayList<>();
+    //     for (Transaction transaction : transactionsFiltered) {
+    //         TransactionResponseDto transactionResponseDto = transactionMapper.fromEntityToTransactionDto(transaction);
+    //         TransactionResponseDtoList.add(transactionResponseDto);
+    //     }
+
+    //     return TransactionResponseDtoList;
+    // }
+
 	@Override
 	public EmployeeListResponseDto getEmployeeById(Long id) {
 		Employee Employee = findEmployeeById(id);
