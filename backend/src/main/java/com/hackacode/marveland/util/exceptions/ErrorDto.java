@@ -1,12 +1,11 @@
-package com.hackacode.marveland.util.Exeptions;
+package com.hackacode.marveland.util.exceptions;
 
 import lombok.Builder;
 import lombok.Data;
-import org.aspectj.bridge.IMessage;
 
 @Data
 @Builder
 public class ErrorDto {
+	
 	private String message;
-    
 }

@@ -1,11 +1,17 @@
 package com.hackacode.marveland.model.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -21,6 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "EMPLOYEES")
 public class Employee {
 
@@ -35,8 +42,20 @@ public class Employee {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_FK", referencedColumnName = "USER_ID", insertable = false, updatable = false)
-    private User user;
+    @Column(name = "DNI")
+    private Integer dni;
 
+    @Column(name = "EMAIL")
+    private String email;
+
+    @UpdateTimestamp
+    @Column(name = "UPDATE_DATE")
+    private LocalDateTime updateDate;
+
+    @Column(name = "WORKING_HOURS")
+    private String workingHours;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", insertable = false, updatable = false)
+    private User user;
 }

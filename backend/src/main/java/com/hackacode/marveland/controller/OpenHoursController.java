@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/open_hours")
+@RequestMapping("/api/v1/schedules")
 @RequiredArgsConstructor
 public class OpenHoursController {
 
@@ -22,13 +22,14 @@ public class OpenHoursController {
         openHoursService.createOpenHours(openHours);
         return openHours;
     }
+    
     @PostMapping("/update")
     public ResponseEntity<OpenHoursResponseDto> updateOpenHours(@RequestParam Long id, @RequestBody OpenHoursRequestDto openHours){
         OpenHoursResponseDto response = openHoursService.updateHours(id, openHours);
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<OpenHoursResponseDto>> getAllOpenHours(){
         List<OpenHoursResponseDto> response = openHoursService.getAllOpenHours();
         return ResponseEntity.ok().body(response);

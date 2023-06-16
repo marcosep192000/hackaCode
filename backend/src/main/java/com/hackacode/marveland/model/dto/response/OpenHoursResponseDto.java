@@ -1,26 +1,23 @@
 package com.hackacode.marveland.model.dto.response;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import java.time.LocalTime;
 
-import java.io.Serializable;
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OpenHoursResponseDto implements Serializable {
+public class OpenHoursResponseDto {
 
     private Long id;
 
-    @NotBlank(message = "this field can not be blank")
-    @Column(name = "START_TIME")
-    private Date startTime;
+    private LocalTime startTime;
 
-    @NotBlank(message = "this field can not be blank")
-    @Column(name = "END_TIME")
-    private Date endTime;
+    private LocalTime endTime;
 }

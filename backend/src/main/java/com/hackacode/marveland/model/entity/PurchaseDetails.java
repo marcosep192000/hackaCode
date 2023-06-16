@@ -1,15 +1,24 @@
 package com.hackacode.marveland.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.hackacode.marveland.controller.CustomerController;
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-import static jakarta.persistence.FetchType.EAGER;
+import com.hackacode.marveland.util.enums.PaymentMethod;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @Getter
@@ -17,29 +26,31 @@ import static jakarta.persistence.FetchType.EAGER;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "PURCHASE")
+@Table(name = "PURCHASES")
 public class PurchaseDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PURCHASE_ID")
+    @Column(name = "PURCHASE_DETAILS_ID")
     private Long id;
 
     @Column(name = "DETAILS")
     private String details;
 
-    @Column(name = "DATE")
-    private Date date;
+    @Column(name = "PURCHASE_DATE")
+    private LocalDate purchaseDate;
 
-    @ManyToOne()
-    @JoinColumn(name = "customer_id")
-    Customer customer ;
+    @OneToMany(mappedBy = "purchaseDetails")
+    private List<Ticket> tickets;
 
-   @ManyToOne()
-   @JoinColumn(name = "gameEmployee_id")
-   private  GameEmployee gameEmployee;
+    @Column(name = "PAYMENT_METHOD")
+    private PaymentMethod paymentMethod;
 
-    @OneToMany
-    private List<Ticket> ticketList =new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID", insertable = false, updatable = false)
+    private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "GAME_EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
+    private GameEmployee gameEmployee;
 }

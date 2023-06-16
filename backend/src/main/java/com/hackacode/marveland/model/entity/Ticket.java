@@ -1,9 +1,20 @@
 package com.hackacode.marveland.model.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.time.LocalDate;
 
-import java.util.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @Getter
@@ -11,7 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "TICKET")
+@Table(name = "TICKETS")
 public class Ticket {
 
     @Id
@@ -19,15 +30,21 @@ public class Ticket {
     @Column(name = "TICKET_ID", nullable = false)
     private Long id;
 
+    @Column(name = "FULL_NAME")
+    private String fullName;
+
+    @Column(name = "DNI")
+    private Integer dni;
+
     @Column(name = "EXPIRATION_DATE")
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
     @ManyToOne
-    @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
+    @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID", insertable = false, updatable = false)
     private Game game;
 
     @ManyToOne
-    @JoinColumn(name = "PURCHASE_DETAILS_ID", referencedColumnName = "PURCHASE_ID")
+    @JoinColumn(name = "PURCHASE_DETAILS_ID", referencedColumnName = "PURCHASE_DETAILS_ID", insertable = false, updatable = false)
     private PurchaseDetails purchaseDetails;
 
     @Column(name = "FULL_NAME")

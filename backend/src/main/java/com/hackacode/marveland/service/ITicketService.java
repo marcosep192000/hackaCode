@@ -1,7 +1,10 @@
 package com.hackacode.marveland.service;
 
+import java.util.List;
+
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.TicketResponseDto;
+import com.hackacode.marveland.model.entity.Ticket;
 import com.hackacode.marveland.model.entity.Ticket;
 
 import java.util.Date;
@@ -9,7 +12,7 @@ import java.util.List;
 
 public interface ITicketService {
 
-    public void createTicket (TicketRequestDto ticketRequestDto);
+    public Ticket createTicket(TicketRequestDto ticketRequestDto);
 
     public List<TicketResponseDto> getAllTickets();
 
