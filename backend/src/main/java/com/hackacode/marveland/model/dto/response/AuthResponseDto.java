@@ -13,8 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AuthResponseDto {
 
-    private Long userId;
-
+    private Long id;
+    
     private String role;
 
     private String token;

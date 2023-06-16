@@ -6,4 +6,5 @@ import com.hackacode.marveland.model.entity.AdminEmployee;
 
 public interface IAdminEmployeeRepository extends JpaRepository<AdminEmployee, Long> {
 
+    public AdminEmployee findByEmail(String email);
 }

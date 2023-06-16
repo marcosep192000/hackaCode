@@ -1,6 +1,4 @@
-package com.hackacode.marveland.model.dto.response;
-
-import java.time.LocalDateTime;
+package com.hackacode.marveland.model.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminEmployeeResponseDto {
-
-	private Long id;
+public class EmployeeRequestDto {
 
 	private String firstName;
 
@@ -22,8 +18,6 @@ public class AdminEmployeeResponseDto {
 	private Integer dni;
 
 	private String email;
-
-	private LocalDateTime updateDate;
 
 	private String workingHours;
 }

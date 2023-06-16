@@ -1,17 +1,14 @@
 package com.hackacode.marveland.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.TicketResponseDto;
-import com.hackacode.marveland.model.entity.Game;
 import com.hackacode.marveland.model.entity.Ticket;
 import com.hackacode.marveland.model.mapper.TicketMapper;
-import com.hackacode.marveland.repository.IGameRepository;
 import com.hackacode.marveland.repository.ITicketRepository;
 import com.hackacode.marveland.service.ITicketService;
 
@@ -26,35 +23,42 @@ public class TicketServiceImpl implements ITicketService {
 
     private final ITicketRepository ticketRepository;
 
-    private final IGameRepository gameRepository;
-
-    @Transactional
-    public Ticket createTicket(TicketRequestDto ticketRequestDto) {
-        Game game = gameRepository.findById(ticketRequestDto.getGameId()).orElseThrow();
-        Ticket ticket = ticketMapper.fromDtoToEntity(ticketRequestDto, game);
-        return ticketRepository.save(ticket);
+    private Ticket findTicketById(Long id) {
+        return ticketRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ticket not found"));
     }
 
     @Override
-    public List<TicketResponseDto> getAllTickets() {
-        List<Ticket> tickets = ticketRepository.findAll();
-        List<TicketResponseDto> ticketResponseDtoList = new ArrayList<>();
-        tickets.forEach(ticket -> {
-            TicketResponseDto response = ticketMapper.fromEntityToDto(ticket);
-            ticketResponseDtoList.add(response);
-        });
-        return ticketResponseDtoList;
+    public List<TicketResponseDto> getTicketsByFilters() {
+        return ticketRepository.findAll().stream()
+                .map(ticket -> ticketMapper.fromEntityToDto(ticket))
+                .collect(Collectors.toList());
     }
 
     @Override
     public TicketResponseDto getTicketById(Long id) {
-        Optional<Ticket> ticket = ticketRepository.findById(id);
-        TicketResponseDto response = ticketMapper.fromEntityToDto(ticket.get());
-        return response;
+        Ticket ticket = findTicketById(id);
+        return ticketMapper.fromEntityToDto(ticket);
     }
 
+    @Override
     @Transactional
+    public Ticket createTicket(TicketRequestDto request) {
+        Ticket ticket = ticketMapper.fromDtoToEntity(request);
+        return ticketRepository.save(ticket);
+    }
+
+    @Override
+    @Transactional
+    public TicketResponseDto updateTicket(TicketRequestDto request, Long id) {
+        Ticket ticket = findTicketById(id);
+        Ticket updatedTicket = ticketMapper.updateTicket(ticket, request);
+        ticketRepository.save(updatedTicket);
+        return ticketMapper.fromEntityToDto(updatedTicket);
+    }
+
+    @Override
     public void deleteTicket(Long id) {
-        ticketRepository.deleteById(id);
+        ticketRepository.delete(findTicketById(id));
     }
 }
