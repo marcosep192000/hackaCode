@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.TicketResponseDto;
+import com.hackacode.marveland.model.entity.Ticket;
 
 public interface ITicketService {
 
@@ -11,7 +12,7 @@ public interface ITicketService {
 
     public TicketResponseDto getTicketById(Long id);
 
-    public TicketResponseDto createTicket(TicketRequestDto request);
+    public Ticket createTicket(TicketRequestDto request);
 
     public TicketResponseDto updateTicket(TicketRequestDto request, Long id);
 

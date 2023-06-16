@@ -5,28 +5,28 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.CustomerDetailsResponseDto;
+import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.Customer;
 
 @Component
 public class CustomerMapper {
 
-	public Customer fromDtoToEntity(CustomerRequestDto customerRequestDto, AdminEmployee adminEmployee) {
+	public Customer fromDtoToEntity(CustomerRequestDto request, AdminEmployee adminEmployee) {
 		return Customer.builder()
-				.firstName(customerRequestDto.getFirstName())
-				.lastName(customerRequestDto.getLastName())
-				.dni(customerRequestDto.getDni())
-				.email(customerRequestDto.getEmail())
-				.phone(customerRequestDto.getPhone())
-				.birthdate(customerRequestDto.getBirthdate())
-				.updateDate(LocalDateTime.now())
+				.firstName(request.getFirstName())
+				.lastName(request.getLastName())
+				.dni(request.getDni())
+				.email(request.getEmail())
+				.phone(request.getPhone())
+				.birthdate(request.getBirthdate())
+				.registrationDate(LocalDateTime.now())
 				.adminEmployee(adminEmployee)
 				.build();
 	}
 
-	public CustomerDetailsResponseDto fromEntityToDto(Customer customer) {
-		return CustomerDetailsResponseDto.builder()
+	public CustomerListResponseDto fromEntityToDto(Customer customer) {
+		return CustomerListResponseDto.builder()
 				.id(customer.getId())
 				.firstName(customer.getFirstName())
 				.lastName(customer.getLastName())
@@ -38,13 +38,13 @@ public class CustomerMapper {
 				.build();
 	}
 
-	public Customer update(Customer customer, CustomerRequestDto customerRequestDto) {
-		customer.setFirstName(customerRequestDto.getFirstName());
-		customer.setLastName(customerRequestDto.getLastName());
-		customer.setDni(customerRequestDto.getDni());
-		customer.setEmail(customerRequestDto.getEmail());
-		customer.setPhone(customerRequestDto.getPhone());
-		customer.setBirthdate(customerRequestDto.getBirthdate());
+	public Customer updateCustomer(Customer customer, CustomerRequestDto request) {
+		customer.setFirstName(request.getFirstName());
+		customer.setLastName(request.getLastName());
+		customer.setDni(request.getDni());
+		customer.setEmail(request.getEmail());
+		customer.setPhone(request.getPhone());
+		customer.setBirthdate(request.getBirthdate());
 		return customer;
 	}
 }

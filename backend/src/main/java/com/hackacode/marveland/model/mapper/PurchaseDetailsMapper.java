@@ -20,21 +20,21 @@ public class PurchaseDetailsMapper {
                 .id(purchaseDetails.getId())
                 .details(purchaseDetails.getDetails())
                 .purchaseDate(purchaseDetails.getPurchaseDate())
-                .finalPrice(finalPrice)
                 .tickets(purchaseDetails.getTickets())
                 .paymentMethod(purchaseDetails.getPaymentMethod())
                 .customer(purchaseDetails.getCustomer())
+                .finalPrice(finalPrice)
                 .gameEmployee(purchaseDetails.getGameEmployee())
                 .build();
     }
 
-    public PurchaseDetails fromDtoToEntity(PurchaseDetailsRequestDto purchaseDetailsRequestDto, Customer customer,
+    public PurchaseDetails fromDtoToEntity(PurchaseDetailsRequestDto request, Customer customer,
             GameEmployee gameEmployee, List<Ticket> tickets) {
         return PurchaseDetails.builder()
-                .details(purchaseDetailsRequestDto.getDetails())
+                .details(request.getDetails())
                 .purchaseDate(LocalDate.now())
                 .tickets(tickets)
-                .paymentMethod(purchaseDetailsRequestDto.getPaymentMethod())
+                .paymentMethod(request.getPaymentMethod())
                 .customer(customer)
                 .gameEmployee(gameEmployee)
                 .build();

@@ -49,8 +49,8 @@ public class Employee {
     private String email;
 
     @UpdateTimestamp
-    @Column(name = "UPDATE_DATE")
-    private LocalDateTime updateDate;
+    @Column(name = "REGISTRATION_DATE")
+    private LocalDateTime registrationDate;
 
     @Column(name = "WORKING_HOURS")
     private String workingHours;

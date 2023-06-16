@@ -16,4 +16,8 @@ public interface IGameService {
     public GameDetailsResponseDto updateGame(GameRequestDto request, Long id);
 
     public void deleteGame(Long id);
+
+    public GameDetailsResponseDto assignEmployeeToGame(Long id, Long gameEmployeeId);
+
+    public GameDetailsResponseDto getMostPopularGame();
 }
