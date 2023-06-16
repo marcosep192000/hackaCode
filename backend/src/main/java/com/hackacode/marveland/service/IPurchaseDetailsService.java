@@ -9,19 +9,21 @@ import com.hackacode.marveland.model.entity.PurchaseDetails;
 
 public interface IPurchaseDetailsService {
 
-    public PurchaseDetailsResponseDto create(PurchaseDetailsRequestDto purchaseDetailsRequestDto);
-
-    public List<PurchaseDetailsResponseDto> getAll();
-
-    public PurchaseDetailsResponseDto getById(Long id);
-
-    public void delete(Long id);
+    public List<PurchaseDetailsResponseDto> getByFilters();
 
     public List<PurchaseDetails> findByPurchaseDate(LocalDate date);
 
-    Double totalSalesByDate(LocalDate date);
+    public Double totalSalesByDate(LocalDate date);
 
-    Double totalSalesByYear(int year);
+    public Double totalSalesByMonth(Integer month);
 
-    Double totalSalesByMonth(int month);
+    public Double totalSalesByYear(Integer year);
+
+    public PurchaseDetailsResponseDto getById(Long id);
+
+    public PurchaseDetailsResponseDto create(PurchaseDetailsRequestDto request);
+
+    public PurchaseDetailsResponseDto update(PurchaseDetailsRequestDto request, Long id);
+
+    public void delete(Long id);
 }

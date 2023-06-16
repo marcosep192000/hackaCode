@@ -1,6 +1,6 @@
 package com.hackacode.marveland.model.dto.response;
 
-import java.time.LocalTime;
+import com.hackacode.marveland.model.entity.OpenHours;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,11 +13,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OpenHoursResponseDto {
+public class GameDetailsResponseDto {
 
     private Long id;
 
-    private LocalTime startTime;
+    private String name;
 
-    private LocalTime endTime;
+    private OpenHours openHours;
+
+    private Integer capacity;
+
+    private Double price;
 }

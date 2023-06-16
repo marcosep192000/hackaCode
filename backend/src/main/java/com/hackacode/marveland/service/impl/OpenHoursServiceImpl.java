@@ -1,8 +1,7 @@
 package com.hackacode.marveland.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -24,41 +23,43 @@ public class OpenHoursServiceImpl implements IOpenHoursService {
 
     private final IOpenHoursRepository openHoursRepository;
 
+    private OpenHours findOpenHoursById(Long id) {
+        return openHoursRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Open Hours not found"));
+    }
+
+    @Override
+    public List<OpenHoursResponseDto> getAllOpenHours() {
+        return openHoursRepository.findAll().stream()
+                .map(openHours -> openHoursMapper.fromEntityToDto(openHours))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public OpenHoursResponseDto getOpenHoursById(Long id) {
+        OpenHours openHours = findOpenHoursById(id);
+        return openHoursMapper.fromEntityToDto(openHours);
+    }
+
+    @Override
     @Transactional
-    public void create(OpenHoursRequestDto openHoursRequestDto) {
-        OpenHours openHours = openHoursMapper.fromDtoToEntity(openHoursRequestDto);
+    public OpenHoursResponseDto createOpenHours(OpenHoursRequestDto request) {
+        OpenHours openHours = openHoursMapper.fromDtoToEntity(request);
         openHoursRepository.save(openHours);
+        return openHoursMapper.fromEntityToDto(openHours);
     }
 
     @Override
-    public OpenHoursResponseDto update(Long id, OpenHoursRequestDto openHoursRequestDto) {
-        OpenHours openHours = openHoursRepository.findById(id).orElseThrow();
-        OpenHours updateHours = openHoursMapper.updateOpenHours(openHours, openHoursRequestDto);
-        openHoursRepository.save(updateHours);
-        OpenHoursResponseDto response = openHoursMapper.fromEntityToDto(updateHours);
-        return response;
+    @Transactional
+    public OpenHoursResponseDto updateOpenHours(OpenHoursRequestDto request, Long id) {
+        OpenHours openHours = findOpenHoursById(id);
+        OpenHours updatedOpenHours = openHoursMapper.updateOpenHours(openHours, request);
+        openHoursRepository.save(updatedOpenHours);
+        return openHoursMapper.fromEntityToDto(updatedOpenHours);
     }
 
     @Override
-    public List<OpenHoursResponseDto> getAll() {
-        List<OpenHours> openHours = openHoursRepository.findAll();
-        List<OpenHoursResponseDto> openHoursResponseDtoList = new ArrayList<>();
-        openHours.forEach(openHour -> {
-            OpenHoursResponseDto response = openHoursMapper.fromEntityToDto(openHour);
-            openHoursResponseDtoList.add(response);
-        });
-        return openHoursResponseDtoList;
-    }
-
-    @Override
-    public OpenHoursResponseDto getById(Long id) {
-        Optional<OpenHours> openHours = openHoursRepository.findById(id);
-        OpenHoursResponseDto response = openHoursMapper.fromEntityToDto(openHours.get());
-        return response;
-    }
-
-    @Override
-    public void delete(Long id) {
-        openHoursRepository.deleteById(id);
+    public void deleteOpenHours(Long id) {
+        openHoursRepository.delete(findOpenHoursById(id));
     }
 }

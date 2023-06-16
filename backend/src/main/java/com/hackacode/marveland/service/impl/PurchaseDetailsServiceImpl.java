@@ -3,7 +3,7 @@ package com.hackacode.marveland.service.impl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,8 @@ import com.hackacode.marveland.repository.IGameEmployeeRepository;
 import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
 import com.hackacode.marveland.service.IPurchaseDetailsService;
 import com.hackacode.marveland.service.ITicketService;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -36,64 +38,77 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
 
     private final ITicketService ticketService;
 
+    private PurchaseDetails findPurchaseDetailsById(Long id) {
+        return purchaseDetailsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Purchase not found"));
+    }
+
     @Override
-    public PurchaseDetailsResponseDto create(PurchaseDetailsRequestDto purchaseDetailsRequestDto) {
+    public List<PurchaseDetailsResponseDto> getPurchaseDetailsByFilters() {
+        return purchaseDetailsRepository.findAll().stream()
+                .map(purchase -> purchaseDetailsMapper.fromEntityToDto(purchase,
+                        calculateTotalPrice(purchase.getTickets())))
+                .collect(Collectors.toList());
+    }
 
-        // extraigo al customer y empleado asignados en el dto del detalle de compra
-        Customer customer = customerRepository.findById(purchaseDetailsRequestDto.getCustomerId()).orElseThrow();
-        GameEmployee gameEmployee = gameEmployeeRepository.findById(purchaseDetailsRequestDto.getGameEmployeeId())
-                .orElseThrow();
+    @Override
+    public PurchaseDetailsResponseDto getPurchaseDetailsById(Long id) {
+        PurchaseDetails purchase = findPurchaseDetailsById(id);
+        Double totalPrice = calculateTotalPrice(purchase.getTickets());
+        return purchaseDetailsMapper.fromEntityToDto(purchase, totalPrice);
+    }
 
-        // extraigo los tickets del dto de detalle de compra y los guardo llamando al
-        // servicio de tickets
-        List<TicketRequestDto> ticketsDto = purchaseDetailsRequestDto.getTickets();
+    @Override
+    public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto request) {
+        // extract customer and employee
+        Customer customer = customerRepository.findById(request.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+        GameEmployee gameEmployee = gameEmployeeRepository.findById(request.getGameEmployeeId())
+                .orElseThrow(() -> new RuntimeException("Game Employee not found"));
+
+        // extract tickets and save in db
+        List<Ticket> tickets = createTickets(request.getTickets());
+
+        // save purchase in db
+        PurchaseDetails purchase = purchaseDetailsMapper.fromDtoToEntity(request, customer,
+                gameEmployee, tickets);
+        purchaseDetailsRepository.save(purchase);
+
+        // calculate total price and return
+        Double totalPrice = calculateTotalPrice(purchase.getTickets());
+        return purchaseDetailsMapper.fromEntityToDto(purchase, totalPrice);
+    }
+
+    @Override
+    @Transactional
+    public PurchaseDetailsResponseDto updatePurchaseDetails(PurchaseDetailsRequestDto request, Long id) {
+        // PurchaseDetails purchase = findPurchaseDetailsById(id);
+        // PurchaseDetails updatedPurchase =
+        // purchaseDetailsMapper.updatePurchase(purchase, request);
+        // purchaseDetailsRepository.save(updatedPurchase);
+        // return purchaseDetailsMapper.fromEntityToDto(updatedPurchase);
+        return null;
+    }
+
+    @Override
+    public void deletePurchaseDetails(Long id) {
+        purchaseDetailsRepository.delete(findPurchaseDetailsById(id));
+    }
+
+    private List<Ticket> createTickets(List<TicketRequestDto> ticketsDto) {
         List<Ticket> tickets = new ArrayList<>();
         for (TicketRequestDto ticketDto : ticketsDto) {
-            tickets.add(ticketService.create(ticketDto));
+            tickets.add(ticketService.createTicket(ticketDto));
         }
-
-        PurchaseDetails purchaseDetails = purchaseDetailsMapper.fromDtoToEntity(purchaseDetailsRequestDto, customer,
-                gameEmployee, tickets);
-
-        purchaseDetailsRepository.save(purchaseDetails);
-
-        // calcular el total de la compra
-        Double finalPrice = this.calculateFinalPrice(purchaseDetails.getTickets());
-
-        return purchaseDetailsMapper.fromEntityToDto(purchaseDetails, finalPrice);
+        return tickets;
     }
 
-    private Double calculateFinalPrice(List<Ticket> tickets) {
-        Double finalPrice = 0.00;
+    private Double calculateTotalPrice(List<Ticket> tickets) {
+        Double totalPrice = 0.00;
         for (Ticket ticket : tickets) {
-            finalPrice += ticket.getGame().getPrice();
+            totalPrice += ticket.getGame().getPrice();
         }
-        return finalPrice;
-    }
-
-    @Override
-    public List<PurchaseDetailsResponseDto> getAll() {
-        List<PurchaseDetails> purchases = purchaseDetailsRepository.findAll();
-        List<PurchaseDetailsResponseDto> purchaseResponseDtoList = new ArrayList<>();
-        Double finalPrice = 10.50;
-        purchases.forEach(purchase -> {
-            PurchaseDetailsResponseDto response = purchaseDetailsMapper.fromEntityToDto(purchase, finalPrice);
-            purchaseResponseDtoList.add(response);
-        });
-        return purchaseResponseDtoList;
-    }
-
-    @Override
-    public PurchaseDetailsResponseDto getById(Long id) {
-        Optional<PurchaseDetails> purchase = purchaseDetailsRepository.findById(id);
-        Double finalPrice = 10.50;
-        PurchaseDetailsResponseDto response = purchaseDetailsMapper.fromEntityToDto(purchase.get(), finalPrice);
-        return response;
-    }
-
-    @Override
-    public void delete(Long id) {
-        purchaseDetailsRepository.deleteById(id);
+        return totalPrice;
     }
 
     @Override
@@ -103,11 +118,11 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     }
 
     @Override
-    public Double totalSalesByDate(LocalDate date){
+    public Double totalSalesByDate(LocalDate date) {
         List<PurchaseDetails> purchases = findByPurchaseDate(date);
         double total = 0.00;
-        for (PurchaseDetails purchase : purchases){
-            total = calculateFinalPrice(purchase.getTickets());
+        for (PurchaseDetails purchase : purchases) {
+            total = calculateTotalPrice(purchase.getTickets());
         }
         return total;
     }
