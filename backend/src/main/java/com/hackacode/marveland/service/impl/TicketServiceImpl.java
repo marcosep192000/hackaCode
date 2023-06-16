@@ -1,8 +1,14 @@
 package com.hackacode.marveland.service.impl;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.hackacode.marveland.model.entity.PurchaseDetails;
+import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
+import com.hackacode.marveland.service.IPurchaseDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
@@ -48,8 +54,6 @@ public class TicketServiceImpl implements ITicketService {
         return ticketRepository.save(ticket);
     }
 
-    @Override
-    @Transactional
     public TicketResponseDto updateTicket(TicketRequestDto request, Long id) {
         Ticket ticket = findTicketById(id);
         Ticket updatedTicket = ticketMapper.updateTicket(ticket, request);
@@ -60,5 +64,28 @@ public class TicketServiceImpl implements ITicketService {
     @Override
     public void deleteTicket(Long id) {
         ticketRepository.delete(findTicketById(id));
+    }
+
+
+    @Override //lista de tickets de un juego vendidos en un dia
+    public List<Ticket> soldByGameAndDate(Long gameId, LocalDate date){
+        List<Ticket> tickets = ticketRepository.findAll();
+        List<Ticket> ticketList = null;
+        for (Ticket ticket : tickets){
+            if(ticket.getGame().getId() == gameId && ticket.getPurchaseDetails().getPurchaseDate() == date){
+                ticketList.add(ticket);
+            }
+        }
+        return ticketList;
+    }
+
+    @Override
+    public List<Ticket> soldByDate(LocalDate date) {
+        List<PurchaseDetails> purchases = purchaseRepository.findByPurchaseDate(date);
+        List<Ticket> tickets = new ArrayList<>();
+        for (PurchaseDetails purchase : purchases){
+            tickets.addAll(purchase.getTickets());
+        }
+        return tickets;
     }
 }

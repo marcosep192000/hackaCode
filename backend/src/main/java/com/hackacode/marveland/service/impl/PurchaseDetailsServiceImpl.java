@@ -1,5 +1,6 @@
 package com.hackacode.marveland.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +37,7 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     private final IGameEmployeeRepository gameEmployeeRepository;
 
     private final ITicketService ticketService;
+
 
     private PurchaseDetails findPurchaseDetailsById(Long id) {
         return purchaseDetailsRepository.findById(id)
@@ -108,5 +110,32 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
             totalPrice += ticket.getGame().getPrice();
         }
         return totalPrice;
+    }
+
+    @Override
+    public List<PurchaseDetails> findByPurchaseDate(LocalDate date) {
+        List<PurchaseDetails> purchaseList = purchaseDetailsRepository.findByPurchaseDate(date);
+        return purchaseList;
+    }
+
+    @Override
+    public Double totalSalesByDate(LocalDate date){
+        List<PurchaseDetails> purchases = findByPurchaseDate(date);
+        double total = 0.00;
+        for (PurchaseDetails purchase : purchases){
+            total = calculateFinalPrice(purchase.getTickets());
+        }
+        return total;
+    }
+
+    private Double totalSalesByYear(Integer year){
+        List<PurchaseDetails> purchases = purchaseDetailsRepository.findAll();
+        double total = 0.00;
+        for (PurchaseDetails purchase : purchases){
+            if (purchase.getPurchaseDate().getMonth().equals(year)){
+                total = calculateFinalPrice(purchase.getTickets());
+            }
+        }
+        return total;
     }
 }

@@ -20,6 +20,7 @@ public class PurchaseDetailsResponseDto {
 
     private Long id;
 
+
     private String details;
 
     private LocalDate purchaseDate;

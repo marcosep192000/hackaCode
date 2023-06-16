@@ -1,5 +1,6 @@
 package com.hackacode.marveland.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,11 @@ public class PurchaseDetailsController {
     public ResponseEntity<List<PurchaseDetailsResponseDto>> getPurchaseDetailsByFilters() {
         List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getPurchaseDetailsByFilters();
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/totalSalesByDate")
+    public Double totalSalesByDate(@RequestParam LocalDate date){
+        return purchaseDetailsService.totalSalesByDate(date);
     }
 
     @GetMapping("/{id}")
