@@ -66,7 +66,7 @@ public class TicketServiceImpl implements ITicketService {
 
 
     @Override //lista de tickets de un juego vendidos en un dia
-    public List<Ticket> soldByGameAndDate(Long gameId, LocalDate date){
+    public Integer salesByGameAndDate(Long gameId, LocalDate date){
         List<Ticket> tickets = ticketRepository.findAll();
         List<Ticket> ticketList = null;
         for (Ticket ticket : tickets){
@@ -74,16 +74,16 @@ public class TicketServiceImpl implements ITicketService {
                 ticketList.add(ticket);
             }
         }
-        return ticketList;
+        return ticketList.size();
     }
 
     @Override
-    public List<Ticket> soldByDate(LocalDate date) {
+    public Integer salesByDate(LocalDate date) {
         List<PurchaseDetails> purchases = purchaseRepository.findByPurchaseDate(date);
         List<Ticket> tickets = new ArrayList<>();
         for (PurchaseDetails purchase : purchases){
             tickets.addAll(purchase.getTickets());
         }
-        return tickets;
+        return tickets.size();
     }
 }

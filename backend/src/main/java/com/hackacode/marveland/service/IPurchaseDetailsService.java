@@ -20,4 +20,8 @@ public interface IPurchaseDetailsService {
     public List<PurchaseDetails> findByPurchaseDate(LocalDate date);
 
     Double totalSalesByDate(LocalDate date);
+
+    Double totalSalesByYear(int year);
+
+    Double totalSalesByMonth(int month);
 }
