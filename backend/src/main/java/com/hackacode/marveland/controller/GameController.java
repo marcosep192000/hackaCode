@@ -28,32 +28,32 @@ public class GameController {
     private final IGameService gameService;
 
     @GetMapping("/filters")
-    public ResponseEntity<List<GameListResponseDto>> getGamesByFilters() {
+    public ResponseEntity<List<GameListResponseDto>> getByFilters() {
         List<GameListResponseDto> response = gameService.getGamesByFilters();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GameListResponseDto> getGameById(@PathVariable Long id) {
+    public ResponseEntity<GameListResponseDto> getById(@PathVariable Long id) {
         GameListResponseDto response = gameService.getGameById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<GameListResponseDto> createGame(@RequestBody GameRequestDto request) {
+    public ResponseEntity<GameListResponseDto> create(@RequestBody GameRequestDto request) {
         GameListResponseDto response = gameService.createGame(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<GameListResponseDto> updateGame(@PathVariable Long id,
+    public ResponseEntity<GameListResponseDto> update(@PathVariable Long id,
             @RequestBody GameRequestDto request) {
         GameListResponseDto response = gameService.updateGame(request, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<GeneralMessage> deleteGame(@PathVariable Long id) {
+    public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
         gameService.deleteGame(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Game successfully deleted"));
     }

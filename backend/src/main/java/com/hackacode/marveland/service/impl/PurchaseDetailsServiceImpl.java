@@ -127,11 +127,24 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
         return total;
     }
 
+    @Override
+    public Double totalSalesByMonth(Integer month) {
+        List<PurchaseDetails> purchases = purchaseDetailsRepository.findAll();
+        double total = 0.00;
+        for (PurchaseDetails purchase : purchases) {
+            if (purchase.getPurchaseDate().getMonth().equals(month)) {
+                total = calculateTotalPrice(purchase.getTickets());
+            }
+        }
+        return total;
+    }
+
+    @Override
     public Double totalSalesByYear(Integer year) {
         List<PurchaseDetails> purchases = purchaseDetailsRepository.findAll();
         double total = 0.00;
         for (PurchaseDetails purchase : purchases) {
-            if (purchase.getPurchaseDate().getMonth().equals(year)) {
+            if (purchase.getPurchaseDate().getYear() == year) {
                 total = calculateTotalPrice(purchase.getTickets());
             }
         }

@@ -15,6 +15,10 @@ public interface IPurchaseDetailsService {
 
     public Double totalSalesByDate(LocalDate date);
 
+    public Double totalSalesByMonth(Integer month);
+
+    public Double totalSalesByYear(Integer year);
+
     public PurchaseDetailsResponseDto getPurchaseDetailsById(Long id);
 
     public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto request);
