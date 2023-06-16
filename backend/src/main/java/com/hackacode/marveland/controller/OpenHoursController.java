@@ -18,31 +18,31 @@ public class OpenHoursController {
     private final IOpenHoursService openHoursService;
 
     @PostMapping("/create")
-    public OpenHoursRequestDto  createOpenHours(@RequestBody OpenHoursRequestDto openHours){
-        openHoursService.createOpenHours(openHours);
+    public OpenHoursRequestDto create(@RequestBody OpenHoursRequestDto openHours){
+        openHoursService.create(openHours);
         return openHours;
     }
     
     @PostMapping("/update")
-    public ResponseEntity<OpenHoursResponseDto> updateOpenHours(@RequestParam Long id, @RequestBody OpenHoursRequestDto openHours){
-        OpenHoursResponseDto response = openHoursService.updateHours(id, openHours);
+    public ResponseEntity<OpenHoursResponseDto> update(@RequestParam Long id, @RequestBody OpenHoursRequestDto openHours){
+        OpenHoursResponseDto response = openHoursService.update(id, openHours);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<OpenHoursResponseDto>> getAllOpenHours(){
-        List<OpenHoursResponseDto> response = openHoursService.getAllOpenHours();
+    public ResponseEntity<List<OpenHoursResponseDto>> getAll(){
+        List<OpenHoursResponseDto> response = openHoursService.getAll();
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OpenHoursResponseDto> getOpenHoursById(@RequestParam Long id){
-        OpenHoursResponseDto response = openHoursService.getOpenHoursById(id);
+    public ResponseEntity<OpenHoursResponseDto> getById(@RequestParam Long id){
+        OpenHoursResponseDto response = openHoursService.getById(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOpenHours(@RequestParam Long id){
-        openHoursService.deleteOpenHours(id);
+    public void delete(@RequestParam Long id){
+        openHoursService.delete(id);
     }
 }

@@ -7,13 +7,13 @@ import com.hackacode.marveland.model.dto.response.OpenHoursResponseDto;
 
 public interface IOpenHoursService {
 
-    public void createOpenHours(OpenHoursRequestDto openHoursRequestDto);
+    public void create(OpenHoursRequestDto openHoursRequestDto);
 
-    public OpenHoursResponseDto updateHours(Long id, OpenHoursRequestDto openHoursRequestDto);
+    public OpenHoursResponseDto update(Long id, OpenHoursRequestDto openHoursRequestDto);
 
-    public List<OpenHoursResponseDto> getAllOpenHours();
+    public List<OpenHoursResponseDto> getAll();
 
-    public OpenHoursResponseDto getOpenHoursById(Long id);
+    public OpenHoursResponseDto getById(Long id);
 
-    public void deleteOpenHours(Long id);
+    public void delete(Long id);
 }

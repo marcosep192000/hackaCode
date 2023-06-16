@@ -25,13 +25,13 @@ public class OpenHoursServiceImpl implements IOpenHoursService {
     private final IOpenHoursRepository openHoursRepository;
 
     @Transactional
-    public void createOpenHours(OpenHoursRequestDto openHoursRequestDto) {
+    public void create(OpenHoursRequestDto openHoursRequestDto) {
         OpenHours openHours = openHoursMapper.fromDtoToEntity(openHoursRequestDto);
         openHoursRepository.save(openHours);
     }
 
     @Override
-    public OpenHoursResponseDto updateHours(Long id, OpenHoursRequestDto openHoursRequestDto) {
+    public OpenHoursResponseDto update(Long id, OpenHoursRequestDto openHoursRequestDto) {
         OpenHours openHours = openHoursRepository.findById(id).orElseThrow();
         OpenHours updateHours = openHoursMapper.updateOpenHours(openHours, openHoursRequestDto);
         openHoursRepository.save(updateHours);
@@ -40,7 +40,7 @@ public class OpenHoursServiceImpl implements IOpenHoursService {
     }
 
     @Override
-    public List<OpenHoursResponseDto> getAllOpenHours() {
+    public List<OpenHoursResponseDto> getAll() {
         List<OpenHours> openHours = openHoursRepository.findAll();
         List<OpenHoursResponseDto> openHoursResponseDtoList = new ArrayList<>();
         openHours.forEach(openHour -> {
@@ -51,14 +51,14 @@ public class OpenHoursServiceImpl implements IOpenHoursService {
     }
 
     @Override
-    public OpenHoursResponseDto getOpenHoursById(Long id) {
+    public OpenHoursResponseDto getById(Long id) {
         Optional<OpenHours> openHours = openHoursRepository.findById(id);
         OpenHoursResponseDto response = openHoursMapper.fromEntityToDto(openHours.get());
         return response;
     }
 
     @Override
-    public void deleteOpenHours(Long id) {
+    public void delete(Long id) {
         openHoursRepository.deleteById(id);
     }
 }

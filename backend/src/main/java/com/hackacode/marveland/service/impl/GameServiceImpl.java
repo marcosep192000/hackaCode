@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.hackacode.marveland.model.mapper.GameMapper;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
 import com.hackacode.marveland.model.dto.response.GameResponseDto;
 import com.hackacode.marveland.model.entity.Game;
 import com.hackacode.marveland.model.entity.OpenHours;
-import com.hackacode.marveland.model.mapper.GameMapper;
 import com.hackacode.marveland.repository.IGameRepository;
 import com.hackacode.marveland.repository.IOpenHoursRepository;
 import com.hackacode.marveland.service.IGameService;
@@ -29,14 +29,14 @@ public class GameServiceImpl implements IGameService {
     private final IOpenHoursRepository openHoursRepository;
 
     @Transactional
-    public void createGame(GameRequestDto gameRequestDto) {
+    public void create(GameRequestDto gameRequestDto) {
         OpenHours openHours = openHoursRepository.findById(gameRequestDto.getOpenHoursId()).orElseThrow();
         Game game = gameMapper.fromDtoToEntity(gameRequestDto, openHours);
         gameRepository.save(game);
     }
 
     @Transactional
-    public GameResponseDto updateGame(Long id, GameRequestDto gameRequestDto) {
+    public GameResponseDto update(Long id, GameRequestDto gameRequestDto) {
         Game game = gameRepository.findById(id).orElseThrow();
         OpenHours openHours = openHoursRepository.findById(gameRequestDto.getOpenHoursId()).orElseThrow();
         Game updateGame = gameMapper.updateGame(game, gameRequestDto, openHours);
@@ -46,7 +46,7 @@ public class GameServiceImpl implements IGameService {
     }
 
     @Override
-    public List<GameResponseDto> getAllGames() {
+    public List<GameResponseDto> getAll() {
         List<Game> games = gameRepository.findAll();
         List<GameResponseDto> gameResponseDtoList = new ArrayList<>();
         games.forEach(game -> {
@@ -57,14 +57,14 @@ public class GameServiceImpl implements IGameService {
     }
 
     @Override
-    public GameResponseDto getGameById(Long id) {
+    public GameResponseDto getById(Long id) {
         Optional<Game> game = gameRepository.findById(id);
         GameResponseDto response = gameMapper.fromEntityToDto(game.get());
         return response;
     }
 
     @Transactional
-    public void deleteGame(Long id) {
+    public void delete(Long id) {
         gameRepository.deleteById(id);
     }
 }
