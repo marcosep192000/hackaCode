@@ -11,11 +11,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CustomerRequestDto implements Serializable {
 
 	@NotNull(message = "this field can not be blank")

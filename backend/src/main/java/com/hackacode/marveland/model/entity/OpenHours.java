@@ -14,13 +14,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder
+@Entity
+@Table(name = "OPEN_HOURS")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "OPEN_HOURS")
+@Builder
 public class OpenHours {
 
     @Id

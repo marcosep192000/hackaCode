@@ -63,7 +63,7 @@ public class AuthServiceImpl implements IAuthService {
                 employee.setLastName(request.getLastName());
                 employee.setDni(request.getDni());
                 employee.setEmail(request.getUsername());
-                employee.setUpdateDate(LocalDateTime.now());
+                employee.setRegistrationDate(LocalDateTime.now());
                 employee.setWorkingHours(request.getWorkingHours());
                 employee.setUser(user);
 
@@ -71,7 +71,7 @@ public class AuthServiceImpl implements IAuthService {
                 employeeRepository.save(employee);
 
                 return AuthResponseDto.builder()
-                                .userId(user.getId())
+                                .id(user.getId())
                                 .role(user.getRole())
                                 .token(jwtProvider.generateToken(user))
                                 .build();
@@ -87,7 +87,7 @@ public class AuthServiceImpl implements IAuthService {
                 }
                 User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
                 return AuthResponseDto.builder()
-                                .userId(user.getId())
+                                .id(user.getId())
                                 .role(user.getRole())
                                 .token(jwtProvider.generateToken(user))
                                 .build();

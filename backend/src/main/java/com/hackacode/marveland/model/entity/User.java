@@ -13,20 +13,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder
+@Entity
+@Table(name = "USERS")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "USERS")
+@Builder
 public class User implements UserDetails {
 
     @Id
@@ -34,11 +33,9 @@ public class User implements UserDetails {
     @Column(name = "USER_ID")
     private Long id;
 
-    @NotBlank(message = "your username cannot be empty")
     @Column(name = "USERNAME", unique = true)
     private String username;
 
-    @NotBlank(message = "your username cannot be empty")
     @Column(name = "PASSWORD")
     private String password;
 

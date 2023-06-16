@@ -6,16 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TicketRequestDto {
 
     private String fullName;
 
     private Integer dni;
-
-    private Long gameId;
 }
