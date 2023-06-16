@@ -3,19 +3,18 @@ package com.hackacode.marveland.service;
 import java.util.List;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
+import com.hackacode.marveland.model.dto.response.CustomerDetailsResponseDto;
+import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
 
 public interface ICustomerService {
 
-	public void create(CustomerRequestDto requestDto, Long id);
+	public List<CustomerDetailsResponseDto> getCustomersByFilters();
 
-	public CustomerResponseDto update(CustomerRequestDto requestDto, Long id);
+	public CustomerDetailsResponseDto getCustomerById(Long id);
 
-	public List<CustomerResponseDto> getAll();
+	public CustomerDetailsResponseDto createCustomer(CustomerRequestDto request, String email);
 
-	public CustomerResponseDto getById(Long id);
+	public CustomerDetailsResponseDto updateCustomer(CustomerRequestDto request, Long id);
 
-	public CustomerResponseDto getByDni(Integer dni);
-
-	public void delete(Long id);
+	public void deleteCustomer(Long id);
 }

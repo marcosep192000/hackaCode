@@ -21,14 +21,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "EMPLOYEES")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "EMPLOYEES")
+@Builder
 public class Employee {
 
     @Id

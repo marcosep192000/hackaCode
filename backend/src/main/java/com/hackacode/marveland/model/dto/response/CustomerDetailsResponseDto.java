@@ -15,7 +15,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerResponseDto {
+public class CustomerDetailsResponseDto {
 
 	private Long id;
 

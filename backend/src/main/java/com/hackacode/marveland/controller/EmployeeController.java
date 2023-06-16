@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hackacode.marveland.model.dto.request.AdminEmployeeRequestDto;
+import com.hackacode.marveland.model.dto.request.EmployeeRequestDto;
 import com.hackacode.marveland.service.IEmployeeService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
@@ -44,7 +44,7 @@ public class EmployeeController {
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> updateEmployee(@Valid @PathVariable Long id,
-			@RequestBody AdminEmployeeRequestDto requestDto) {
+			@RequestBody EmployeeRequestDto requestDto) {
 		employeeService.updateEmployee(requestDto, id);
 		return ResponseEntity.status(HttpStatus.OK).body(new GeneralMessage("Employee Updated"));
 	}

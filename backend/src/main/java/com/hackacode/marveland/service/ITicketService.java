@@ -4,15 +4,16 @@ import java.util.List;
 
 import com.hackacode.marveland.model.dto.request.TicketRequestDto;
 import com.hackacode.marveland.model.dto.response.TicketResponseDto;
-import com.hackacode.marveland.model.entity.Ticket;
 
 public interface ITicketService {
 
-    public Ticket createTicket(TicketRequestDto ticketRequestDto);
-
-    public List<TicketResponseDto> getAllTickets();
+    public List<TicketResponseDto> getTicketsByFilters();
 
     public TicketResponseDto getTicketById(Long id);
+
+    public TicketResponseDto createTicket(TicketRequestDto request);
+
+    public TicketResponseDto updateTicket(TicketRequestDto request, Long id);
 
     public void deleteTicket(Long id);
 }

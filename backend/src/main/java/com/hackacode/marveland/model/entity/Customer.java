@@ -17,24 +17,21 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder
+@Entity
+@Table(name = "CUSTOMERS")
+@SQLDelete(sql = "UPDATE CUSTOMERS SET state = true WHERE id =?")
+@Where(clause = "state = false")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "CUSTOMERS")
-@SQLDelete(sql = "UPDATE CUSTOMERS SET state = true WHERE id =?")
-@Where(clause = "state=false")
-@Entity
+@Builder
 public class Customer {
 
 	@Id
@@ -42,31 +39,25 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull(message = "this field can not be blank")
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 
-	@NotBlank(message = "this field can not be blank")
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
 	@Column(name = "DNI")
 	private Integer dni;
 
-	@NotBlank(message = "this field can not be blank")
 	@Column(name = "EMAIL")
 	private String email;
 
-	@NotBlank(message = "this field can not be blank")
 	@Column(name = "PHONE")
 	private String phone;
 
-	@NotBlank(message = "this field can not be blank")
 	@Column(name = "BIRTHDATE")
 	private String birthdate;
 
 	@Column(name = "STATE")
-	@Default
 	private boolean state = Boolean.FALSE;
 
 	@UpdateTimestamp
