@@ -12,9 +12,6 @@ INSERT INTO games (NAME, OPEN_HOURS_ID, CAPACITY, PRICE) VALUES
 ('Roller Coaster', 3, 30, 100.00);
 
 -- insert CUSTOMERS --
--- INSERT INTO customers (FIRST_NAME, LAST_NAME, DNI, EMAIL, PHONE, BIRTHDATE, STATE) VALUES
--- ('John', 'Doe', 12345678, 'johndoe@example.com', '+1234567890', '1990-01-01', false),
--- ('Alice', 'Smith', 23456789, 'alice.smith@example.com', '+9876543210', '1995-05-15', false),
--- ('Bob', 'Johnson', 34567891, 'bob.johnson@example.com', '+8765432109', '1988-08-20', false),
--- ('Eva', 'Brown', 14329876, 'eva.brown@example.com', '+7654321098', '1992-12-10', false),
--- ('Michael', 'Davis', 23548643,'michael.davis@example.com', '+6543210987', '1997-03-25', false);
+INSERT INTO customers (FIRST_NAME, LAST_NAME, DNI, EMAIL, PHONE, BIRTHDATE, STATE, REGISTRATION_DATE) VALUES
+('Rodrigo', 'De Paul', 45678912, 'rodrigodepaul@gmail.com', '+54 9 11 1234 5678', '1990-01-01', false, NOW()),
+('Tini', 'Stoessel', 34567891, 'tinitinitini@gmail.com', '+54 9 11 1234 5678', '2000-01-01', false, NOW());
