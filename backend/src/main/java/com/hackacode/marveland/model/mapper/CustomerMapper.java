@@ -34,6 +34,7 @@ public class CustomerMapper {
 				.email(customer.getEmail())
 				.phone(customer.getPhone())
 				.birthdate(customer.getBirthdate())
+				.registrationDate(customer.getRegistrationDate())
 				.purchases(customer.getPurchases())
 				.build();
 	}
