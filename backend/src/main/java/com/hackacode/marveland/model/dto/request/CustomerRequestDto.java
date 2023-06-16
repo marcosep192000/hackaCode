@@ -2,7 +2,6 @@ package com.hackacode.marveland.model.dto.request;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,15 +17,21 @@ import lombok.Setter;
 @Builder
 public class CustomerRequestDto implements Serializable {
 
-	@NotNull(message = "this field can not be blank")
+	@NotBlank(message = "First name cannot be blank")
 	private String firstName;
-	@NotBlank(message = "this field can not be blank")
+
+	@NotBlank(message = "Last name cannot be blank")
 	private String lastName;
+
+	@NotNull(message = "DNI cannot be null")
 	private Integer dni;
-	@NotBlank(message = "this field can not be blank")
+
+	@NotBlank(message = "Email cannot be blank")
 	private String email;
-	@NotBlank(message = "this field can not be blank")
+
+	@NotBlank(message = "Phone cannot be blank")
 	private String phone;
-	@NotBlank(message = "this field can not be blank")
+
+	@NotBlank(message = "Birthdate cannot be blank")
 	private String birthdate;
 }
