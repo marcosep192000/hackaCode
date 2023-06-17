@@ -7,13 +7,13 @@ import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
 
 public interface ICustomerService {
 
-	public List<CustomerListResponseDto> getCustomersByFilters();
+	public List<CustomerListResponseDto> getByFilters();
 
-	public CustomerListResponseDto getCustomerById(Long id);
+	public CustomerListResponseDto getById(Long id);
 
-	public CustomerListResponseDto createCustomer(CustomerRequestDto request, String email);
+	public CustomerListResponseDto create(CustomerRequestDto request, String email);
 
-	public CustomerListResponseDto updateCustomer(CustomerRequestDto request, Long id);
+	public CustomerListResponseDto update(CustomerRequestDto request, Long id);
 
-	public void deleteCustomer(Long id);
+	public void delete(Long id);
 }

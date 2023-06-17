@@ -38,13 +38,14 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
 
     private final ITicketService ticketService;
 
-    private PurchaseDetails findPurchaseDetailsById(Long id) {
+    @Override
+    public PurchaseDetails findById(Long id) {
         return purchaseDetailsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Purchase not found"));
     }
 
     @Override
-    public List<PurchaseDetailsResponseDto> getPurchaseDetailsByFilters() {
+    public List<PurchaseDetailsResponseDto> getByFilters() {
         return purchaseDetailsRepository.findAll().stream()
                 .map(purchase -> purchaseDetailsMapper.fromEntityToDto(purchase,
                         calculateTotalPrice(purchase.getTickets())))
@@ -52,14 +53,14 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     }
 
     @Override
-    public PurchaseDetailsResponseDto getPurchaseDetailsById(Long id) {
-        PurchaseDetails purchase = findPurchaseDetailsById(id);
+    public PurchaseDetailsResponseDto getById(Long id) {
+        PurchaseDetails purchase = findById(id);
         Double totalPrice = calculateTotalPrice(purchase.getTickets());
         return purchaseDetailsMapper.fromEntityToDto(purchase, totalPrice);
     }
 
-    @Override
-    public PurchaseDetailsResponseDto createPurchaseDetails(PurchaseDetailsRequestDto request) {
+    @Transactional
+    public PurchaseDetailsResponseDto create(PurchaseDetailsRequestDto request) {
         // extract customer and employee
         Customer customer = customerRepository.findById(request.getCustomerId())
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
@@ -67,7 +68,7 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
                 .orElseThrow(() -> new RuntimeException("Game Employee not found"));
 
         // extract tickets and save in db
-        List<Ticket> tickets = createTickets(request.getTickets());
+        List<Ticket> tickets = create(request.getTickets());
 
         // save purchase in db
         PurchaseDetails purchase = purchaseDetailsMapper.fromDtoToEntity(request, customer,
@@ -79,9 +80,8 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
         return purchaseDetailsMapper.fromEntityToDto(purchase, totalPrice);
     }
 
-    @Override
     @Transactional
-    public PurchaseDetailsResponseDto updatePurchaseDetails(PurchaseDetailsRequestDto request, Long id) {
+    public PurchaseDetailsResponseDto update(PurchaseDetailsRequestDto request, Long id) {
         // PurchaseDetails purchase = findPurchaseDetailsById(id);
         // PurchaseDetails updatedPurchase =
         // purchaseDetailsMapper.updatePurchase(purchase, request);
@@ -90,20 +90,22 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
         return null;
     }
 
-    @Override
-    public void deletePurchaseDetails(Long id) {
-        purchaseDetailsRepository.delete(findPurchaseDetailsById(id));
+    @Transactional
+    public void delete(Long id) {
+        purchaseDetailsRepository.deleteById(id);
     }
 
-    private List<Ticket> createTickets(List<TicketRequestDto> ticketsDto) {
+    @Transactional
+    private List<Ticket> create(List<TicketRequestDto> ticketsDto) {
         List<Ticket> tickets = new ArrayList<>();
         for (TicketRequestDto ticketDto : ticketsDto) {
-            tickets.add(ticketService.createTicket(ticketDto));
+            tickets.add(ticketService.create(ticketDto));
         }
         return tickets;
     }
 
-    private Double calculateTotalPrice(List<Ticket> tickets) {
+    @Override
+    public Double calculateTotalPrice(List<Ticket> tickets) {
         Double totalPrice = 0.00;
         for (Ticket ticket : tickets) {
             totalPrice += ticket.getGame().getPrice();
@@ -133,7 +135,7 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
         double total = 0.00;
         for (PurchaseDetails purchase : purchases){
             if (purchase.getPurchaseDate().getYear() == year){
-                total = calculateFinalPrice(purchase.getTickets());
+                total = calculateTotalPrice(purchase.getTickets());
             }
         }
         return total;
@@ -145,7 +147,7 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
         double total = 0.00;
         for (PurchaseDetails purchase : purchases){
             if (purchase.getPurchaseDate().getMonth().equals(month)){
-                total = calculateFinalPrice(purchase.getTickets());
+                total = calculateTotalPrice(purchase.getTickets());
             }
         }
         return total;

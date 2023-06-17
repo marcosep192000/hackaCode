@@ -38,7 +38,7 @@ public class CustomerMapper {
 				.build();
 	}
 
-	public Customer updateCustomer(Customer customer, CustomerRequestDto request) {
+	public Customer update(Customer customer, CustomerRequestDto request) {
 		customer.setFirstName(request.getFirstName());
 		customer.setLastName(request.getLastName());
 		customer.setDni(request.getDni());

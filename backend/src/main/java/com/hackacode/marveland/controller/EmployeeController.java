@@ -30,26 +30,26 @@ public class EmployeeController {
 
 	@GetMapping("/filters")
 	public ResponseEntity<List<EmployeeListResponseDto>> getByFilters() {
-		List<EmployeeListResponseDto> response = employeeService.getEmployeesByFilters();
+		List<EmployeeListResponseDto> response = employeeService.getByFilters();
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<EmployeeListResponseDto> getById(@PathVariable Long id) {
-		EmployeeListResponseDto response = employeeService.getEmployeeById(id);
+		EmployeeListResponseDto response = employeeService.getById(id);
 		return ResponseEntity.ok(response);
 	}
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<EmployeeListResponseDto> update(@PathVariable Long id,
 			@RequestBody EmployeeRequestDto request) {
-		EmployeeListResponseDto response = employeeService.updateEmployee(request, id);
+		EmployeeListResponseDto response = employeeService.update(request, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
-		employeeService.deleteEmployee(id);
+		employeeService.delete(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Employee successfully deleted"));
 	}
 }

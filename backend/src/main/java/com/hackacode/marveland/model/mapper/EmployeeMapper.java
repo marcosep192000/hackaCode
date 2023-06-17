@@ -21,7 +21,7 @@ public class EmployeeMapper {
 		return response;
 	}
 
-	public Employee updateEmployee(Employee employee, EmployeeRequestDto request) {
+	public Employee update(Employee employee, EmployeeRequestDto request) {
 		employee.setFirstName(request.getFirstName());
 		employee.setLastName(request.getLastName());
 		employee.setDni(request.getDni());

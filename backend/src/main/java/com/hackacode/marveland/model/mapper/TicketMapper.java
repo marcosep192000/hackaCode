@@ -28,7 +28,7 @@ public class TicketMapper {
                 .build();
     }
 
-    public Ticket updateTicket(Ticket ticket, TicketRequestDto request) {
+    public Ticket update(Ticket ticket, TicketRequestDto request) {
         return null;
     }
 }

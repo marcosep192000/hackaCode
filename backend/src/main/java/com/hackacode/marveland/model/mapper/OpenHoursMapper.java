@@ -24,7 +24,7 @@ public class OpenHoursMapper {
                 .build();
     }
 
-    public OpenHours updateOpenHours(OpenHours openHours, OpenHoursRequestDto request) {
+    public OpenHours update(OpenHours openHours, OpenHoursRequestDto request) {
         openHours.setStartTime(request.getStartTime());
         openHours.setEndTime(request.getEndTime());
         return openHours;

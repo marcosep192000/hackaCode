@@ -27,27 +27,26 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	private final IAdminEmployeeRepository adminEmployeeRepository;
 
-	private Customer findCustomerById(Long id) {
+	private Customer findById(Long id) {
 		return customerRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Customer not found"));
 	}
 
 	@Override
-	public List<CustomerListResponseDto> getCustomersByFilters() {
+	public List<CustomerListResponseDto> getByFilters() {
 		return customerRepository.findAll().stream()
 				.map(customer -> customerMapper.fromEntityToDto(customer))
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	public CustomerListResponseDto getCustomerById(Long id) {
-		Customer customer = findCustomerById(id);
+	public CustomerListResponseDto getById(Long id) {
+		Customer customer = findById(id);
 		return customerMapper.fromEntityToDto(customer);
 	}
 
-	@Override
 	@Transactional
-	public CustomerListResponseDto createCustomer(CustomerRequestDto request, String email) {
+	public CustomerListResponseDto create(CustomerRequestDto request, String email) {
 		if (customerRepository.existsByDni(request.getDni())) {
 			throw new RuntimeException("Customer already exists");
 		}
@@ -59,17 +58,16 @@ public class CustomerServiceImpl implements ICustomerService {
 		return customerMapper.fromEntityToDto(customer);
 	}
 
-	@Override
 	@Transactional
-	public CustomerListResponseDto updateCustomer(CustomerRequestDto request, Long id) {
-		Customer customer = findCustomerById(id);
-		Customer updatedCustomer = customerMapper.updateCustomer(customer, request);
+	public CustomerListResponseDto update(CustomerRequestDto request, Long id) {
+		Customer customer = findById(id);
+		Customer updatedCustomer = customerMapper.update(customer, request);
 		customerRepository.save(updatedCustomer);
 		return customerMapper.fromEntityToDto(updatedCustomer);
 	}
 
 	@Override
-	public void deleteCustomer(Long id) {
-		customerRepository.delete(findCustomerById(id));
+	public void delete(Long id) {
+		customerRepository.delete(findById(id));
 	}
 }
