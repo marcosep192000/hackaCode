@@ -31,7 +31,7 @@ public class PurchaseDetailsController {
 
     @GetMapping("/filters")
     public ResponseEntity<List<PurchaseDetailsResponseDto>> getPByFilters() {
-        List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getPurchaseDetailsByFilters();
+        List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getByFilters();
         return ResponseEntity.ok(response);
     }
 
@@ -42,21 +42,21 @@ public class PurchaseDetailsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PurchaseDetailsResponseDto> getById(@PathVariable Long id) {
-        PurchaseDetailsResponseDto response = purchaseDetailsService.getPurchaseDetailsById(id);
+        PurchaseDetailsResponseDto response = purchaseDetailsService.getById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
     public ResponseEntity<PurchaseDetailsResponseDto> create(
             @RequestBody PurchaseDetailsRequestDto request) {
-        PurchaseDetailsResponseDto response = purchaseDetailsService.createPurchaseDetails(request);
+        PurchaseDetailsResponseDto response = purchaseDetailsService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<PurchaseDetailsResponseDto> update(@PathVariable Long id,
             @RequestBody PurchaseDetailsRequestDto request) {
-        PurchaseDetailsResponseDto response = purchaseDetailsService.updatePurchaseDetails(request, id);
+        PurchaseDetailsResponseDto response = purchaseDetailsService.update(request, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
@@ -70,9 +70,10 @@ public class PurchaseDetailsController {
     public Double totalSalesByYear(@RequestParam int year){
         return purchaseDetailsService.totalSalesByYear(year);
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
-        purchaseDetailsService.deletePurchaseDetails(id);
+        purchaseDetailsService.delete(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(new GeneralMessage("Purchase successfully deleted"));
     }

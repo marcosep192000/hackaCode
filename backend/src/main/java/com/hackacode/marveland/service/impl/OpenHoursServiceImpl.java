@@ -23,43 +23,42 @@ public class OpenHoursServiceImpl implements IOpenHoursService {
 
     private final IOpenHoursRepository openHoursRepository;
 
-    private OpenHours findOpenHoursById(Long id) {
+    private OpenHours findById(Long id) {
         return openHoursRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Open Hours not found"));
     }
 
     @Override
-    public List<OpenHoursResponseDto> getAllOpenHours() {
+    public List<OpenHoursResponseDto> getAll() {
         return openHoursRepository.findAll().stream()
                 .map(openHours -> openHoursMapper.fromEntityToDto(openHours))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public OpenHoursResponseDto getOpenHoursById(Long id) {
-        OpenHours openHours = findOpenHoursById(id);
+    public OpenHoursResponseDto getById(Long id) {
+        OpenHours openHours = findById(id);
         return openHoursMapper.fromEntityToDto(openHours);
     }
 
     @Override
     @Transactional
-    public OpenHoursResponseDto createOpenHours(OpenHoursRequestDto request) {
+    public OpenHoursResponseDto create(OpenHoursRequestDto request) {
         OpenHours openHours = openHoursMapper.fromDtoToEntity(request);
         openHoursRepository.save(openHours);
         return openHoursMapper.fromEntityToDto(openHours);
     }
 
-    @Override
     @Transactional
-    public OpenHoursResponseDto updateOpenHours(OpenHoursRequestDto request, Long id) {
-        OpenHours openHours = findOpenHoursById(id);
-        OpenHours updatedOpenHours = openHoursMapper.updateOpenHours(openHours, request);
+    public OpenHoursResponseDto update(OpenHoursRequestDto request, Long id) {
+        OpenHours openHours = findById(id);
+        OpenHours updatedOpenHours = openHoursMapper.update(openHours, request);
         openHoursRepository.save(updatedOpenHours);
         return openHoursMapper.fromEntityToDto(updatedOpenHours);
     }
 
     @Override
-    public void deleteOpenHours(Long id) {
-        openHoursRepository.delete(findOpenHoursById(id));
+    public void delete(Long id) {
+        openHoursRepository.delete(findById(id));
     }
 }

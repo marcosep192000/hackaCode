@@ -27,18 +27,30 @@ public class TicketServiceImpl implements ITicketService {
 
     private final ITicketRepository ticketRepository;
 
-    private final IPurchaseDetailsRepository purchaseDetailsRepository;
+    private final IPurchaseDetailsRepository purchaseRepository;
 
-    private Ticket findTicketById(Long id) {
-        return ticketRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ticket not found"));
+    @Override
+    public List<TicketResponseDto> getAll() {
+        List<Ticket> ticketList = ticketRepository.findAll();
+        List<TicketResponseDto> response = new ArrayList<>();
+        for (Ticket ticket : ticketList){
+            TicketResponseDto ticketResponse = ticketMapper.fromEntityToDto(ticket);
+            response.add(ticketResponse);
+        }
+        return response;
     }
 
     @Override
-    public List<TicketResponseDto> getTicketsByFilters() {
+    public List<TicketResponseDto> getByFilters() {
         return ticketRepository.findAll().stream()
                 .map(ticket -> ticketMapper.fromEntityToDto(ticket))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Ticket getById(Long id) {
+        return ticketRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ticket not found"));
     }
 
     @Override //lista de tickets de un juego vendidos en un dia
@@ -62,29 +74,22 @@ public class TicketServiceImpl implements ITicketService {
         }
         return tickets.size();
     }
-
-    @Override
-    public TicketResponseDto getTicketById(Long id) {
-        Ticket ticket = findTicketById(id);
-        return ticketMapper.fromEntityToDto(ticket);
-    }
-
-    @Override
     @Transactional
-    public Ticket createTicket(TicketRequestDto request) {
+    public Ticket create(TicketRequestDto request) {
         Ticket ticket = ticketMapper.fromDtoToEntity(request);
         return ticketRepository.save(ticket);
     }
 
-    public TicketResponseDto updateTicket(TicketRequestDto request, Long id) {
-        Ticket ticket = findTicketById(id);
-        Ticket updatedTicket = ticketMapper.updateTicket(ticket, request);
+    @Transactional
+    public TicketResponseDto update(TicketRequestDto request, Long id) {
+        Ticket ticket = getById(id);
+        Ticket updatedTicket = ticketMapper.update(ticket, request);
         ticketRepository.save(updatedTicket);
         return ticketMapper.fromEntityToDto(updatedTicket);
     }
 
-    @Override
-    public void deleteTicket(Long id) {
-        ticketRepository.delete(findTicketById(id));
+    @Transactional
+    public void delete(Long id) {
+        ticketRepository.deleteById(id);
     }
 }

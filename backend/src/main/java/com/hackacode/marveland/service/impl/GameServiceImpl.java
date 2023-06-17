@@ -1,6 +1,7 @@
 package com.hackacode.marveland.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -31,18 +32,13 @@ public class GameServiceImpl implements IGameService {
 
     private final IGameEmployeeRepository gameEmployeeRepository;
 
-    private Game findGameById(Long id) {
+    private Game findById(Long id) {
         return gameRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Game not found"));
     }
 
-    private OpenHours findOpenHoursById(Long id) {
-        return openHoursRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Open Hours not found"));
-    }
-
     @Override
-    public List<GameListResponseDto> getGamesByFilters() {
+    public List<GameListResponseDto> getByFilters() {
         return gameRepository.findAll().stream()
                 .map(game -> gameMapper.fromEntityToDto(game))
                 .collect(Collectors.toList());
@@ -64,15 +60,15 @@ public class GameServiceImpl implements IGameService {
     }
 
     @Override
-    public GameListResponseDto getGameById(Long id) {
-        Game game = findGameById(id);
+    public GameListResponseDto getById(Long id) {
+        Game game = findById(id);
         return gameMapper.fromEntityToDto(game);
     }
 
     @Transactional
-    public GameListResponseDto createGame(GameRequestDto request) {
-        OpenHours openHours = findOpenHoursById(request.getOpenHoursId());
-        Game Game = gameMapper.fromDtoToEntity(request, openHours);
+    public GameListResponseDto create(GameRequestDto request) {
+        Optional<OpenHours> openHours = openHoursRepository.findById(request.getOpenHoursId());
+        Game Game = gameMapper.fromDtoToEntity(request, openHours.get());
         gameRepository.save(Game);
         return gameMapper.fromEntityToDto(Game);
     }
@@ -81,7 +77,7 @@ public class GameServiceImpl implements IGameService {
     public void assignEmployeeToGame(Long id, Long gameEmployeeId) {
         GameEmployee gameEmployee = gameEmployeeRepository.findById(gameEmployeeId)
                 .orElseThrow(() -> new RuntimeException("Game Employee not found"));
-        Game game = findGameById(id);
+        Game game = findById(id);
         gameEmployee.setGame(game);
         game.getEmployees().add(gameEmployee);
 
@@ -91,16 +87,16 @@ public class GameServiceImpl implements IGameService {
 
     @Override
     @Transactional
-    public GameListResponseDto updateGame(GameRequestDto request, Long id) {
-        OpenHours openHours = findOpenHoursById(request.getOpenHoursId());
-        Game game = findGameById(id);
-        Game updatedGame = gameMapper.updateGame(game, openHours, request);
+    public GameListResponseDto update(GameRequestDto request, Long id) {
+        Optional<OpenHours> openHours = openHoursRepository.findById(request.getOpenHoursId());
+        Game game = findById(id);
+        Game updatedGame = gameMapper.update(game, openHours.get(), request);
         gameRepository.save(updatedGame);
         return gameMapper.fromEntityToDto(updatedGame);
     }
 
     @Override
-    public void deleteGame(Long id) {
-        gameRepository.delete(findGameById(id));
+    public void delete(Long id) {
+        gameRepository.delete(findById(id));
     }
 }

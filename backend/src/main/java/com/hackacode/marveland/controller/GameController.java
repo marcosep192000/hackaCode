@@ -29,32 +29,32 @@ public class GameController {
 
     @GetMapping("/filters")
     public ResponseEntity<List<GameListResponseDto>> getByFilters() {
-        List<GameListResponseDto> response = gameService.getGamesByFilters();
+        List<GameListResponseDto> response = gameService.getByFilters();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<GameListResponseDto> getById(@PathVariable Long id) {
-        GameListResponseDto response = gameService.getGameById(id);
+        GameListResponseDto response = gameService.getById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
     public ResponseEntity<GameListResponseDto> create(@RequestBody GameRequestDto request) {
-        GameListResponseDto response = gameService.createGame(request);
+        GameListResponseDto response = gameService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<GameListResponseDto> update(@PathVariable Long id,
             @RequestBody GameRequestDto request) {
-        GameListResponseDto response = gameService.updateGame(request, id);
+        GameListResponseDto response = gameService.update(request, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
-        gameService.deleteGame(id);
+        gameService.delete(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Game successfully deleted"));
     }
 }

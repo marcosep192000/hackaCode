@@ -32,35 +32,35 @@ public class CustomerController {
 	private final JwtProvider jwtProvider;
 
 	@GetMapping("/filters")
-	public ResponseEntity<List<CustomerListResponseDto>> getCustomersByFilters() {
-		List<CustomerListResponseDto> response = customerService.getCustomersByFilters();
+	public ResponseEntity<List<CustomerListResponseDto>> getByFilters() {
+		List<CustomerListResponseDto> response = customerService.getByFilters();
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CustomerListResponseDto> getCustomerById(@PathVariable Long id) {
-		CustomerListResponseDto response = customerService.getCustomerById(id);
+	public ResponseEntity<CustomerListResponseDto> getById(@PathVariable Long id) {
+		CustomerListResponseDto response = customerService.getById(id);
 		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<CustomerListResponseDto> createCustomer(@RequestHeader("Authorization") String token,
+	public ResponseEntity<CustomerListResponseDto> create(@RequestHeader("Authorization") String token,
 			@RequestBody CustomerRequestDto request) {
 		String email = jwtProvider.extractUsername(token.substring(7));
-		CustomerListResponseDto response = customerService.createCustomer(request, email);
+		CustomerListResponseDto response = customerService.create(request, email);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<CustomerListResponseDto> updateCustomer(@PathVariable Long id,
+	public ResponseEntity<CustomerListResponseDto> update(@PathVariable Long id,
 			@RequestBody CustomerRequestDto request) {
-		CustomerListResponseDto response = customerService.updateCustomer(request, id);
+		CustomerListResponseDto response = customerService.update(request, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<GeneralMessage> deleteCustomer(@PathVariable Long id) {
-		customerService.deleteCustomer(id);
+	public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
+		customerService.delete(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Customer successfully deleted"));
 	}
 }

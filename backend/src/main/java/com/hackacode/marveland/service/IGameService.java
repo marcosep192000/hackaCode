@@ -7,17 +7,17 @@ import com.hackacode.marveland.model.dto.response.GameListResponseDto;
 
 public interface IGameService {
 
-    public List<GameListResponseDto> getGamesByFilters();
+    public List<GameListResponseDto> getByFilters();
 
     public GameListResponseDto getMostPopularGame();
 
-    public GameListResponseDto getGameById(Long id);
+    public GameListResponseDto getById(Long id);
 
-    public GameListResponseDto createGame(GameRequestDto request);
+    public GameListResponseDto create(GameRequestDto request);
 
     public void assignEmployeeToGame(Long id, Long gameEmployeeId);
 
-    public GameListResponseDto updateGame(GameRequestDto request, Long id);
+    public GameListResponseDto update(GameRequestDto request, Long id);
 
-    public void deleteGame(Long id);
+    public void delete(Long id);
 }

@@ -9,9 +9,11 @@ import com.hackacode.marveland.model.entity.Ticket;
 
 public interface ITicketService {
 
+    public List<TicketResponseDto> getAll();
+
     public List<TicketResponseDto> getByFilters();
 
-    public TicketResponseDto getById(Long id);
+    public Ticket getById(Long id);
 
     public Integer salesByGameAndDate(Long gameId, LocalDate date);
 

@@ -23,13 +23,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	private final IEmployeeRepository employeeRepository;
 
-	private Employee findEmployeeById(Long id) {
+	private Employee findById(Long id) {
 		return employeeRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Employee not found"));
 	}
 
 	@Override
-	public List<EmployeeListResponseDto> getEmployeesByFilters() {
+	public List<EmployeeListResponseDto> getByFilters() {
 		return employeeRepository.findAll().stream()
 				.map(employee -> employeeMapper.fromEntityToDto(employee))
 				.collect(Collectors.toList());
@@ -87,22 +87,22 @@ public class EmployeeServiceImpl implements IEmployeeService {
     // }
 
 	@Override
-	public EmployeeListResponseDto getEmployeeById(Long id) {
-		Employee Employee = findEmployeeById(id);
+	public EmployeeListResponseDto getById(Long id) {
+		Employee Employee = findById(id);
 		return employeeMapper.fromEntityToDto(Employee);
 	}
 
 	@Override
 	@Transactional
-	public EmployeeListResponseDto updateEmployee(EmployeeRequestDto request, Long id) {
-		Employee employee = findEmployeeById(id);
-		Employee updatedEmployee = employeeMapper.updateEmployee(employee, request);
+	public EmployeeListResponseDto update(EmployeeRequestDto request, Long id) {
+		Employee employee = findById(id);
+		Employee updatedEmployee = employeeMapper.update(employee, request);
 		employeeRepository.save(updatedEmployee);
 		return employeeMapper.fromEntityToDto(updatedEmployee);
 	}
 
 	@Override
-	public void deleteEmployee(Long id) {
-		employeeRepository.delete(findEmployeeById(id));
+	public void delete(Long id) {
+		employeeRepository.delete(findById(id));
 	}
 }
