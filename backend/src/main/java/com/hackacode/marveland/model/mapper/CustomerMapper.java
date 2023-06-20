@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
+import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.Customer;
 
@@ -25,8 +25,8 @@ public class CustomerMapper {
 				.build();
 	}
 
-	public CustomerListResponseDto fromEntityToDto(Customer customer) {
-		return CustomerListResponseDto.builder()
+	public CustomerResponseDto fromEntityToDto(Customer customer) {
+		return CustomerResponseDto.builder()
 				.id(customer.getId())
 				.firstName(customer.getFirstName())
 				.lastName(customer.getLastName())

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.config.jwt.JwtProvider;
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
+import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.service.ICustomerService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
@@ -32,29 +32,35 @@ public class CustomerController {
 	private final JwtProvider jwtProvider;
 
 	@GetMapping("/filters")
-	public ResponseEntity<List<CustomerListResponseDto>> getByFilters() {
-		List<CustomerListResponseDto> response = customerService.getByFilters();
+	public ResponseEntity<List<CustomerResponseDto>> getByFilters() {
+		List<CustomerResponseDto> response = customerService.getByFilters();
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CustomerListResponseDto> getById(@PathVariable Long id) {
-		CustomerListResponseDto response = customerService.getById(id);
+	public ResponseEntity<CustomerResponseDto> getById(@PathVariable Long id) {
+		CustomerResponseDto response = customerService.getById(id);
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/getAll")
+	public ResponseEntity<List<CustomerResponseDto>> getAll(){
+		List<CustomerResponseDto> response = customerService.getAll();
 		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<CustomerListResponseDto> create(@RequestHeader("Authorization") String token,
-			@RequestBody CustomerRequestDto request) {
+	public ResponseEntity<CustomerResponseDto> create(@RequestHeader("Authorization") String token,
+                                                      @RequestBody CustomerRequestDto request) {
 		String email = jwtProvider.extractUsername(token.substring(7));
-		CustomerListResponseDto response = customerService.create(request, email);
+		CustomerResponseDto response = customerService.create(request, email);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<CustomerListResponseDto> update(@PathVariable Long id,
-			@RequestBody CustomerRequestDto request) {
-		CustomerListResponseDto response = customerService.update(request, id);
+	public ResponseEntity<CustomerResponseDto> update(@PathVariable Long id,
+                                                      @RequestBody CustomerRequestDto request) {
+		CustomerResponseDto response = customerService.update(request, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
 	}
 

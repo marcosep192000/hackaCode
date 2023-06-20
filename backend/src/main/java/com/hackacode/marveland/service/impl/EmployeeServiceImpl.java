@@ -1,12 +1,13 @@
 package com.hackacode.marveland.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.hackacode.marveland.model.dto.response.EmployeeResponseDto;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.EmployeeRequestDto;
-import com.hackacode.marveland.model.dto.response.EmployeeListResponseDto;
 import com.hackacode.marveland.model.entity.Employee;
 import com.hackacode.marveland.model.mapper.EmployeeMapper;
 import com.hackacode.marveland.repository.IEmployeeRepository;
@@ -23,13 +24,21 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	private final IEmployeeRepository employeeRepository;
 
-	private Employee findById(Long id) {
+	@Override
+	public Employee findById(Long id) {
 		return employeeRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Employee not found"));
 	}
 
 	@Override
-	public List<EmployeeListResponseDto> getByFilters() {
+	public List<EmployeeResponseDto> getAll(){
+		return employeeRepository.findAll().stream()
+				.map(employee -> employeeMapper.fromEntityToDto(employee))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<EmployeeResponseDto> getByFilters() {
 		return employeeRepository.findAll().stream()
 				.map(employee -> employeeMapper.fromEntityToDto(employee))
 				.collect(Collectors.toList());
@@ -87,14 +96,14 @@ public class EmployeeServiceImpl implements IEmployeeService {
     // }
 
 	@Override
-	public EmployeeListResponseDto getById(Long id) {
+	public EmployeeResponseDto getById(Long id) {
 		Employee Employee = findById(id);
 		return employeeMapper.fromEntityToDto(Employee);
 	}
 
 	@Override
 	@Transactional
-	public EmployeeListResponseDto update(EmployeeRequestDto request, Long id) {
+	public EmployeeResponseDto update(EmployeeRequestDto request, Long id) {
 		Employee employee = findById(id);
 		Employee updatedEmployee = employeeMapper.update(employee, request);
 		employeeRepository.save(updatedEmployee);

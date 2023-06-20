@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
+import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.Customer;
 import com.hackacode.marveland.model.mapper.CustomerMapper;
@@ -33,20 +33,27 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public List<CustomerListResponseDto> getByFilters() {
+	public List<CustomerResponseDto> getByFilters() {
 		return customerRepository.findAll().stream()
 				.map(customer -> customerMapper.fromEntityToDto(customer))
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	public CustomerListResponseDto getById(Long id) {
+	public List<CustomerResponseDto> getAll() {
+		return customerRepository.findAll().stream()
+				.map(customer -> customerMapper.fromEntityToDto(customer))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public CustomerResponseDto getById(Long id) {
 		Customer customer = findById(id);
 		return customerMapper.fromEntityToDto(customer);
 	}
 
 	@Transactional
-	public CustomerListResponseDto create(CustomerRequestDto request, String email) {
+	public CustomerResponseDto create(CustomerRequestDto request, String email) {
 		if (customerRepository.existsByDni(request.getDni())) {
 			throw new RuntimeException("Customer already exists");
 		}
@@ -59,7 +66,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Transactional
-	public CustomerListResponseDto update(CustomerRequestDto request, Long id) {
+	public CustomerResponseDto update(CustomerRequestDto request, Long id) {
 		Customer customer = findById(id);
 		Customer updatedCustomer = customerMapper.update(customer, request);
 		customerRepository.save(updatedCustomer);

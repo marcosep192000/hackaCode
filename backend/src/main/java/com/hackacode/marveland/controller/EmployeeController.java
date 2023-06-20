@@ -2,6 +2,7 @@ package com.hackacode.marveland.controller;
 
 import java.util.List;
 
+import com.hackacode.marveland.model.dto.response.EmployeeResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.EmployeeRequestDto;
-import com.hackacode.marveland.model.dto.response.EmployeeListResponseDto;
 import com.hackacode.marveland.service.IEmployeeService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
@@ -29,21 +29,27 @@ public class EmployeeController {
 	private final IEmployeeService employeeService;
 
 	@GetMapping("/filters")
-	public ResponseEntity<List<EmployeeListResponseDto>> getByFilters() {
-		List<EmployeeListResponseDto> response = employeeService.getByFilters();
+	public ResponseEntity<List<EmployeeResponseDto>> getByFilters() {
+		List<EmployeeResponseDto> response = employeeService.getByFilters();
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EmployeeListResponseDto> getById(@PathVariable Long id) {
-		EmployeeListResponseDto response = employeeService.getById(id);
+	public ResponseEntity<EmployeeResponseDto> getById(@PathVariable Long id) {
+		EmployeeResponseDto response = employeeService.getById(id);
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/getAll")
+	public ResponseEntity<List<EmployeeResponseDto>> getAll(){
+		List<EmployeeResponseDto> response = employeeService.getAll();
 		return ResponseEntity.ok(response);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<EmployeeListResponseDto> update(@PathVariable Long id,
+	public ResponseEntity<EmployeeResponseDto> update(@PathVariable Long id,
 			@RequestBody EmployeeRequestDto request) {
-		EmployeeListResponseDto response = employeeService.update(request, id);
+		EmployeeResponseDto response = employeeService.update(request, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
 	}
 
