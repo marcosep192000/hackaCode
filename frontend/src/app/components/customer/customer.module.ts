@@ -11,7 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { DashboardComponent } from '../dashboard/dashboard/dashboard.component';
+
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -34,6 +34,7 @@ import { SharedModule } from '../shared/shared.module';
     MatCardModule,
     MatMenuModule,
     SharedModule
+    
 
   ]
 })

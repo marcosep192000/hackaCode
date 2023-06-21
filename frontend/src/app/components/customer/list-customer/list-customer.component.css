@@ -1,3 +1,15 @@
 table {
   width: 100%;
 }
+.delete{
+  color: RED;
+}
+.pointer:hover{
+cursor: pointer;
+}
+.pointer{
+  height: 20px;
+  width: auto;
+}
+
+
