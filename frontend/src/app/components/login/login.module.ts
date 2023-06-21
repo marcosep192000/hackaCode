@@ -10,13 +10,17 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
+import { SharedModule } from '../shared/shared.module';
+import { LoginComponent } from './login.component';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
-  declarations: [LoginModule],
+  declarations: [
+  ],
   imports: [
     CommonModule,
-     MatToolbarModule,
+    MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
@@ -26,6 +30,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatMenuModule,
     FormsModule,
     MatFormFieldModule,
+    SharedModule,
+    MatFormFieldModule,
+    MatInputModule 
   ],
 })
 export class LoginModule { }

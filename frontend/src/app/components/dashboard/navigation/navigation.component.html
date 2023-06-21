@@ -1,4 +1,7 @@
+
+
 <mat-sidenav-container class="sidenav-container">
+
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -8,7 +11,7 @@
     
     <a mat-list-item [routerLink]="['customer/list']">Clientes</a>
     <a mat-list-item [routerLink]="['customer/customer']">Administrador</a>
-    <a mat-list-item [routerLink]="['customer/customer']">Salir</a>
+    <a mat-list-item  (click)="onLogout()" [routerLink]="['/login']">Salir</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -26,4 +29,5 @@
     <router-outlet></router-outlet>
 
   </mat-sidenav-content>
+ 
 </mat-sidenav-container>
