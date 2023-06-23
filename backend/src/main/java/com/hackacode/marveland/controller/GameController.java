@@ -33,6 +33,12 @@ public class GameController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/getMostPopularGame")
+    public ResponseEntity<GameResponseDto> getMostPopularGame(){
+        GameResponseDto response = gameService.getMostPopularGame();
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<GameResponseDto> getById(@PathVariable Long id) {
         GameResponseDto response = gameService.getById(id);

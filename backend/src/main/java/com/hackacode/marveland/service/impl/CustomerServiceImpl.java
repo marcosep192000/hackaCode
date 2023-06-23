@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.hackacode.marveland.model.entity.PurchaseDetails;
+import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
+import com.hackacode.marveland.service.IPurchaseDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
@@ -32,6 +35,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	private final EmailService emailService;
 
+	private final IPurchaseDetailsService purchaseService;
 	private Customer findById(Long id) {
 		return customerRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Customer not found"));
@@ -76,6 +80,25 @@ public class CustomerServiceImpl implements ICustomerService {
 		Customer updatedCustomer = customerMapper.update(customer, request);
 		customerRepository.save(updatedCustomer);
 		return customerMapper.fromEntityToDto(updatedCustomer);
+	}
+
+	@Override
+	public CustomerResponseDto morePurchasesByYear(int year) {
+		List<Customer> customers = customerRepository.findAll();
+		Customer response = null;
+		int maxTickets = 0;
+		for (Customer customer : customers) {
+			for (PurchaseDetails purchases : customer.getPurchases()) {
+				if (purchases.getPurchaseDate().getYear() == year) {
+					int totalTickets = customer.getPurchases().size();
+					if (totalTickets > maxTickets) {
+						maxTickets = totalTickets;
+						response = customer;
+					}
+				}
+			}
+		}
+		return customerMapper.fromEntityToDto(response);
 	}
 
 	@Override
