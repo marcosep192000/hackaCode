@@ -1,6 +1,8 @@
 package com.hackacode.marveland.model.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.annotations.SQLDelete;
@@ -55,7 +57,7 @@ public class Customer {
 	private String phone;
 
 	@Column(name = "BIRTHDATE")
-	private String birthdate;
+	private LocalDate birthdate;
 
 	@Column(name = "STATE")
 	private boolean state = Boolean.FALSE;

@@ -64,6 +64,17 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
 	}
 
+	@GetMapping("/findByBirthdate")
+	public ResponseEntity<List<CustomerResponseDto>> findByBirthdate(){
+		List<CustomerResponseDto> response = customerService.findByBirthdate();
+		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping("/sendCouponEmail")
+	public void sendCouponEmail(){
+		customerService.sendCouponEmail();
+	}
+
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
 		customerService.delete(id);

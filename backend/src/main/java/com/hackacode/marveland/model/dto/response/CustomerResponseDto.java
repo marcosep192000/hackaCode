@@ -1,6 +1,8 @@
 package com.hackacode.marveland.model.dto.response;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +29,7 @@ public class CustomerResponseDto {
 
 	private String phone;
 
-	private String birthdate;
+	private LocalDate birthdate;
 
 	private LocalDateTime registrationDate;
 }
