@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
 import com.hackacode.marveland.model.dto.response.GameResponseDto;
-import com.hackacode.marveland.model.entity.Game;
 
 public interface IGameService {
 
