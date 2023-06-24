@@ -62,8 +62,8 @@ public class PurchaseDetailsController {
 
 
     @GetMapping("/totalSalesByMonth")
-    public Double totalSalesByMonth(@RequestParam int month){
-        return purchaseDetailsService.totalSalesByMonth(month);
+    public Double totalSalesByMonth(@RequestParam int month, @RequestParam int year){
+        return purchaseDetailsService.totalSalesByMonth(month, year);
     }
 
     @GetMapping("/totalSalesByYear")

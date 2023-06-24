@@ -68,8 +68,14 @@ public class CustomerController {
 	}
 
 	@GetMapping("/morePurchasesByYear")
-	public ResponseEntity<CustomerResponseDto> morePurchases(@RequestParam int year){
+	public ResponseEntity<CustomerResponseDto> morePurchasesByYear(@RequestParam int year){
 		CustomerResponseDto response = customerService.morePurchasesByYear(year);
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/morePurchasesByMonth")
+	public ResponseEntity<CustomerResponseDto> morePurchasesByMonth(@RequestParam int month, @RequestParam int year){
+		CustomerResponseDto response = customerService.morePurchasesByMonth(month, year);
 		return ResponseEntity.ok(response);
 	}
 

@@ -20,6 +20,8 @@ public interface ICustomerService {
 
 	public CustomerResponseDto morePurchasesByYear(int year);
 
+	public CustomerResponseDto morePurchasesByMonth(int month, int year);
+
 	void sendCouponEmail();
 
 	public void delete(Long id);

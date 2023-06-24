@@ -88,14 +88,33 @@ public class CustomerServiceImpl implements ICustomerService {
 		Customer response = null;
 		int maxTickets = 0;
 		for (Customer customer : customers) {
-			for (PurchaseDetails purchases : customer.getPurchases()) {
-				if (purchases.getPurchaseDate().getYear() == year) {
-					int totalTickets = customer.getPurchases().size();
-					if (totalTickets > maxTickets) {
-						maxTickets = totalTickets;
-						response = customer;
-					}
+			int maxTicketsCustomer = 0;
+			for (PurchaseDetails purchase : customer.getPurchases()) {
+				if (purchase.getPurchaseDate().getYear() == year) {
+					maxTicketsCustomer = maxTicketsCustomer + customer.getPurchases().size();
 				}
+			}
+			if (maxTicketsCustomer > maxTickets){
+				response = customer;
+			}
+		}
+		return customerMapper.fromEntityToDto(response);
+	}
+
+	@Override
+	public CustomerResponseDto morePurchasesByMonth(int month, int year) {
+		List<Customer> customers = customerRepository.findAll();
+		Customer response = null;
+		int maxTickets = 0;
+		for (Customer customer : customers) {
+			int maxTicketsCustomer = 0;
+			for (PurchaseDetails purchase : customer.getPurchases()) {
+				if (purchase.getPurchaseDate().getMonth().equals(month) && purchase.getPurchaseDate().getYear() == year) {
+					maxTicketsCustomer = maxTicketsCustomer + customer.getPurchases().size();
+				}
+			}
+			if (maxTicketsCustomer > maxTickets){
+				response = customer;
 			}
 		}
 		return customerMapper.fromEntityToDto(response);
