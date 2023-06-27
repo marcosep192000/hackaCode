@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
-import com.hackacode.marveland.model.dto.response.GameListResponseDto;
+import com.hackacode.marveland.model.dto.response.GameResponseDto;
 import com.hackacode.marveland.service.IGameService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
@@ -28,27 +28,33 @@ public class GameController {
     private final IGameService gameService;
 
     @GetMapping("/filters")
-    public ResponseEntity<List<GameListResponseDto>> getByFilters() {
-        List<GameListResponseDto> response = gameService.getByFilters();
+    public ResponseEntity<List<GameResponseDto>> getByFilters() {
+        List<GameResponseDto> response = gameService.getByFilters();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/getMostPopularGame")
+    public ResponseEntity<GameResponseDto> getMostPopularGame(){
+        GameResponseDto response = gameService.getMostPopularGame();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GameListResponseDto> getById(@PathVariable Long id) {
-        GameListResponseDto response = gameService.getById(id);
+    public ResponseEntity<GameResponseDto> getById(@PathVariable Long id) {
+        GameResponseDto response = gameService.getById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<GameListResponseDto> create(@RequestBody GameRequestDto request) {
-        GameListResponseDto response = gameService.create(request);
+    public ResponseEntity<GameResponseDto> create(@RequestBody GameRequestDto request) {
+        GameResponseDto response = gameService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<GameListResponseDto> update(@PathVariable Long id,
-            @RequestBody GameRequestDto request) {
-        GameListResponseDto response = gameService.update(request, id);
+    public ResponseEntity<GameResponseDto> update(@PathVariable Long id,
+                                                  @RequestBody GameRequestDto request) {
+        GameResponseDto response = gameService.update(request, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 

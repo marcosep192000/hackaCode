@@ -31,13 +31,9 @@ public class TicketServiceImpl implements ITicketService {
 
     @Override
     public List<TicketResponseDto> getAll() {
-        List<Ticket> ticketList = ticketRepository.findAll();
-        List<TicketResponseDto> response = new ArrayList<>();
-        for (Ticket ticket : ticketList){
-            TicketResponseDto ticketResponse = ticketMapper.fromEntityToDto(ticket);
-            response.add(ticketResponse);
-        }
-        return response;
+        return ticketRepository.findAll().stream()
+                .map(ticket -> ticketMapper.fromEntityToDto(ticket))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -74,6 +70,7 @@ public class TicketServiceImpl implements ITicketService {
         }
         return tickets.size();
     }
+
     @Transactional
     public Ticket create(TicketRequestDto request) {
         Ticket ticket = ticketMapper.fromDtoToEntity(request);

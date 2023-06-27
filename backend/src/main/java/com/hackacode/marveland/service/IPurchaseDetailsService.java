@@ -20,7 +20,7 @@ public interface IPurchaseDetailsService {
 
     public Double totalSalesByDate(LocalDate date);
 
-    public Double totalSalesByMonth(int month);
+    public Double totalSalesByMonth(int month, int year);
 
     public Double totalSalesByYear(int year);
 

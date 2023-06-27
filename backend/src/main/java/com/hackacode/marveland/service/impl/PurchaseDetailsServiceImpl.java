@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.PurchaseDetailsRequestDto;
@@ -142,11 +143,11 @@ public class PurchaseDetailsServiceImpl implements IPurchaseDetailsService {
     }
 
     @Override
-    public Double totalSalesByMonth(int month){
+    public Double totalSalesByMonth(int month, int year){
         List<PurchaseDetails> purchases = purchaseDetailsRepository.findAll();
         double total = 0.00;
         for (PurchaseDetails purchase : purchases){
-            if (purchase.getPurchaseDate().getMonth().equals(month)){
+            if (purchase.getPurchaseDate().getMonth().equals(month) && purchase.getPurchaseDate().getYear() == year){
                 total = calculateTotalPrice(purchase.getTickets());
             }
         }

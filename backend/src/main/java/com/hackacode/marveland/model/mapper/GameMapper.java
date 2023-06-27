@@ -3,15 +3,15 @@ package com.hackacode.marveland.model.mapper;
 import org.springframework.stereotype.Component;
 
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
-import com.hackacode.marveland.model.dto.response.GameListResponseDto;
+import com.hackacode.marveland.model.dto.response.GameResponseDto;
 import com.hackacode.marveland.model.entity.Game;
 import com.hackacode.marveland.model.entity.OpenHours;
 
 @Component
 public class GameMapper {
 
-    public GameListResponseDto fromEntityToDto(Game game) {
-        return GameListResponseDto.builder()
+    public GameResponseDto fromEntityToDto(Game game) {
+        return GameResponseDto.builder()
                 .id(game.getId())
                 .name(game.getName())
                 .openHours(game.getOpenHours())

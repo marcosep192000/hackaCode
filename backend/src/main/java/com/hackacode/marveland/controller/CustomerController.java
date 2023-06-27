@@ -4,19 +4,11 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hackacode.marveland.config.jwt.JwtProvider;
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
-import com.hackacode.marveland.model.dto.response.CustomerListResponseDto;
+import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.service.ICustomerService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
@@ -32,30 +24,59 @@ public class CustomerController {
 	private final JwtProvider jwtProvider;
 
 	@GetMapping("/filters")
-	public ResponseEntity<List<CustomerListResponseDto>> getByFilters() {
-		List<CustomerListResponseDto> response = customerService.getByFilters();
+	public ResponseEntity<List<CustomerResponseDto>> getByFilters() {
+		List<CustomerResponseDto> response = customerService.getByFilters();
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CustomerListResponseDto> getById(@PathVariable Long id) {
-		CustomerListResponseDto response = customerService.getById(id);
+	public ResponseEntity<CustomerResponseDto> getById(@PathVariable Long id) {
+		CustomerResponseDto response = customerService.getById(id);
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/getAll")
+	public ResponseEntity<List<CustomerResponseDto>> getAll(){
+		List<CustomerResponseDto> response = customerService.getAll();
 		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<CustomerListResponseDto> create(@RequestHeader("Authorization") String token,
-			@RequestBody CustomerRequestDto request) {
+	public ResponseEntity<CustomerResponseDto> create(@RequestHeader("Authorization") String token,
+                                                      @RequestBody CustomerRequestDto request) {
 		String email = jwtProvider.extractUsername(token.substring(7));
-		CustomerListResponseDto response = customerService.create(request, email);
+		CustomerResponseDto response = customerService.create(request, email);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<CustomerListResponseDto> update(@PathVariable Long id,
-			@RequestBody CustomerRequestDto request) {
-		CustomerListResponseDto response = customerService.update(request, id);
+	public ResponseEntity<CustomerResponseDto> update(@PathVariable Long id,
+                                                      @RequestBody CustomerRequestDto request) {
+		CustomerResponseDto response = customerService.update(request, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+	}
+
+	@GetMapping("/findByBirthdate")
+	public ResponseEntity<List<CustomerResponseDto>> findByBirthdate(){
+		List<CustomerResponseDto> response = customerService.findByBirthdate();
+		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping("/sendCouponEmail")
+	public void sendCouponEmail(){
+		customerService.sendCouponEmail();
+	}
+
+	@GetMapping("/morePurchasesByYear")
+	public ResponseEntity<CustomerResponseDto> morePurchasesByYear(@RequestParam int year){
+		CustomerResponseDto response = customerService.morePurchasesByYear(year);
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/morePurchasesByMonth")
+	public ResponseEntity<CustomerResponseDto> morePurchasesByMonth(@RequestParam int month, @RequestParam int year){
+		CustomerResponseDto response = customerService.morePurchasesByMonth(month, year);
+		return ResponseEntity.ok(response);
 	}
 
 	@DeleteMapping("/delete/{id}")

@@ -1,6 +1,8 @@
 package com.hackacode.marveland.model.dto.request;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,5 +35,5 @@ public class CustomerRequestDto implements Serializable {
 	private String phone;
 
 	@NotBlank(message = "Birthdate cannot be blank")
-	private String birthdate;
+	private LocalDate birthdate;
 }

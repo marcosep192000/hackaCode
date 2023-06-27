@@ -31,7 +31,7 @@ public class PurchaseDetailsResponseDto {
 
     private List<TicketResponseDto> tickets;
 
-    private CustomerListResponseDto customer;
+    private CustomerResponseDto customer;
 
-    private EmployeeListResponseDto gameEmployee;
+    private EmployeeResponseDto gameEmployee;
 }

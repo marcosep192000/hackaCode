@@ -1,16 +1,16 @@
 package com.hackacode.marveland.model.mapper;
 
+import com.hackacode.marveland.model.dto.response.EmployeeResponseDto;
 import org.springframework.stereotype.Component;
 
 import com.hackacode.marveland.model.dto.request.EmployeeRequestDto;
-import com.hackacode.marveland.model.dto.response.EmployeeListResponseDto;
 import com.hackacode.marveland.model.entity.Employee;
 
 @Component
 public class EmployeeMapper {
 
-	public EmployeeListResponseDto fromEntityToDto(Employee employee) {
-		EmployeeListResponseDto response = new EmployeeListResponseDto();
+	public EmployeeResponseDto fromEntityToDto(Employee employee) {
+		EmployeeResponseDto response = new EmployeeResponseDto();
 		response.setId(employee.getId());
 		response.setFirstName(employee.getFirstName());
 		response.setLastName(employee.getLastName());
