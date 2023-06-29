@@ -15,12 +15,12 @@ public class EmailService implements IEmailService {
 
     private final JavaMailSender javaMailSender;
 
-    @Value("${EMAIL_USER}")
+    //@Value("${EMAIL_USER}")
     private String emailUser;
 
     public void sendMail(String to, String subject, String body) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(emailUser);
+      //  mailMessage.setFrom(emailUser);
         mailMessage.setTo(to);
         mailMessage.setSubject(subject);
         mailMessage.setText(body);
