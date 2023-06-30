@@ -2,7 +2,6 @@ package com.hackacode.marveland.model.dto.request;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

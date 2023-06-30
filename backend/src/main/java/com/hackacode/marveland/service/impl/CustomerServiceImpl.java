@@ -6,15 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.hackacode.marveland.model.entity.PurchaseDetails;
-import com.hackacode.marveland.repository.IPurchaseDetailsRepository;
-import com.hackacode.marveland.service.IPurchaseDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
 import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
 import com.hackacode.marveland.model.entity.Customer;
+import com.hackacode.marveland.model.entity.PurchaseDetails;
 import com.hackacode.marveland.model.mapper.CustomerMapper;
 import com.hackacode.marveland.repository.IAdminEmployeeRepository;
 import com.hackacode.marveland.repository.ICustomerRepository;
@@ -35,7 +33,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	private final EmailService emailService;
 
-	private final IPurchaseDetailsService purchaseService;
+
 	private Customer findById(Long id) {
 		return customerRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Customer not found"));
@@ -94,7 +92,7 @@ public class CustomerServiceImpl implements ICustomerService {
 					maxTicketsCustomer = maxTicketsCustomer + customer.getPurchases().size();
 				}
 			}
-			if (maxTicketsCustomer > maxTickets){
+			if (maxTicketsCustomer > maxTickets) {
 				response = customer;
 			}
 		}
@@ -109,11 +107,12 @@ public class CustomerServiceImpl implements ICustomerService {
 		for (Customer customer : customers) {
 			int maxTicketsCustomer = 0;
 			for (PurchaseDetails purchase : customer.getPurchases()) {
-				if (purchase.getPurchaseDate().getMonth().equals(month) && purchase.getPurchaseDate().getYear() == year) {
+				if (purchase.getPurchaseDate().getMonth().equals(month)
+						&& purchase.getPurchaseDate().getYear() == year) {
 					maxTicketsCustomer = maxTicketsCustomer + customer.getPurchases().size();
 				}
 			}
-			if (maxTicketsCustomer > maxTickets){
+			if (maxTicketsCustomer > maxTickets) {
 				response = customer;
 			}
 		}
@@ -124,9 +123,9 @@ public class CustomerServiceImpl implements ICustomerService {
 	public List<CustomerResponseDto> findByBirthdate() {
 		List<Customer> customers = customerRepository.findAll();
 		List<CustomerResponseDto> sendEmailCustomer = new ArrayList<>();
-		for (Customer customer : customers){
+		for (Customer customer : customers) {
 			Period period = Period.between(customer.getBirthdate(), LocalDate.now());
-			if (period.getDays() == 360){
+			if (period.getDays() == 360) {
 				sendEmailCustomer.add(customerMapper.fromEntityToDto(customer));
 			}
 		}
@@ -134,8 +133,8 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public void sendCouponEmail(){
-		for (CustomerResponseDto customer : findByBirthdate()){
+	public void sendCouponEmail() {
+		for (CustomerResponseDto customer : findByBirthdate()) {
 			emailService.sendMail(customer.getEmail(),
 					"MARVELAND - FELIZ CUMPLEAÑOS",
 					"FELIZ CUMPLEAÑOS \n" +
@@ -150,6 +149,5 @@ public class CustomerServiceImpl implements ICustomerService {
 	public void delete(Long id) {
 		customerRepository.delete(findById(id));
 	}
-
 
 }

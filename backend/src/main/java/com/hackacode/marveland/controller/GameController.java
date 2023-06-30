@@ -1,7 +1,5 @@
 package com.hackacode.marveland.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,14 +25,8 @@ public class GameController {
 
     private final IGameService gameService;
 
-    @GetMapping("/filters")
-    public ResponseEntity<List<GameResponseDto>> getByFilters() {
-        List<GameResponseDto> response = gameService.getByFilters();
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/getMostPopularGame")
-    public ResponseEntity<GameResponseDto> getMostPopularGame(){
+    public ResponseEntity<GameResponseDto> getMostPopularGame() {
         GameResponseDto response = gameService.getMostPopularGame();
         return ResponseEntity.ok(response);
     }
@@ -53,7 +45,7 @@ public class GameController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<GameResponseDto> update(@PathVariable Long id,
-                                                  @RequestBody GameRequestDto request) {
+            @RequestBody GameRequestDto request) {
         GameResponseDto response = gameService.update(request, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }

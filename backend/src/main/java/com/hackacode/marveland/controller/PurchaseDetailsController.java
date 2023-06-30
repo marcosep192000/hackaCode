@@ -1,7 +1,6 @@
 package com.hackacode.marveland.controller;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +28,6 @@ public class PurchaseDetailsController {
 
     private final IPurchaseDetailsService purchaseDetailsService;
 
-    @GetMapping("/filters")
-    public ResponseEntity<List<PurchaseDetailsResponseDto>> getPByFilters() {
-        List<PurchaseDetailsResponseDto> response = purchaseDetailsService.getByFilters();
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/totalSalesByDate")
     public Double totalSalesByDate(@RequestParam LocalDate date) {
         return purchaseDetailsService.totalSalesByDate(date);
@@ -60,14 +53,13 @@ public class PurchaseDetailsController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
-
     @GetMapping("/totalSalesByMonth")
-    public Double totalSalesByMonth(@RequestParam int month, @RequestParam int year){
+    public Double totalSalesByMonth(@RequestParam int month, @RequestParam int year) {
         return purchaseDetailsService.totalSalesByMonth(month, year);
     }
 
     @GetMapping("/totalSalesByYear")
-    public Double totalSalesByYear(@RequestParam int year){
+    public Double totalSalesByYear(@RequestParam int year) {
         return purchaseDetailsService.totalSalesByYear(year);
     }
 

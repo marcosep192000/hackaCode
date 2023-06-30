@@ -35,12 +35,6 @@ public class TicketController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/filters")
-    public ResponseEntity<List<TicketResponseDto>> getByFilters() {
-        List<TicketResponseDto> response = ticketService.getByFilters();
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/ticketsSoldByGameAndDate")
     public Integer salesByGameAndDate(@RequestParam Long gameId, @RequestParam LocalDate date) {
         return ticketService.salesByGameAndDate(gameId, date);
