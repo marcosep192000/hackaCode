@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import com.hackacode.marveland.model.dto.request.PurchaseDetailsRequestDto;

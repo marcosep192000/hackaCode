@@ -2,19 +2,23 @@ package com.hackacode.marveland.controller;
 
 import java.util.List;
 
-import com.hackacode.marveland.model.dto.response.EmployeeResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackacode.marveland.model.dto.request.EmployeeRequestDto;
+import com.hackacode.marveland.model.dto.request.MessageRequestDto;
+import com.hackacode.marveland.model.dto.response.EmployeeResponseDto;
+import com.hackacode.marveland.model.entity.Message;
 import com.hackacode.marveland.service.IEmployeeService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
@@ -28,12 +32,6 @@ public class EmployeeController {
 
 	private final IEmployeeService employeeService;
 
-	@GetMapping("/filters")
-	public ResponseEntity<List<EmployeeResponseDto>> getByFilters() {
-		List<EmployeeResponseDto> response = employeeService.getByFilters();
-		return ResponseEntity.ok(response);
-	}
-
 	@GetMapping("/{id}")
 	public ResponseEntity<EmployeeResponseDto> getById(@PathVariable Long id) {
 		EmployeeResponseDto response = employeeService.getById(id);
@@ -43,6 +41,12 @@ public class EmployeeController {
 	@GetMapping("/getAll")
 	public ResponseEntity<List<EmployeeResponseDto>> getAll(){
 		List<EmployeeResponseDto> response = employeeService.getAll();
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/role")
+	public ResponseEntity<String> getRoleByToken(@RequestHeader("Authorization") String token) {
+		String response = employeeService.getRoleByToken(token);
 		return ResponseEntity.ok(response);
 	}
 
@@ -57,5 +61,19 @@ public class EmployeeController {
 	public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
 		employeeService.delete(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Employee successfully deleted"));
+	}
+
+	// admin employees: get all requests
+	@GetMapping("/messages")
+	public ResponseEntity<List<Message>> getMessages() {
+		List<Message> response = employeeService.getMessages();
+		return ResponseEntity.ok(response);
+	}
+
+	// game employees: request new customer
+	@PostMapping("/request/{id}")
+	public ResponseEntity<GeneralMessage> requestToAdmin(@PathVariable Long id, @RequestBody MessageRequestDto request) {
+		employeeService.requestToAdmin(request, id);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Request sent"));
 	}
 }

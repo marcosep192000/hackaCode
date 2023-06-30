@@ -1,16 +1,22 @@
 package com.hackacode.marveland.service.impl;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.hackacode.marveland.model.dto.response.EmployeeResponseDto;
 import org.springframework.stereotype.Service;
 
+import com.hackacode.marveland.config.jwt.JwtProvider;
 import com.hackacode.marveland.model.dto.request.EmployeeRequestDto;
+import com.hackacode.marveland.model.dto.request.MessageRequestDto;
+import com.hackacode.marveland.model.dto.response.EmployeeResponseDto;
 import com.hackacode.marveland.model.entity.Employee;
+import com.hackacode.marveland.model.entity.Message;
+import com.hackacode.marveland.model.entity.User;
 import com.hackacode.marveland.model.mapper.EmployeeMapper;
 import com.hackacode.marveland.repository.IEmployeeRepository;
+import com.hackacode.marveland.repository.IMessageRepository;
+import com.hackacode.marveland.repository.IUserRepository;
 import com.hackacode.marveland.service.IEmployeeService;
 
 import jakarta.transaction.Transactional;
@@ -20,98 +26,79 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements IEmployeeService {
 
-	private final EmployeeMapper employeeMapper;
+    private final EmployeeMapper employeeMapper;
 
-	private final IEmployeeRepository employeeRepository;
+    private final IEmployeeRepository employeeRepository;
 
-	@Override
-	public Employee findById(Long id) {
-		return employeeRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Employee not found"));
-	}
+    private final IMessageRepository messageRepository;
 
-	@Override
-	public List<EmployeeResponseDto> getAll(){
-		return employeeRepository.findAll().stream()
-				.map(employee -> employeeMapper.fromEntityToDto(employee))
-				.collect(Collectors.toList());
-	}
+    private final IUserRepository userRepository;
 
-	@Override
-	public List<EmployeeResponseDto> getByFilters() {
-		return employeeRepository.findAll().stream()
-				.map(employee -> employeeMapper.fromEntityToDto(employee))
-				.collect(Collectors.toList());
-	}
+    private final JwtProvider jwtProvider;
 
+    @Override
+    public Employee findById(Long id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+    }
 
-    // @Override
-    // public List<TransactionResponseDto> getTransactionsByFilters(Long paymentMethodId,
-    //         TransactionType transactionType,
-    //         LocalDate transactionDate, Long purchaseCoinId, Double purchaseAmount, Long saleCoinId,
-    //         Double saleAmount, Long walletId) {
+    @Override
+    public List<EmployeeResponseDto> getAll() {
+        return employeeRepository.findAll().stream()
+                .map(employee -> employeeMapper.fromEntityToDto(employee))
+                .collect(Collectors.toList());
+    }
 
-    //     Specification<Transaction> spec = Specification.where(null);
+    @Override
+    public List<EmployeeResponseDto> getByFilters() {
+        return employeeRepository.findAll().stream()
+                .map(employee -> employeeMapper.fromEntityToDto(employee))
+                .collect(Collectors.toList());
+    }
 
-    //     if (paymentMethodId != null) {
-    //         spec = spec.and(TransactionSpecification.hasPaymentMethod(paymentMethodId));
-    //     }
+    @Override
+    public void requestToAdmin(MessageRequestDto request, Long id) {
+        Employee employee = findById(id);
+        Message message = Message.builder()
+                .messageDate(LocalDate.now())
+                .employeeFullName(employee.getFirstName() + " " + employee.getLastName())
+                .details(request.getDetails())
+                .customerRequest(request.getCustomerRequest())
+                .build();
+        messageRepository.save(message);
+    }
 
-    //     if (transactionType != null) {
-    //         spec = spec.and(TransactionSpecification.hasTransactionType(transactionType));
-    //     }
+    @Override
+    public List<Message> getMessages() {
+        return messageRepository.findAll();
+    }
 
-    //     if (transactionDate != null) {
-    //         spec = spec.and(TransactionSpecification.hasTransactionDate(transactionDate));
-    //     }
+    @Override
+    public EmployeeResponseDto getById(Long id) {
+        Employee Employee = findById(id);
+        return employeeMapper.fromEntityToDto(Employee);
+    }
 
-    //     if (purchaseCoinId != null) {
-    //         spec = spec.and(TransactionSpecification.hasPurchaseCoin(purchaseCoinId));
-    //     }
+    @Override
+    @Transactional
+    public EmployeeResponseDto update(EmployeeRequestDto request, Long id) {
+        Employee employee = findById(id);
+        Employee updatedEmployee = employeeMapper.update(employee, request);
+        employeeRepository.save(updatedEmployee);
+        return employeeMapper.fromEntityToDto(updatedEmployee);
+    }
 
-    //     if (purchaseAmount != null) {
-    //         spec = spec.and(TransactionSpecification.hasPurchaseAmount(purchaseAmount));
-    //     }
+    @Override
+    public void delete(Long id) {
+        employeeRepository.delete(findById(id));
+    }
 
-    //     if (saleCoinId != null) {
-    //         spec = spec.and(TransactionSpecification.hasSaleCoin(saleCoinId));
-    //     }
+    @Override
+    public String getRoleByToken(String token) {
+        String email = jwtProvider.extractUsername(token.substring(7));
+        User user = userRepository.findByUsername(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-    //     if (saleAmount != null) {
-    //         spec = spec.and(TransactionSpecification.hasSaleAmount(saleAmount));
-    //     }
-
-    //     if (walletId != null) {
-    //         spec = spec.and(TransactionSpecification.hasWalletId(walletId));
-    //     }
-
-    //     List<Transaction> transactionsFiltered = transactionRepository.findAll(spec);
-    //     List<TransactionResponseDto> TransactionResponseDtoList = new ArrayList<>();
-    //     for (Transaction transaction : transactionsFiltered) {
-    //         TransactionResponseDto transactionResponseDto = transactionMapper.fromEntityToTransactionDto(transaction);
-    //         TransactionResponseDtoList.add(transactionResponseDto);
-    //     }
-
-    //     return TransactionResponseDtoList;
-    // }
-
-	@Override
-	public EmployeeResponseDto getById(Long id) {
-		Employee Employee = findById(id);
-		return employeeMapper.fromEntityToDto(Employee);
-	}
-
-	@Override
-	@Transactional
-	public EmployeeResponseDto update(EmployeeRequestDto request, Long id) {
-		Employee employee = findById(id);
-		Employee updatedEmployee = employeeMapper.update(employee, request);
-		employeeRepository.save(updatedEmployee);
-		return employeeMapper.fromEntityToDto(updatedEmployee);
-	}
-
-	@Override
-	public void delete(Long id) {
-		employeeRepository.delete(findById(id));
-	}
+        return user.getRole();
+    }
 }
