@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/employees")
+
 @RequiredArgsConstructor
 public class EmployeeController {
 

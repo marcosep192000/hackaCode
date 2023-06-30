@@ -19,7 +19,6 @@ public class GameMapper {
                 .price(game.getPrice())
                 .build();
     }
-
     public Game fromDtoToEntity(GameRequestDto request) {
         return Game.builder()
                 .name(request.getName())
