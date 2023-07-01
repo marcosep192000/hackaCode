@@ -1,5 +1,6 @@
 package com.hackacode.marveland.controller;
 
+import com.hackacode.marveland.model.dto.response.OpenHoursResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,8 @@ import com.hackacode.marveland.service.IGameService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/games")
@@ -23,6 +26,13 @@ public class GameController {
         GameResponseDto response = gameService.getMostPopularGame();
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<GameResponseDto>> getAll() {
+        List<GameResponseDto> response = gameService.getAll();
+        return ResponseEntity.ok(response);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<GameResponseDto> getById(@PathVariable Long id) {

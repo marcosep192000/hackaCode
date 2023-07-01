@@ -8,20 +8,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class GameResponseDto {
-
     private Long id;
-
     private String name;
-
-    private OpenHours openHours;
-
     private Integer capacity;
-
     private Double price;
+    private List<OpenHours> openHours;
 }
