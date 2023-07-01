@@ -81,8 +81,7 @@ public class GameServiceImpl implements IGameService {
                 .orElseThrow(() -> new RuntimeException("Game Employee not found"));
         Game game = gameRepository.findById(id).get();
         gameEmployee.setGame(game);
-        game.getEmployees().add(gameEmployee);
-
+        game.setEmployee(gameEmployee);
         gameEmployeeRepository.save(gameEmployee);
         gameRepository.save(game);
     }

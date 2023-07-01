@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,8 +45,8 @@ public class Game {
     @Column(name = "PRICE")
     private Double price;
 
-    @OneToMany(mappedBy = "game")
-    private List<GameEmployee> employees;
+    @OneToOne(mappedBy = "game")
+    private GameEmployee employee;
 
     @OneToMany(mappedBy = "game")
     private List<Ticket> tickets;
