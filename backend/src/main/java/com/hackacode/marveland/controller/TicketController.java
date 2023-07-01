@@ -12,12 +12,16 @@ import com.hackacode.marveland.model.entity.Ticket;
 import com.hackacode.marveland.service.ITicketService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/tickets")
-@RequiredArgsConstructor
 @CrossOrigin(origins = "*")
+@Tag(name = "Tickets", description = "Management of tickets in Marveland. It allows creating, modifying, and deleting tickets, as well as obtaining detailed information about them.")
+@SecurityRequirement(name = "bearerAuth")
+@RequiredArgsConstructor
 public class TicketController {
 
     private final ITicketService ticketService;

@@ -22,11 +22,15 @@ import com.hackacode.marveland.model.entity.Message;
 import com.hackacode.marveland.service.IEmployeeService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/employees")
+@Tag(name = "Employees", description = "Management of employees in Marveland. It allows modifying and deleting employees, as well as obtaining detailed information about them.")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class EmployeeController {
 

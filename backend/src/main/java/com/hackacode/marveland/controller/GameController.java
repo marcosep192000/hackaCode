@@ -1,21 +1,33 @@
 package com.hackacode.marveland.controller;
 
-import com.hackacode.marveland.model.dto.response.OpenHoursResponseDto;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.hackacode.marveland.model.dto.request.GameRequestDto;
 import com.hackacode.marveland.model.dto.response.GameResponseDto;
 import com.hackacode.marveland.service.IGameService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/games")
 @CrossOrigin(origins = "*")
+@Tag(name = "Games", description = "Management of games in Marveland. It allows creating, modifying, and deleting games, as well as obtaining detailed information about them.")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class GameController {
 
@@ -32,7 +44,6 @@ public class GameController {
         List<GameResponseDto> response = gameService.getAll();
         return ResponseEntity.ok(response);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<GameResponseDto> getById(@PathVariable Long id) {

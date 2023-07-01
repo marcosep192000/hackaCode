@@ -12,11 +12,15 @@ import com.hackacode.marveland.model.dto.response.CustomerResponseDto;
 import com.hackacode.marveland.service.ICustomerService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/customers")
 @CrossOrigin(origins = "*")
+@Tag(name = "Customers", description = "Management of customers in Marveland. It allows creating, modifying, and deleting customers, as well as obtaining detailed information about them.")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class CustomerController {
 
