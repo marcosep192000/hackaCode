@@ -2,12 +2,8 @@ package com.hackacode.marveland.model.entity;
 
 import java.time.LocalTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,4 +29,9 @@ public class OpenHours {
 
     @Column(name = "END_TIME", columnDefinition = "TIME")
     private LocalTime endTime;
+
+	@JsonIgnore
+	@ManyToOne()
+	@JoinColumn(name ="game_id")
+	private Game game;
 }
