@@ -49,10 +49,10 @@ public class TicketServiceImpl implements ITicketService {
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
     }
 
-    @Override //lista de tickets de un juego vendidos en un dia
-    public Integer salesByGameAndDate(Long gameId, LocalDate date){
+    @Override // lista de tickets de un juego vendidos en un dia
+    public Integer salesByGameAndDate(Long gameId, LocalDate date) {
         List<Ticket> tickets = ticketRepository.findAll();
-        List<Ticket> ticketList = null;
+        List<Ticket> ticketList = new ArrayList<>();
         for (Ticket ticket : tickets) {
             if (ticket.getGame().getId() == gameId && ticket.getPurchaseDetails().getPurchaseDate() == date) {
                 ticketList.add(ticket);

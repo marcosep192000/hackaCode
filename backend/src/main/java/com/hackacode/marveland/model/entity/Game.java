@@ -2,7 +2,9 @@ package com.hackacode.marveland.model.entity;
 
 import java.util.List;
 
+ 
 import jakarta.persistence.*;
+ 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,8 +37,8 @@ public class Game {
     @Column(name = "PRICE")
     private Double price;
 
-    @OneToMany(mappedBy = "game")
-    private List<GameEmployee> employees;
+    @OneToOne(mappedBy = "game")
+    private GameEmployee employee;
 
     @OneToMany(mappedBy = "game")
     private List<Ticket> tickets;

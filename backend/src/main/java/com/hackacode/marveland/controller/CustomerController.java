@@ -24,12 +24,6 @@ public class CustomerController {
 
 	private final JwtProvider jwtProvider;
 
-	@GetMapping("/filters")
-	public ResponseEntity<List<CustomerResponseDto>> getByFilters() {
-		List<CustomerResponseDto> response = customerService.getByFilters();
-		return ResponseEntity.ok(response);
-	}
-
 	@GetMapping("/{id}")
 	public ResponseEntity<CustomerResponseDto> getById(@PathVariable Long id) {
 		CustomerResponseDto response = customerService.getById(id);
