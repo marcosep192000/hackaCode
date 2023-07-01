@@ -15,7 +15,7 @@ public class EmailService implements IEmailService {
 
     private final JavaMailSender javaMailSender;
 
-    @Value("${EMAIL_USER}")
+   // @Value("${EMAIL_USER}")
     private String emailUser;
 
     public void sendMail(String to, String subject, String body) {
