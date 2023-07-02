@@ -10,12 +10,16 @@ import com.hackacode.marveland.model.dto.response.PurchaseDetailsResponseDto;
 import com.hackacode.marveland.service.IPurchaseDetailsService;
 import com.hackacode.marveland.util.exceptions.GeneralMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/purchases")
-@RequiredArgsConstructor
 @CrossOrigin(origins = "*")
+@Tag(name = "Purchases", description = "Management of purchases in Marveland. It allows creating, modifying, and deleting purchases, as well as obtaining detailed information about them.")
+@SecurityRequirement(name = "bearerAuth")
+@RequiredArgsConstructor
 public class PurchaseDetailsController {
 
     private final IPurchaseDetailsService purchaseDetailsService;

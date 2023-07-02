@@ -13,11 +13,13 @@ import com.hackacode.marveland.model.dto.request.RegisterRequestDto;
 import com.hackacode.marveland.model.dto.response.AuthResponseDto;
 import com.hackacode.marveland.service.IAuthService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/auth")
 @CrossOrigin(origins = "*")
+@Tag(name = "Authentication", description = "Registration and login for Marveland employees.")
 @RequiredArgsConstructor
 public class AuthController {
 
