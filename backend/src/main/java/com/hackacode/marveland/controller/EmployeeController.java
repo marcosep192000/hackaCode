@@ -31,7 +31,6 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeController {
 
 	private final IEmployeeService employeeService;
-
 	@GetMapping("/{id}")
 	public ResponseEntity<EmployeeResponseDto> getById(@PathVariable Long id) {
 		EmployeeResponseDto response = employeeService.getById(id);

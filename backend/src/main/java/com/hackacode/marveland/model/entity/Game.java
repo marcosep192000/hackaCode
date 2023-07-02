@@ -23,6 +23,9 @@ public class Game {
     @Column(name = "GAME_ID", nullable = false)
     private Long id;
 
+    @OneToOne(mappedBy = "game")
+    private GameEmployee gameEmployee;
+
     @Column(name = "NAME")
     private String name;
 
@@ -35,8 +38,7 @@ public class Game {
     @Column(name = "PRICE")
     private Double price;
 
-    @OneToOne(mappedBy = "game")
-    private GameEmployee employee;
+
 
     @OneToMany(mappedBy = "game")
     private List<Ticket> tickets;

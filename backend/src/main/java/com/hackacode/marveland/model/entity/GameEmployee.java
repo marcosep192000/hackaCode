@@ -2,11 +2,7 @@ package com.hackacode.marveland.model.entity;
 
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GameEmployee extends Employee {
 
-    @OneToOne
-    @JoinColumn(name = "ASSIGNED_GAME_ID", referencedColumnName = "GAME_ID")
-    private Game game;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_game")
+    private  Game game;
 
     @OneToMany(mappedBy = "gameEmployee")
     private List<PurchaseDetails> salesList;
