@@ -23,8 +23,8 @@ public class Game {
     @Column(name = "GAME_ID", nullable = false)
     private Long id;
 
-    @OneToOne(mappedBy = "game")
-    private GameEmployee gameEmployee;
+    @OneToMany(mappedBy = "game")
+    private List<GameEmployee> gameEmployees;
 
     @Column(name = "NAME")
     private String name;

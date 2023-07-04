@@ -3,6 +3,7 @@ package com.hackacode.marveland.model.entity;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
@@ -10,12 +11,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "EMPLOYEES")
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE EMPLOYEES SET state = true WHERE employee_id =?")
+@Where(clause = "state = false")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -45,7 +49,10 @@ public class Employee {
     @Column(name = "WORKING_HOURS")
     private String workingHours;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY  )
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", insertable = false, updatable = false)
     private User user;
+    @Column(name = "STATE")
+    private boolean state = Boolean.FALSE;
+
 }

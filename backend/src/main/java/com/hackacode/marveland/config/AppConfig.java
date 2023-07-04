@@ -21,9 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class AppConfig implements WebMvcConfigurer {
-
     private final IUserRepository userRepository;
-
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -35,7 +33,6 @@ public class AppConfig implements WebMvcConfigurer {
             }
         };
     }
-
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
@@ -46,7 +43,6 @@ public class AppConfig implements WebMvcConfigurer {
             }
         };
     }
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -54,12 +50,10 @@ public class AppConfig implements WebMvcConfigurer {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

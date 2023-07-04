@@ -1,7 +1,7 @@
 package com.hackacode.marveland.config;
-
 import java.time.LocalDateTime;
 
+import com.hackacode.marveland.model.entity.Game;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.Ordered;
@@ -15,18 +15,13 @@ import com.hackacode.marveland.repository.IEmployeeRepository;
 import com.hackacode.marveland.repository.IUserRepository;
 
 import lombok.RequiredArgsConstructor;
-
 @Component
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
 @RequiredArgsConstructor
 public class DefaultAdminRunner implements ApplicationRunner {
-
     private final IUserRepository userRepository;
-
     private final IEmployeeRepository employeeRepository;
-
     private final PasswordEncoder passwordEncoder;
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
         User user = User.builder()
@@ -51,5 +46,9 @@ public class DefaultAdminRunner implements ApplicationRunner {
             userRepository.save(user);
             employeeRepository.save(adminEmployee);
         }
+
+
+
+
     }
 }

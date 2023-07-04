@@ -53,8 +53,11 @@ public class AuthServiceImpl implements IAuthService {
                 Employee employee;
                 if (user.getRole().contains("ADMIN")) {
                         employee = new AdminEmployee();
+
                 } else if (user.getRole().contains("EMPLOYEE")) {
                         employee = new GameEmployee();
+
+
                 } else {
                         throw new RuntimeException("Invalid role");
                 }

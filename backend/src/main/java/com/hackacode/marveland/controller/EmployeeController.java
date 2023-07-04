@@ -2,6 +2,7 @@ package com.hackacode.marveland.controller;
 
 import java.util.List;
 
+import com.hackacode.marveland.config.jwt.JwtProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -61,7 +62,7 @@ public class EmployeeController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<GeneralMessage> delete(@PathVariable Long id) {
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 		employeeService.delete(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new GeneralMessage("Employee successfully deleted"));
 	}
