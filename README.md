@@ -1,6 +1,8 @@
 
 
-<h4>👉🏻 Buy, trade, and hold 350+ cryptocurrencies on Binance.</h3>
+<h4>👉🏻 Descubre una nueva forma de administrar y disfrutar de parques de diversiones con nuestra innovadora aplicación de gestión, simplificando todas tus operaciones y creando experiencias inolvidables para tus visitantes.</h3>
+
+[![Captura-de-pantalla-2023-07-05-150414.png](https://i.postimg.cc/qRGPz6Ws/Captura-de-pantalla-2023-07-05-150414.png)](https://postimg.cc/DJ8jN0v0)
 
 <h4>👉🏻 <b>Visit our website at <a href="https://s8-01-t-java-angular-binance.web.app/">Marveland</a> 🎡</b></h3>
 
