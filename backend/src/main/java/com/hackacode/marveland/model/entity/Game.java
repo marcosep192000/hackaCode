@@ -1,5 +1,6 @@
 package com.hackacode.marveland.model.entity;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -29,8 +30,8 @@ public class Game {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OpenHours> openHours;
+  //@OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+   // private List<OpenHours> openHours;
 
     @Column(name = "CAPACITY")
     private Integer capacity;
@@ -38,6 +39,11 @@ public class Game {
     @Column(name = "PRICE")
     private Double price;
 
+    @Column(name = "START_TIME", columnDefinition = "TIME")
+    private LocalTime startTime;
+
+    @Column(name = "END_TIME", columnDefinition = "TIME")
+    private LocalTime endTime;
 
 
     @OneToMany(mappedBy = "game")

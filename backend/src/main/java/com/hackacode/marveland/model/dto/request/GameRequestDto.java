@@ -1,6 +1,7 @@
 package com.hackacode.marveland.model.dto.request;
 
 import com.hackacode.marveland.model.entity.OpenHours;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -20,15 +22,12 @@ public class GameRequestDto {
 
     @NotBlank(message = "Name cannot be blank")
     private String name;
-
-    @NotNull(message = "Open Hours Id cannot be null")
-    private Long openHoursId;
-
     @NotNull(message = "Capacity cannot be null")
     private Integer capacity;
-
     @NotNull(message = "Price cannot be null")
     private Double price;
-
-    private List<OpenHours> openHours;
+    @NotNull(message = "start Time cannot be null")
+    private LocalTime startTime;
+    @NotNull(message = "end time cannot be null")
+    private LocalTime endTime;
 }

@@ -69,17 +69,8 @@ public class GameServiceImpl implements IGameService {
 
     @Transactional
     public GameResponseDto create(GameRequestDto request) {
-        List<OpenHours> openHours = request.getOpenHours();
-        System.out.println(openHours);
-        request.setOpenHours(null);
         Game game = gameMapper.fromDtoToEntity(request);
         gameRepository.save(game);
-        for (OpenHours detail : openHours) {
-            detail.setGame(game);
-            System.out.println(detail);
-        }
-        openHoursRepository.saveAll(openHours);
-        request.setOpenHours(openHours);
         return gameMapper.fromEntityToDto(game);
     }
 
@@ -97,9 +88,9 @@ public class GameServiceImpl implements IGameService {
     @Override
     @Transactional
     public GameResponseDto update(GameRequestDto request, Long id) {
-        Optional<OpenHours> openHours = openHoursRepository.findById(request.getOpenHoursId());
+
         Game game = gameRepository.findById(id).get();
-        Game updatedGame = gameMapper.update(game, openHours.get(), request);
+        Game updatedGame = gameMapper.update(game, request);
         gameRepository.save(updatedGame);
         return gameMapper.fromEntityToDto(updatedGame);
     }

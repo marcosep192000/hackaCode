@@ -30,8 +30,8 @@ public class OpenHours {
     @Column(name = "END_TIME", columnDefinition = "TIME")
     private LocalTime endTime;
 
-    @JsonIgnore
-    @ManyToOne()
-    @JoinColumn(name ="game_id")
-    private Game game;
+//    @JsonIgnore
+//    @ManyToOne()
+//    @JoinColumn(name ="game_id")
+//    private Game game;
 }
