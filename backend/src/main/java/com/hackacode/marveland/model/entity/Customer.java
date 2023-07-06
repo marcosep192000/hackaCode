@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
@@ -68,6 +69,10 @@ public class Customer {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ADMIN_EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
 	private AdminEmployee adminEmployee;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "customer")
+	private List<TiketB> tiketBS;
 
 	@OneToMany(mappedBy = "customer")
 	private List<PurchaseDetails> purchases;

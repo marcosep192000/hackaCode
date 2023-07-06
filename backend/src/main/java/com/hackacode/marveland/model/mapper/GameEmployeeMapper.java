@@ -1,9 +1,7 @@
 package com.hackacode.marveland.model.mapper;
-import com.hackacode.marveland.model.dto.request.CustomerRequestDto;
 import com.hackacode.marveland.model.dto.request.GameEmployeeRequestDto;
 import com.hackacode.marveland.model.dto.response.GameEmployeeResponseDto;
 import com.hackacode.marveland.model.entity.AdminEmployee;
-import com.hackacode.marveland.model.entity.Customer;
 import com.hackacode.marveland.model.entity.GameEmployee;
 import com.hackacode.marveland.model.entity.User;
 import org.springframework.stereotype.Component;
@@ -13,6 +11,7 @@ public class GameEmployeeMapper {
 	public GameEmployee dtoToEntity(GameEmployeeRequestDto requestDto, AdminEmployee adminEmployee){
 		GameEmployee gameEmployee = new GameEmployee();
 		gameEmployee.setAdminEmployee(adminEmployee);
+		 gameEmployee.setGames(requestDto.getGames());
 	    gameEmployee.setDni(requestDto.getDni());
 		gameEmployee.setEmail(requestDto.getEmail());
 		gameEmployee.setFirstName(requestDto.getFirstName());
@@ -25,6 +24,7 @@ public class GameEmployeeMapper {
 		GameEmployeeResponseDto  response = new GameEmployeeResponseDto();
 		gameEmployee.setDni(gameEmployee.getDni());
 		gameEmployee.setEmail(gameEmployee.getEmail());
+		gameEmployee.setGames(gameEmployee.getGames());
 		gameEmployee.setFirstName(gameEmployee.getFirstName());
 		gameEmployee.setLastName(gameEmployee.getLastName());
 		gameEmployee.setWorkingHours(gameEmployee.getWorkingHours());

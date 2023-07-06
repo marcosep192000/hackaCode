@@ -38,10 +38,8 @@ public class DefaultAdminRunner implements ApplicationRunner {
         adminEmployee.setRegistrationDate(LocalDateTime.now());
         adminEmployee.setWorkingHours("10:00 a 18:00");
         adminEmployee.setUser(user);
-
         userRepository.save(user);
         employeeRepository.save(adminEmployee);
-
         if (!userRepository.findByUsername(user.getUsername()).isPresent()) {
             userRepository.save(user);
             employeeRepository.save(adminEmployee);

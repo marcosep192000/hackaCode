@@ -30,4 +30,5 @@ public class GameRequestDto {
     private LocalTime startTime;
     @NotNull(message = "end time cannot be null")
     private LocalTime endTime;
+
 }

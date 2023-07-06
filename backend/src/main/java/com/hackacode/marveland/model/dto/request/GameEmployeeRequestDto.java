@@ -20,5 +20,5 @@ public class GameEmployeeRequestDto {
 	private LocalDateTime registrationDate;
 	private String workingHours;
 	private User user;
-	private Game game;
+	private Game game; private long games;
 }

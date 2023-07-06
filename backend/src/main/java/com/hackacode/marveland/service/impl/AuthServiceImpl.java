@@ -75,7 +75,8 @@ public class AuthServiceImpl implements IAuthService {
 
                 return AuthResponseDto.builder()
                                 .id(user.getId())
-                                .role(user.getRole())
+
+                        .role(user.getRole())
                                 .token(jwtProvider.generateToken(user))
                                 .build();
         }
@@ -91,6 +92,7 @@ public class AuthServiceImpl implements IAuthService {
                 User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
                 return AuthResponseDto.builder()
                                 .id(user.getId())
+                                 .username(user.getUsername())
                                 .role(user.getRole())
                                 .token(jwtProvider.generateToken(user))
                                 .build();

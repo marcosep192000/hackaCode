@@ -3,6 +3,7 @@ package com.hackacode.marveland.model.entity;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,7 +46,7 @@ public class Game {
     @Column(name = "END_TIME", columnDefinition = "TIME")
     private LocalTime endTime;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "game")
-    private List<Ticket> tickets;
+    private List<TiketB> tickets;
 }

@@ -23,4 +23,5 @@ public class GameResponseDto {
     private Double price;
     private LocalTime startTime;
     private LocalTime endTime;
+    private long games;
 }

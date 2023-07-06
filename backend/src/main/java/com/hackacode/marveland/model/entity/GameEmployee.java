@@ -27,7 +27,7 @@ public class GameEmployee extends Employee {
     @ManyToOne()
     @JoinColumn(name ="game_id")
     private Game game;
-
+    private long games;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ADMIN_EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
     private AdminEmployee adminEmployee;
