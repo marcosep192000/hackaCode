@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 @RequestMapping("/api/v1/tiket-b")
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,7 +26,4 @@ public class TiketBController {
 		List<TiketB> tiket = tiketBService.getAll();
 		return ResponseEntity.ok(tiket);
 	}
-
-
-
 }
