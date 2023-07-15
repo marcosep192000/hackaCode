@@ -30,7 +30,7 @@
 
 #### 🧑‍💻 Developers:
 
-| <img src="https://res.cloudinary.com/dqkkehztd/image/upload/v1681943770/readme/thm4sniemmlxs0mdqzd8.png" width=50>| <img src="https://avatars.githubusercontent.com/u/99411527?v=4" width=50>| <img src="https://avatars.githubusercontent.com/u/69874820?v=4" width=50>|
+| <img src="https://avatars.githubusercontent.com/u/121926132?v=4" width=50>| <img src="https://avatars.githubusercontent.com/u/99411527?v=4" width=50>| <img src="https://avatars.githubusercontent.com/u/69874820?v=4" width=50>|
 |:-:|:-:|:-:|
 | **Francisco Pulido**| **Carolina Bejar**| **Marcos Paz Goncheff**|
 | <a href="https://github.com/pulidodev"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/pulidodev/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://github.com/CaroBejar"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://linkedin.com/in/carolinabejar"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://github.com/marcosep192000"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/marcos-paz-goncheff/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
